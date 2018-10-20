@@ -1,3 +1,3 @@
 module.exports.index = function(req,res){
-	res.render('login',{title:'Login'});
+	res.render('login/login',{title:'Login'});
 }
