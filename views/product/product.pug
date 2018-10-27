@@ -2,8 +2,22 @@ extends ../layout/layout
 
 block content
 
-	each product, i in products
-		article 
-			p #{product.name}
-			p #{product.description}
-		
+	.container
+		.row
+			.col-8.offset-md-2
+				h2 Product
+					a(class='btn btn-primary' href='products/create') New
+				
+
+				table.table.table-hover
+					thead
+						tr
+							th Image
+							th Name
+							th Description
+					tbody
+						each product, i in products
+							tr
+							td #{product.image} 
+							td #{product.name}
+							td #{product.description}
