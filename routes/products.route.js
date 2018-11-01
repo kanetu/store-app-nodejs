@@ -8,6 +8,14 @@ var multer = require('multer');
 var upload = multer({ dest: 'uploads/' });
 
 router.get('/',  controller.index);
+
 router.get('/create', controller.getCreateProduct);
-router.post('/create', upload.single('imageproduct'), controller.postProduct);
+
+router.post('/', upload.single('imageproduct'), controller.postProduct);
+
+router.put('/:id', upload.single('imageproduct'), controller.updateProduct);
+
+router.delete('/:id', controller.deleteProduct);
+
+
 module.exports = router;

@@ -7,16 +7,18 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var pug = require('pug');
 
+var bodyParser = require('body-parser');
 
-
+//Middleware
+const authMiddleware = require('./middlewares/auth.middleware');
 
 var mongoose = require('mongoose');
 mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true });
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var loginRouter = require('./routes/login');
-var productsRouter = require('./routes/products');
+var indexRouter = require('./routes/index.route');
+var usersRouter = require('./routes/users.route');
+var authRouter = require('./routes/auth.route');
+var productsRouter = require('./routes/products.route');
 
 var app = express();
 
@@ -25,14 +27,14 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({limit:'10mb', extended: false }));
+app.use(cookieParser('lkahsdfuoqewur381'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/login', loginRouter);
+app.use('/users', authMiddleware.requireAuth, usersRouter);
+app.use('/auth', authRouter);
 app.use('/products', productsRouter);
 
 // catch 404 and forward to error handler
