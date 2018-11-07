@@ -21,7 +21,7 @@ block content
 					tbody
 						each user in users
 							tr
-							td #{user.avatar}
+							td: img(src=user.avatar, width='64px')
 							td #{user.username} 
 							td #{user.name}
 							td #{user.email}

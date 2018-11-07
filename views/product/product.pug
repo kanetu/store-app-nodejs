@@ -6,7 +6,7 @@ block content
 		.row
 			.col-8.offset-md-2
 				h2 Product
-					a(class='btn btn-primary' href='products/create') New
+					a(class='btn btn-primary' href='create') New
 				
 
 				table.table.table-hover
@@ -15,9 +15,11 @@ block content
 							th Image
 							th Name
 							th Description
+							th 
 					tbody
 						each product, i in products
 							tr
-							td #{product.image} 
+							td: img(src=product.image, width="64px") 
 							td #{product.name}
 							td #{product.description}
+							td: a(href=`cart/add-to-cart/${product.id}`).btn.btn-default Add

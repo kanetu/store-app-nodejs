@@ -5,7 +5,7 @@ var controller = require('../controllers/product.controller');
 
 //middle ware 
 var multer = require('multer');
-var upload = multer({ dest: 'uploads/' });
+var upload = multer({ dest: './public/uploads/' });
 
 router.get('/',  controller.index);
 

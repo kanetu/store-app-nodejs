@@ -12,12 +12,12 @@ module.exports.index = (req,res)=>{
 }
 
 module.exports.getCreateProduct = (req,res)=>{
-	res.render('product/create')	
+	res.render('product/create')
 }
 
 module.exports.postProduct = (req,res)=>{
 	
-	req.body.image = req.file.path;
+	req.body.image = '\\' + req.file.path.split('\\').slice(1).join('\\');
 
 	var product = new Product({
 		name: req.body.nameproduct,
@@ -42,7 +42,7 @@ module.exports.deleteProduct = (req, res)=>{
 
 	//Remove file 
 	product.then((data)=>{
-		fs.unlink(data.image, (err)=>{
+		fs.unlink('public' + data.image, (err)=>{
 			console.log(err);
 		});
 		//Delete product with id
@@ -59,39 +59,52 @@ module.exports.deleteProduct = (req, res)=>{
 
 
 module.exports.updateProduct = (req, res)=>{
-	req.body.image = req.file.path;
 
 	let findProduct = Product
 	.findOne({_id: req.params.id})
 	.exec();
 
-	if( req.body.image ){
-		findProduct
-		.then((result)=>{
-			if(result.error) {
-				res.json('Update product failed');
-				return;
-			}
+	findProduct
+	.then((result)=>{
+		var product;
+		if(result.error) {
+			res.json('Update product failed');
+			return;
+		}
 
-			fs.unlink(result.avatar,(err) => {
+		if( req.file ){
+			req.body.image = '\\' + req.file.path.split('\\').slice(1).join('\\');
+			product = {
+				name: req.body.nameproduct,
+				description: req.body.description,
+				image: req.body.image
+			}
+			//Unlink image if detect new image
+			fs.unlink('public' + result.image,(err) => {
 				if(err){
 					res.json('Delete avatar failed');
 					return;
 				}
-
 			})
-		})
-	}
-	var product = {
-		name: req.body.nameproduct,
-		description: req.body.description,
-		image: req.body.image
-	}
 
-	Product.updateOne({_id: req.params.id}, product, (err)=>{
-		if(err) res.json(err);
-		else res.json('Update product successfully')
+		}else{
+			//If have not new image - use old image - not change image 
+			product = {
+				name: req.body.nameproduct,
+				description: req.body.description,
+			}
+
+		}
+		// Update execution
+		Product.updateOne({_id: req.params.id}, product, (err)=>{
+			if(err) res.json(err);
+			else res.json('Update product successfully')
+		})
 	})
+	
+	
+
+	
 
 	
 }	

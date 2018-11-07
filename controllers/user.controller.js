@@ -15,7 +15,7 @@ module.exports.getUser = (req, res, next) => {
 
 module.exports.postUser = (req, res, next) => {
 
-	req.body.file = req.file.path;
+	req.body.file = '\\' + req.file.path.split('\\').slice(1).join('\\');
 
 	let user = new User({
 		username: req.body.username,
@@ -35,34 +35,47 @@ module.exports.postUser = (req, res, next) => {
 }
 
 module.exports.updateUser = (req, res, next) =>{
-	req.body.file = req.file.path;
 
 	let userBefore = User
 	.findOne({_id: req.params.id})
 	.exec();
 
-	let user = {
-		username: req.body.username,
-		password: req.body.password,
-		email: req.body.email,
-		name: req.body.name,
-		avatar: req.body.file,
-		phone: req.body.phone,
-		grant: req.body.grant
-	}
-
 	userBefore
 	.then((data)=>{
-		fs.unlink(data.avatar, (err)=>{
-			if(err) res.json(err)
-		})
+		var user;
+		if(req.file){
+			
+			req.body.file = '\\' + req.file.path.split('\\').slice(1).join('\\');
 
+			fs.unlink('public' + data.avatar, (err)=>{
+				if(err) res.json(err)
+			});
+			user = {
+				username: req.body.username,
+				password: req.body.password,
+				email: req.body.email,
+				name: req.body.name,
+				avatar: req.body.file,
+				phone: req.body.phone,
+				grant: req.body.grant
+			}
+		}else{
+
+			user = {
+				username: req.body.username,
+				password: req.body.password,
+				email: req.body.email,
+				name: req.body.name,
+				phone: req.body.phone,
+				grant: req.body.grant
+			}
+		}
+		
 		User.updateOne({_id:req.params.id}, user, (err) => {
 			if(err) res.json(err)
 				else res.json('Update user successfully')
 		})
 	})
-	
 }
 
 module.exports.deleteUser = (req, res, next) => {
@@ -72,7 +85,7 @@ module.exports.deleteUser = (req, res, next) => {
 	.exec();
 
 	user.then((data)=>{
-		fs.unlink(data.avatar, (err)=>{
+		fs.unlink('public' + data.avatar, (err)=>{
 			if(err) res.json(err);
 		});
 
