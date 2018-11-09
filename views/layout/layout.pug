@@ -7,7 +7,8 @@ html
 	body
 	if(user)
 		p= `Xin chao ` + user.name 
-
+	if(cartQty)
+		span.badge= cartQty
 	block content
 
 	script(src='https://code.jquery.com/jquery-3.2.1.slim.min.js')

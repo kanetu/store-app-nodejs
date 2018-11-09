@@ -4,6 +4,8 @@ const fs = require('fs');
 
 module.exports.index = (req,res)=>{
 	
+	console.log(req.signedCookies.cart);
+	
 	Product
 	.find()
 	.then(function(products){

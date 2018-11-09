@@ -5,20 +5,22 @@ module.exports.addItem = (req, res, next)=>{
 	let productId = req.params.id;
 
 	//var cart = new Cart(req.session.cart ? req.session.cart:{});
-
+	//res.cookie('cart', {items:{}}, {signed: true});
 
 	Product
 	.findOne({_id: productId})
 	.exec()
 	.then((product)=>{
 
-		var cart = new Cart({items: {}});
-
+		var cart = new Cart(req.signedCookies.cart? req.signedCookies.cart:{items: {}});
 		if(product.errors){
 			return res.redirect('/products');
 		}
-		console.log(product.id);
 		cart.add(product, product.id);
-		console.log(cart);
+		res.cookie('cart',cart, {signed:true});
+
+		res.redirect('/products');
 	});
+	
+	
 }

@@ -11,6 +11,7 @@ var bodyParser = require('body-parser');
 
 //Middleware
 const authMiddleware = require('./middlewares/auth.middleware');
+const sessionMiddleware = require('./middlewares/session.middleware');
 
 var mongoose = require('mongoose');
 mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true });
@@ -34,7 +35,7 @@ app.use(bodyParser.urlencoded({limit:'10mb', extended: false }));
 app.use(cookieParser('lkahsdfuoqewur381'));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
+app.use('/', sessionMiddleware.initCart, indexRouter);
 app.use('/users', usersRouter);
 app.use('/auth', authRouter);
 app.use('/products', productsRouter);
