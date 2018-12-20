@@ -1,6 +1,12 @@
 const Cart = require('../models/cart.model');
 const Product = require('../models/product.model');
 
+
+module.exports.index = (req, res, next)=>{
+	let cart = new Cart(req.signedCookies.cart);
+	console.log(cart.generateArray());
+	res.render('cart/index',{items: cart.generateArray(), totalPrice: cart.totalPrice})
+}
 module.exports.addItem = (req, res, next)=>{
 	let productId = req.params.id;
 
@@ -20,7 +26,27 @@ module.exports.addItem = (req, res, next)=>{
 		res.cookie('cart',cart, {signed:true});
 
 		res.redirect('/products');
-	});
-	
-	
+	});	
+}
+
+module.exports.removeOneItem = (req, res, next)=>{
+	var cart = new Cart(req.signedCookies.cart);
+	let itemId = req.params.id;
+
+	cart.removeOneItem(itemId);
+	res.cookie('cart',cart,{signed:true});
+	console.log(cart);
+	res.redirect('/cart');
+
+}
+
+module.exports.removeAllItem = (req, res, next)=>{
+	var cart = new Cart(req.signedCookies.cart);
+	let itemId = req.params.id;
+
+	cart.removeAllItem(itemId);
+	res.cookie('cart',cart,{signed:true});
+	console.log(cart);
+	res.redirect('/cart');
+
 }

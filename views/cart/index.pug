@@ -1,0 +1,40 @@
+extends ../layout/layout
+
+block content
+  .container
+   .cart-page-content
+    .cart-page-product-header.row
+      .col-md-7.col-lg-5.col-xl-5 Sản phẩm
+      .col-md-2.col-lg-2.col-xl-2 Đơn giá
+      .col-md-2.col-lg-2.col-xl-2 Số lượng
+      .col-md-2.col-lg-2.col-xl-2 Giá tiền
+      .col-md-1.col-lg-1.col-xl-1 Thao tác
+    .cart-page-product-section
+      .product-cart.row
+        .product-cart-detail.col-md-7.col-lg-5.col-xl-5
+          .product-cart-image
+            img(src='/img/ao-phong.jpg', alt='')
+          .product-cart-name
+            a(href='#') Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+        .col-md-2.col-lg-2.col-xl-2 30.000 vnđ
+        .col-md-2.col-lg-2.col-xl-2 1
+        .col-md-2.col-lg-2.col-xl-2 30.000 vnđ
+        .col-md-1.col-lg-1.col-xl-1
+          a(href='#') Xóa
+      .product-cart.row
+        .product-cart-detail.col-md-7.col-lg-5.col-xl-5
+          .product-cart-image
+            img(src='/img/ao-phong.jpg', alt='')
+          .product-cart-name
+            a(href='#') Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+        .col-md-2.col-lg-2.col-xl-2 30.000 vnđ
+        .col-md-2.col-lg-2.col-xl-2 1
+        .col-md-2.col-lg-2.col-xl-2 30.000 vnđ
+        .col-md-1.col-lg-1.col-xl-1
+          a(href='#') Xóa
+    .cart-page-buy-section.row
+      .cart-cost
+        | Tổng tiền:
+        span.cart-cost-number 30.000vnđ
+      .cart-pay-button
+        a(href='#') Mua hàng

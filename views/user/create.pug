@@ -1,0 +1,29 @@
+extends ../layout/layout
+
+block content
+
+	.container
+		.row
+			.col-6.offset-md-3
+				form(action='./' method='POST' enctype='multipart/form-data')
+					legend: h1 Create User
+					.form-group
+						lable Name
+						input(type='text' class='form-control' name='name')
+					.form-group
+						lable Email
+						input(type='email' class='form-control' name='email')
+					.form-group
+						lable Phone
+						input(type='text' class='form-control' name='phone')
+					.form-group
+						lable Username
+						input(type='text' class='form-control' name='username')
+					.form-group
+						lable Password
+						input(type='password' class='form-control' name='password')
+						input(type='hidden' name='grant' value='1')
+					.form-group
+						lable Avatar
+						input(type='file' class='form-control' name='avatar')
+					button(type='submit' class='btn btn-primary') Create

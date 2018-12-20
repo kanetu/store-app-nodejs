@@ -13,6 +13,11 @@ module.exports.getUser = (req, res, next) => {
 	})
 }
 
+module.exports.getCreateUser = (req, res, next) => {
+
+	res.render('user/create');
+}
+
 module.exports.postUser = (req, res, next) => {
 
 	req.body.file = '\\' + req.file.path.split('\\').slice(1).join('\\');
@@ -21,6 +26,7 @@ module.exports.postUser = (req, res, next) => {
 		username: req.body.username,
 		password: req.body.password,
 		name: req.body.name,
+		email: req.body.email,
 		avatar: req.body.file,
 		phone: req.body.phone,
 		grant: req.body.grant

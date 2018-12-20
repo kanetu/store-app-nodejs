@@ -24,6 +24,7 @@ module.exports.postProduct = (req,res)=>{
 	var product = new Product({
 		name: req.body.nameproduct,
 		description: req.body.description,
+		price: parseFloat(req.body.price),
 		image: req.body.image
 	});
 
@@ -79,6 +80,7 @@ module.exports.updateProduct = (req, res)=>{
 			product = {
 				name: req.body.nameproduct,
 				description: req.body.description,
+				price: parseFloat(req.body.price),
 				image: req.body.image
 			}
 			//Unlink image if detect new image
@@ -94,6 +96,7 @@ module.exports.updateProduct = (req, res)=>{
 			product = {
 				name: req.body.nameproduct,
 				description: req.body.description,
+				price: parseFloat(req.body.price),
 			}
 
 		}

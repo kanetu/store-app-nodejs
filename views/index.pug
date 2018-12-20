@@ -1,12 +1,179 @@
 extends layout/layout
 
 block content
-	h1= title
-	p Welcome to #{title}
-
-	ul
-		li: a(href='/') Home
-		li: a(href='/users') Users
-		li: a(href='/auth/login') Login
-		li: a(href='/products') Products
-	
+  .container
+   .row
+    .col-xs-12.col-sm-12.col-md-8.col-lg-8
+      #carouselExampleIndicators.carousel.slide.carousel-custom(data-ride='carousel')
+        ol.carousel-indicators
+          li.active(data-target='#carouselExampleIndicators', data-slide-to='0')
+          li(data-target='#carouselExampleIndicators', data-slide-to='1')
+          li(data-target='#carouselExampleIndicators', data-slide-to='2')
+        .carousel-inner
+          .carousel-item.active
+            img.d-block.w-100(src='img/img1.jpg', alt='First slide')
+          .carousel-item
+            img.d-block.w-100(src='img/img2.jpg', alt='Second slide')
+          .carousel-item
+            img.d-block.w-100(src='img/img3.jpg', alt='Third slide')
+        a.carousel-control-prev(href='#carouselExampleIndicators', role='button', data-slide='prev')
+          span.carousel-control-prev-icon(aria-hidden='true')
+          span.sr-only Previous
+        a.carousel-control-next(href='#carouselExampleIndicators', role='button', data-slide='next')
+          span.carousel-control-next-icon(aria-hidden='true')
+          span.sr-only Next
+    .col-xs-12.col-sm-12.col-md-4.col-lg-4.banner-right
+      .banner-right-item
+        img(src='img/img1.jpg', alt='')
+      .banner-right-item
+        img(src='img/img2.jpg', alt='')
+   .row
+    .section-category
+      .section-category-title DANH MỤC
+      #owl-example.owl-carousel
+        .group-two-item.item
+          .item-one
+            .item-image
+            .item-title Quần áo nam
+          .item-two
+            .item-image
+            .item-title Quần áo nam
+        .group-two-item.item
+          .item-one
+            .item-image
+            .item-title Quần áo nam
+          .item-two
+            .item-image
+            .item-title Quần áo nam
+        .group-two-item.item
+          .item-one
+            .item-image
+            .item-title Quần áo nam
+          .item-two
+            .item-image
+            .item-title Quần áo nam
+        .group-two-item.item
+          .item-one
+            .item-image
+            .item-title Quần áo nam
+          .item-two
+            .item-image
+            .item-title Quần áo nam
+        .group-two-item.item
+          .item-one
+            .item-image
+            .item-title Quần áo nam
+          .item-two
+            .item-image
+            .item-title Quần áo nam
+        .group-two-item.item
+          .item-one
+            .item-image
+            .item-title Quần áo nam
+          .item-two
+            .item-image
+            .item-title Quần áo nam
+        .group-two-item.item
+          .item-one
+            .item-image
+            .item-title Quần áo nam
+          .item-two
+            .item-image
+            .item-title Quần áo nam
+        .group-two-item.item
+          .item-one
+            .item-image
+            .item-title Quần áo nam
+          .item-two
+            .item-image
+            .item-title Quần áo nam
+        .group-two-item.item
+          .item-one
+            .item-image
+            .item-title Quần áo nam
+          .item-two
+            .item-image
+            .item-title Quần áo nam
+        .group-two-item.item
+          .item-one
+            .item-image
+            .item-title Quần áo nam
+          .item-two
+            .item-image
+            .item-title Quần áo nam
+        .group-two-item.item
+          .item-one
+            .item-image
+            .item-title Quần áo nam
+          .item-two
+            .item-image
+            .item-title Quần áo nam
+   .row
+    .section-category
+      p.section-category-title GỢI Ý HÔM NAY
+      .row.product-list
+        .col-6.col-sm-6.col-md-3.col-lg-3.col-xl-3.mt-10
+          .product
+            .product-buy-now
+              a(href='') Mua
+            .product-sale
+              .rectangular
+                .sale-number 50%
+                .sale-lable SALE
+              .triangle
+            .product-image
+              img(src='img/ao-phong.jpg', alt='')
+            .product-title Áo thung nữ
+            .product-price 25.000 vnđ
+        .col-6.col-sm-6.col-md-3.col-lg-3.col-xl-3.mt-10
+          .product
+            .product-buy-now
+              a(href='') Mua
+            .product-sale
+              .rectangular
+                .sale-number 50%
+                .sale-lable SALE
+              .triangle
+            .product-image
+              img(src='img/ao-phong.jpg', alt='')
+            .product-title Áo thung nữ
+            .product-price 25.000 vnđ
+        .col-6.col-sm-6.col-md-3.col-lg-3.col-xl-3.mt-10
+          .product
+            .product-buy-now
+              a(href='') Mua
+            .product-sale
+              .rectangular
+                .sale-number 50%
+                .sale-lable SALE
+              .triangle
+            .product-image
+              img(src='img/ao-phong.jpg', alt='')
+            .product-title Áo thung nữ
+            .product-price 25.000 vnđ
+        .col-6.col-sm-6.col-md-3.col-lg-3.col-xl-3.mt-10
+          .product
+            .product-buy-now
+              a(href='') Mua
+            .product-sale
+              .rectangular
+                .sale-number 50%
+                .sale-lable SALE
+              .triangle
+            .product-image
+              img(src='img/ao-phong.jpg', alt='')
+            .product-title Áo thung nữ
+            .product-price 25.000 vnđ
+        .col-6.col-sm-6.col-md-3.col-lg-3.col-xl-3.mt-10
+          .product
+            .product-buy-now
+              a(href='') Mua
+            .product-sale
+              .rectangular
+                .sale-number 50%
+                .sale-lable SALE
+              .triangle
+            .product-image
+              img(src='img/ao-phong.jpg', alt='')
+            .product-title Áo thung nữ
+            .product-price 25.000 vnđ
