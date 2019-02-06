@@ -1,0 +1,32 @@
+extends ../layout/admin-site
+
+
+block content
+  - function findCategory(ct,lv=1){
+  -  var str = '';
+  -  let count =0;
+  -  let star = '';
+  -  while(count<lv){
+  -    star+='-';
+  -    count++;
+  -  }
+  -  lv++
+  -  for(let item of ct){
+  -    str+= `<option value=${item._id}>${star + item.name}</option>`;
+  -    if(item.sub.length > 0){
+  -      str+= findCategory(item.sub,lv);
+  -    }
+  -  }
+  -  return str;
+  - }
+  - var categories = data 
+  - var x = `<option value='Root'>Root</option>`+findCategory(categories);
+  
+  
+  form(action='./',method='POST')
+    label Name 
+    input(name="nameCategory")
+    label Parent
+    select(name='parentCategory',id="parentCategory")!= x
+    button(type='submit') Create
+    

@@ -1,0 +1,22 @@
+extends ../layout/admin-site
+
+block content
+  form(method='POST', action='./', enctype='multipart/form-data')
+    label Name
+    br
+    input(name='nameStore')
+    br
+    label Owner
+    br
+    input(name='ownerStore')
+    br
+    label Description
+    br
+    input(name='descriptionStore')
+    br
+    label image
+    br
+    input(type='file',name='imageStore')
+    br
+    button(type='submit') Create  
+  

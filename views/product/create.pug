@@ -1,4 +1,4 @@
-extends ../layout/layout
+extends ../layout/admin-site
 
 block content
 
@@ -17,6 +17,9 @@ block content
 						lable Price
 						input(type='text' class='form-control' name='price')
 					.form-group
+						lable idStore
+						input(type='text' class='form-control' name='idStore')
+					.form-group
 						lable Image
-						input(type='file' class='form-control' name='imageproduct')
+						input(type='file' class='form-control' name='images' multiple)
 					button(type='submit' class='btn btn-primary') Create

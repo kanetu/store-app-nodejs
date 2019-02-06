@@ -1,0 +1,28 @@
+extends ../layout/admin-site
+
+block content
+	
+	a(href='store/create') Create
+	table
+		thead
+			tr
+				th Image
+				th Name
+				th Owner
+				th Partner
+				th Description
+				th 
+				th
+				tbody
+					each store in stores
+						tr
+							td: image(src=store.image)
+								td #{store.name}
+								td #{store.owner}
+								td #{store.partner}
+								td #{store.description}
+								td: a(href=`/admin/store/delete/${store._id}`) Xóa
+								td 
+									form(action='store/update-form', method='POST')
+										input(type='hidden' name='store' value=store)
+										button(type='submit') Update

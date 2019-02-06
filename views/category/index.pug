@@ -1,0 +1,17 @@
+extends ../layout/admin-site
+
+block content
+    
+    
+    a(href='/admin/category/create').btn.btn-default Create
+    ul 
+      each item in data
+        li= item.name
+          a(href=`/admin/category/delete/${item._id}`) Xóa
+          form(method='POST', action='/admin/category/update-form')
+            input(type='hidden',name='category', value=item)
+            button(type='submit').btn.btn-default Update
+        
+    select
+      each item in listCategory
+        option(value=item) #{item}

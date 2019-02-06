@@ -1,13 +1,15 @@
-extends ../layout/layout
+extends ../layout/admin-site
 
 block content
+	
+
 
 	.container
 		.row
 			.col-8.offset-md-2
 				h2 Product
-					a(class='btn btn-primary' href='/products/create') New
-				
+					a(class='btn btn-primary' href='/admin/product/create') New
+
 
 				table.table.table-hover
 					thead
@@ -16,12 +18,19 @@ block content
 							th Name
 							th Description
 							th Price
-							th 
+							th
+							th
 					tbody
 						each product, i in products
 							tr
-							td: img(src=product.image, width="64px") 
-							td #{product.name}
-							td #{product.description}
-							td #{product.price}
-							td: a(href=`/cart/add-to-cart/${product.id}`).btn.btn-default Add
+								td
+									each image in product.image
+										img(src=image, width="64px")
+								td #{product.name}
+								td #{product.description}
+								td #{product.price}
+								td
+										form(method='post', action='/admin/product/update-form')
+												input(type='hidden', name='product',value=product)
+												button(type='submit', class='btn btn-default') Update
+								td: a(href=`/admin/product/delete/${product.id}`).btn.btn-default Delete

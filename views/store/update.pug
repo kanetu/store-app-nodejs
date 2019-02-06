@@ -1,0 +1,19 @@
+extends ../layout/admin-site
+
+block content
+  
+  form(action='/admin/store/update' method='POST' enctype='multipart/form-data')
+    
+    input(name='idStore', type='hidden', value=store._id)
+      
+    input(name='nameStore', type='text', value=store.name)
+    br
+    input(name='ownerStore', type='text', value=store.owner)
+    br
+    input(name='descriptionStore', type='text', value=store.description)
+    br
+    input(name='imageStore', type='file')
+    
+    br
+    button(type='submit').btn.btn-default Update
+      

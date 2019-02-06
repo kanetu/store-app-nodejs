@@ -3,7 +3,7 @@ var router = express.Router();
 
 var controller = require('../controllers/product.controller');
 
-//middle ware 
+//middle ware
 var multer = require('multer');
 var upload = multer({ dest: './public/uploads/' });
 
@@ -11,9 +11,16 @@ router.get('/',  controller.index);
 
 router.get('/create', controller.getCreateProduct);
 
-router.post('/', upload.single('imageproduct'), controller.postProduct);
+router.get('/delete/:id', controller.deleteProduct);
 
-router.put('/:id', upload.single('imageproduct'), controller.updateProduct);
+router.post('/update-form', controller.getUpdateProduct);
+
+router.post('/update',upload.array('imageProduct'), controller.updateProduct);
+
+router.post('/', upload.array('images', 10), controller.postProduct);
+
+
+//API
 
 router.delete('/:id', controller.deleteProduct);
 

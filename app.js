@@ -17,10 +17,7 @@ var mongoose = require('mongoose');
 mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true });
 
 var indexRouter = require('./routes/index.route');
-var usersRouter = require('./routes/users.route');
-var authRouter = require('./routes/auth.route');
-var productsRouter = require('./routes/products.route');
-var cartRouter = require('./routes/cart.route');
+var adminRouter = require('./routes/admin.route');
 
 
 var app = express();
@@ -36,10 +33,8 @@ app.use(cookieParser('lkahsdfuoqewur381'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', sessionMiddleware.initCart, indexRouter);
-app.use('/users', usersRouter);
-app.use('/auth', authRouter);
-app.use('/products', productsRouter);
-app.use('/cart', cartRouter);
+app.use('/admin', adminRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

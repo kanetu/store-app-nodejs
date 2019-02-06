@@ -1,0 +1,25 @@
+extends ../layout/admin-site
+
+block content
+
+	.container
+		.row
+			.col-6.offset-md-3
+					form(action='/admin/product/update' method='POST' enctype='multipart/form-data')
+						legend: h1 Update Product
+						.form-group
+							lable Id
+							input(type='text' class='form-control' name='idProduct' value=`${product._id}`) 
+						.form-group
+							lable Name
+							input(type='text' class='form-control' name='nameProduct' value=`${product.name}`) 
+						.form-group
+							lable Description
+							input(type='text' class='form-control' name='descriptionProduct' value=product.description)
+						.form-group
+							lable Price
+							input(type='text' class='form-control' name='priceProduct' value=product.price)
+						.form-group
+							lable Image
+							input(type='file' class='form-control' name='imageProduct')
+						button(type='submit' class='btn btn-primary') Update
