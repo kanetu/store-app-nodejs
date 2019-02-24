@@ -1,19 +1,253 @@
-html(lang='en')
+doctype html
+//if lt IE 7
+	html.no-js.lt-ie9.lt-ie8.lt-ie7(lang="")  
+//if IE 7
+	html.no-js.lt-ie9.lt-ie8(lang="")  
+//if IE 8
+	html.no-js.lt-ie9(lang="")  
+// [if gt IE 8] <!
+html.no-js(lang="en")
+	// <![endif]
 	head
-		meta(charset='UTF-8')
-		title Document
-		meta(name='viewport', content='width=device-width, initial-scale=1.0')
-		link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css', integrity='sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm', crossorigin='anonymous')
-		link(rel='stylesheet', href='https://use.fontawesome.com/releases/v5.5.0/css/all.css', integrity='sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU', crossorigin='anonymous')
-		// Owl carousel
-		link(rel='stylesheet', href='/assets_owl_carousel/owlcarousel/assets/owl.carousel.min.css')
-		link(rel='stylesheet', href='/assets_owl_carousel/owlcarousel/assets/owl.theme.default.min.css')
-		// Extra margin padding
-		link(rel='stylesheet', type='text/css', href='/css/extra-margin-padding.css')
-		link(rel='stylesheet', type='text/css', href='/css/style.css')
+		meta(charset="utf-8")
+		meta(http-equiv="X-UA-Compatible" content="IE=edge")
+		title Sufee Admin - HTML5 Admin Template
+		meta(name="description" content="Sufee Admin - HTML5 Admin Template")
+		meta(name="viewport" content="width=device-width, initial-scale=1")
+		link(rel="apple-touch-icon" href="apple-icon.png")
+		link(rel="shortcut icon" href="favicon.ico")
+		link(rel="stylesheet" href="/admin-site/vendors/bootstrap/dist/css/bootstrap.min.css")
+		link(rel="stylesheet" href="/admin-site/vendors/font-awesome/css/font-awesome.min.css")
+		link(rel="stylesheet" href="/admin-site/vendors/themify-icons/css/themify-icons.css")
+		link(rel="stylesheet" href="/admin-site/vendors/flag-icon-css/css/flag-icon.min.css")
+		link(rel="stylesheet" href="/admin-site/vendors/selectFX/css/cs-skin-elastic.css")
+		link(rel="stylesheet" href="/admin-site/vendors/jqvmap/dist/jqvmap.min.css")
+		link(rel="stylesheet" href="/admin-site/vendors/datatables.net-bs4/css/dataTables.bootstrap4.min.css")
+		link(rel="stylesheet" href="/admin-site/vendors/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css")
+		
+		link(rel="stylesheet" href="/admin-site/assets/css/style.css")
+		link(href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css")
 	body
-		block content
-		footer
+		// Left Panel
+		aside#left-panel.left-panel
+			nav.navbar.navbar-expand-sm.navbar-default
+				.navbar-header
+					button.navbar-toggler(type="button" data-toggle="collapse" data-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation")
+						i.fa.fa-bars
+					a.navbar-brand(href="./")
+						img(src="/admin-site/images/logo.png" alt="Logo")
+					a.navbar-brand.hidden(href="./")
+						img(src="/admin-site/images/logo2.png" alt="Logo")
+				#main-menu.main-menu.collapse.navbar-collapse
+					ul.nav.navbar-nav
+						li.active
+							a(href="index.html")
+								i.menu-icon.fa.fa-dashboard
+								| Dashboard
+						h3.menu-title UI elements
+						// /.menu-title
+						li.menu-item-has-children.dropdown
+							a.dropdown-toggle(href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
+								i.menu-icon.fa.fa-laptop
+								| Components
+							ul.sub-menu.children.dropdown-menu
+								li
+									i.fa.fa-puzzle-piece
+									a(href="ui-buttons.html") Buttons
+								li
+									i.fa.fa-id-badge
+									a(href="ui-badges.html") Badges
+								li
+									i.fa.fa-bars
+									a(href="ui-tabs.html") Tabs
+								li
+									i.fa.fa-share-square-o
+									a(href="ui-social-buttons.html") Social Buttons
+								li
+									i.fa.fa-id-card-o
+									a(href="ui-cards.html") Cards
+								li
+									i.fa.fa-exclamation-triangle
+									a(href="ui-alerts.html") Alerts
+								li
+									i.fa.fa-spinner
+									a(href="ui-progressbar.html") Progress Bars
+								li
+									i.fa.fa-fire
+									a(href="ui-modals.html") Modals
+								li
+									i.fa.fa-book
+									a(href="ui-switches.html") Switches
+								li
+									i.fa.fa-th
+									a(href="ui-grids.html") Grids
+								li
+									i.fa.fa-file-word-o
+									a(href="ui-typgraphy.html") Typography
+						li.menu-item-has-children.dropdown
+							a.dropdown-toggle(href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
+								i.menu-icon.fa.fa-home
+								| Store
+							ul.sub-menu.children.dropdown-menu
+								li
+									i.fa.fa-plus
+									a(href="/admin/store/create") Add Store
+								li
+									i.fa.fa-table
+									a(href="/admin/store") List Store
+						li.menu-item-has-children.dropdown
+							a.dropdown-toggle(href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
+								i.menu-icon.fa.fa-cubes
+								| Product
+							ul.sub-menu.children.dropdown-menu
+								li
+									i.fa.fa-plus
+									a(href='/admin/product/create') Add Product
+								li
+									i.fa.fa-table
+									a(href="/admin/product") List Product
+						li.menu-item-has-children.dropdown
+							a.dropdown-toggle(href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
+								i.menu-icon.fa.fa-users
+								| User
+							ul.sub-menu.children.dropdown-menu
+								li
+									i.fa.fa-user-plus
+									a(href="/admin/user/create") Add User
+								li
+									i.fa.fa-table
+									a(href="/admin/user") List User
+						li.menu-item-has-children.dropdown
+							a.dropdown-toggle(href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
+								i.menu-icon.fa.fa-tasks
+								| Category
+							ul.sub-menu.children.dropdown-menu
+								li
+									i.fa.fa-plus
+									a(href="/admin/category/create") Add Category
+								li
+									i.fa.fa-table
+									a(href="/admin/category") List Category
+						
+				// /.navbar-collapse
+		// /#left-panel
+		// Left Panel
+		// Right Panel
+		#right-panel.right-panel
+			// Header
+			header#header.header
+				.header-menu
+					.col-sm-7
+						a#menuToggle.menutoggle.pull-left
+							i.fa.fa.fa-tasks
+						.header-left
+							button.search-trigger
+								i.fa.fa-search
+							.form-inline
+								form.search-form
+									input.form-control.mr-sm-2(type="text" placeholder="Search ..." aria-label="Search")
+									button.search-close(type="submit")
+										i.fa.fa-close
+							.dropdown.for-notification
+								button#notification.btn.btn-secondary.dropdown-toggle(type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
+									i.fa.fa-bell
+									span.count.bg-danger 5
+								.dropdown-menu(aria-labelledby="notification")
+									p.red You have 3 Notification
+									a.dropdown-item.media.bg-flat-color-1(href="#")
+										i.fa.fa-check
+										p Server #1 overloaded.
+									a.dropdown-item.media.bg-flat-color-4(href="#")
+										i.fa.fa-info
+										p Server #2 overloaded.
+									a.dropdown-item.media.bg-flat-color-5(href="#")
+										i.fa.fa-warning
+										p Server #3 overloaded.
+							.dropdown.for-message
+								button#message.btn.btn-secondary.dropdown-toggle(type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
+									i.ti-email
+									span.count.bg-primary 9
+								.dropdown-menu(aria-labelledby="message")
+									p.red You have 4 Mails
+									a.dropdown-item.media.bg-flat-color-1(href="#")
+										span.photo.media-left
+											img(alt="avatar" src="/admin-site/images/avatar/1.jpg")
+										span.message.media-body
+											span.name.float-left Jonathan Smith
+											span.time.float-right Just now
+											p Hello, this is an example msg
+									a.dropdown-item.media.bg-flat-color-4(href="#")
+										span.photo.media-left
+											img(alt="avatar" src="/admin-site/images/avatar/2.jpg")
+										span.message.media-body
+											span.name.float-left Jack Sanders
+											span.time.float-right 5 minutes ago
+											p Lorem ipsum dolor sit amet, consectetur
+									a.dropdown-item.media.bg-flat-color-5(href="#")
+										span.photo.media-left
+											img(alt="avatar" src="/admin-site/images/avatar/3.jpg")
+										span.message.media-body
+											span.name.float-left Cheryl Wheeler
+											span.time.float-right 10 minutes ago
+											p Hello, this is an example msg
+									a.dropdown-item.media.bg-flat-color-3(href="#")
+										span.photo.media-left
+											img(alt="avatar" src="/admin-site/images/avatar/4.jpg")
+										span.message.media-body
+											span.name.float-left Rachel Santos
+											span.time.float-right 15 minutes ago
+											p Lorem ipsum dolor sit amet, consectetur
+					.col-sm-5
+						.user-area.dropdown.float-right
+							a.dropdown-toggle(href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
+								img.user-avatar.rounded-circle(src="/admin-site/images/admin.jpg" alt="User Avatar")
+							.user-menu.dropdown-menu
+								a.nav-link(href="#")
+									i.fa.fa-user
+									|  My Profile
+								a.nav-link(href="#")
+									i.fa.fa-user
+									|  Notifications 
+									span.count 13
+								a.nav-link(href="#")
+									i.fa.fa-cog
+									|  Settings
+								a.nav-link(href="#")
+									i.fa.fa-power-off
+									|  Logout
+						#language-select.language-select.dropdown
+							a#language.dropdown-toggle(href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true")
+								i.flag-icon.flag-icon-us
+							.dropdown-menu(aria-labelledby="language")
+								.dropdown-item
+									span.flag-icon.flag-icon-fr
+								.dropdown-item
+									i.flag-icon.flag-icon-es
+								.dropdown-item
+									i.flag-icon.flag-icon-us
+								.dropdown-item
+									i.flag-icon.flag-icon-it
+			// /header
+			// Header
+			block content
+				
+
+
+		script(src='/admin-site/vendors/jquery/dist/jquery.min.js')
+		script(src='/admin-site/vendors/popper.js/dist/umd/popper.min.js')
+		script(src='/admin-site/vendors/bootstrap/dist/js/bootstrap.min.js')
+		script(src='/admin-site/assets/js/main.js')
+		script(src='/admin-site/vendors/datatables.net/js/jquery.dataTables.min.js')
+		script(src='/admin-site/vendors/datatables.net-bs4/js/dataTables.bootstrap4.min.js')
+		script(src='/admin-site/vendors/datatables.net-buttons/js/dataTables.buttons.min.js')
+		script(src='/admin-site/vendors/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js')
+		script(src='/admin-site/vendors/jszip/dist/jszip.min.js')
+		script(src='/admin-site/vendors/pdfmake/build/pdfmake.min.js')
+		script(src='/admin-site/vendors/pdfmake/build/vfs_fonts.js')
+		script(src='/admin-site/vendors/datatables.net-buttons/js/buttons.html5.min.js')
+		script(src='/admin-site/vendors/datatables.net-buttons/js/buttons.print.min.js')
+		script(src='/admin-site/vendors/datatables.net-buttons/js/buttons.colVis.min.js')
+		script(src='/admin-site/assets/js/init-scripts/data-table/datatables-init.js')
 
 
       

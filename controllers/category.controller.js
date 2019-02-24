@@ -54,10 +54,11 @@ module.exports.postCreateCategory = (req, res)=>{
 
   let nameCategory = req.body.nameCategory;
   let parentCategory = req.body.parentCategory;
-
+  let descriptionCategory = req.body.descriptionCategory;
   var category = new Category({
     name: nameCategory,
-    parent: parentCategory
+    parent: parentCategory,
+    description: descriptionCategory
   });
 
   category

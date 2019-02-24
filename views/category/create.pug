@@ -2,6 +2,7 @@ extends ../layout/admin-site
 
 
 block content
+  
   - function findCategory(ct,lv=1){
   -  var str = '';
   -  let count =0;
@@ -22,11 +23,49 @@ block content
   - var categories = data 
   - var x = `<option value='Root'>Root</option>`+findCategory(categories);
   
-  
-  form(action='./',method='POST')
-    label Name 
-    input(name="nameCategory")
-    label Parent
-    select(name='parentCategory',id="parentCategory")!= x
-    button(type='submit') Create
-    
+  .breadcrumbs
+    .col-sm-4
+      .page-header.float-left
+        .page-title
+          h1 Dashboard
+    .col-sm-8
+      .page-header.float-right
+        .page-title
+          ol.breadcrumb.text-right
+            li
+              a(href="#") Dashboard
+            li
+              a(href="#") Forms
+            li.active Basic
+  .content.mt-3
+    .animated.fadeIn
+      .row
+        .col-lg-2
+        .col-lg-8
+          .card
+            .card-header
+              strong Thông tin
+              |  Category
+            .card-body.card-block
+              form.form-horizontal(action="./" method="post")
+                .row.form-group
+                  .col.col-md-3
+                    label.form-control-label(for="text-input") Tên danh mục
+                  .col-12.col-md-9
+                    input.form-control(type="text" name="nameCategory" placeholder="Nhập tên danh mục")
+                .row.form-group
+                  .col.col-md-3
+                    label.form-control-label(for="textarea-input") Mô tả
+                  .col-12.col-md-9
+                    textarea.form-control(name="descriptionCategory" rows="9" placeholder="Mô tả sản phẩm...")
+                .row.form-group
+                  .col.col-md-3
+                    label.form-control-label(for="select") Danh mục cha
+                  .col-12.col-md-3
+                    select.form-control(name="parentCategory")!= x
+                button.btn.btn-primary.btn-sm(type="submit")
+                  i.fa.fa-dot-circle-o
+                  |  Submit
+                button.btn.btn-danger.btn-sm(type="reset")
+                  i.fa.fa-ban
+                  |  Reset

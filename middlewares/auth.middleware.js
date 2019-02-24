@@ -1,31 +1,47 @@
 const User = require('../models/user.model');
 
-module.exports.requireAuth = (req, res, next) => {
-	if(!req.signedCookies.userId){
-		res.redirect('/auth/login');
-		return;
-	}
-	let findUser = User
-	.findOne({_id: req.signedCookies.userId})
-	.exec()
-	.then((result) => {
-		// if result == null it is false, return to auth/login
-		//console.log(result);
-		if(result.error) {
-			res.redirect('/auth/login');
-			return;
+var jwt = require('jsonwebtoken');
 
-		}
 
-	})
-	
-	User
-	.findOne({_id: req.signedCookies.userId})
-	.then(function(doc){
-		res.locals.user = doc;
-	})
+module.exports.confirmUser =  (req, res)=>{
+  let token = req.params.token;
+  jwt.verify(token,  process.env.SECRET_KEY_TOKEN, function(err, decoded) {
+    if(err) res.json(err);
+    if(!err){
+      User
+      .findOne({_id: decoded.id})
+      .then(function(user){
+        user.isVerify = true;
+        User.updateOne({_id: decoded.id}, user, (err) => {
+          if(err) res.json(err)
+            else res.json('Verify user successfully')
+        })
+      })
+      .catch(err=>{
+        console.log(err)
+      })
+    }
+  });
 
-	
-	next();
-	// If all pass execution next() to go next middleware
+}
+
+module.exports.requireAuthv2 = (req, res, next)=>{
+  var token = req.cookies.token;
+  // verify a token symmetric
+  jwt.verify(token,  process.env.SECRET_KEY_TOKEN, function(err, decoded) {
+    if(err) res.redirect('/auth/login');
+    if(!err){
+      User
+    	.findOne({_id: decoded.id})
+    	.then(function(user){
+        req.session.user = user;
+        next();
+    		// res.locals.user = doc;
+    	})
+      .catch(err=>{
+        console.log(err)
+      })
+    }
+  });
+
 }

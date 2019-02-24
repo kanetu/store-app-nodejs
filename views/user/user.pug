@@ -1,29 +1,53 @@
-extends ../layout/layout
+extends ../layout/admin-site
 
 block content
-
-	.container
-		.row
-			.col-8.offset-md-2
-				h2 User
-					a(class='btn btn-primary' href='user/create') New
-				
-
-				table.table.table-hover
-					thead
-						tr
-							th Avatar
-							th Username
-							th Name
-							th Email
-							th Phone
-							th Grant
-					tbody
-						each user in users
-							tr
-							td: img(src=user.avatar, width='64px')
-							td #{user.username} 
-							td #{user.name}
-							td #{user.email}
-							td #{user.phone}
-							td #{user.grant==1 ? 'Admin':'User'}
+	
+	
+	.breadcrumbs
+		.col-sm-4
+			.page-header.float-left
+				.page-title
+					h1 Dashboard
+		.col-sm-8
+			.page-header.float-right
+				.page-title
+					ol.breadcrumb.text-right
+						li
+							a(href="#") Dashboard
+						li
+							a(href="#") Table
+						li.active Data table
+	.content.mt-3
+		.animated.fadeIn
+			.row
+				.col-md-12
+					.card
+						.card-header
+							strong.card-title Danh sách người dùng
+						.card-body
+							table#bootstrap-data-table-export.table.table-striped.table-bordered
+								thead
+									tr
+										th Họ
+										th Tên
+										th Giới tính
+										th Email
+										th Số điên thoại
+										th Quyền
+										th Thao tác
+								tbody
+									each user in users
+										tr
+											td #{user.firstname}
+											td #{user.lastname}
+											td #{user.gender}
+											td #{user.email}
+											td #{user.phone}
+											td #{user.grant}
+											td.action
+												form(method="post" action="/admin/user/update-form")
+													input(type="hidden" name="user" value=user)
+													button.btn.btn-action(type="submit")
+														i.fa.fa-pencil
+												a.btn.btn-action(href=`/admin/user/delete/${user._id}`)
+													i.fa.fa-trash-o

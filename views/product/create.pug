@@ -2,24 +2,68 @@ extends ../layout/admin-site
 
 block content
 
-	.container
-		.row
-			.col-6.offset-md-3
-				form(action='./' method='POST' enctype='multipart/form-data')
-					legend: h1 Create Product
-					.form-group
-						lable Name
-						input(type='text' class='form-control' name='nameproduct')
-					.form-group
-						lable Description
-						input(type='text' class='form-control' name='description')
-					.form-group
-						lable Price
-						input(type='text' class='form-control' name='price')
-					.form-group
-						lable idStore
-						input(type='text' class='form-control' name='idStore')
-					.form-group
-						lable Image
-						input(type='file' class='form-control' name='images' multiple)
-					button(type='submit' class='btn btn-primary') Create
+	
+			.breadcrumbs
+				.col-sm-4
+					.page-header.float-left
+						.page-title
+							h1 Dashboard
+				.col-sm-8
+					.page-header.float-right
+						.page-title
+							ol.breadcrumb.text-right
+								li
+									a(href="#") Dashboard
+								li
+									a(href="#") Forms
+								li.active Basic
+			.content.mt-3
+				.animated.fadeIn
+					.row
+						.col-lg-4
+							.card
+								.card-header
+									| Hình ảnh sản phẩm
+								.card-body.card-block
+									img(src="")
+						.col-lg-8
+							.card
+								.card-header
+									strong Thông tin
+									|  Product
+								.card-body.card-block
+									form.form-horizontal(action="./" method="post" enctype="multipart/form-data")
+										.row.form-group
+											.col.col-md-3
+												label.form-control-label(for="text-input") Tên sản phẩm
+											.col-12.col-md-9
+												input.form-control(type="text" name="nameProduct" placeholder="Nhập tên sản phẩm")
+										.row.form-group
+											.col.col-md-3
+												label.form-control-label(for="text-input") Giá sản phẩm
+											.col-12.col-md-5
+												input.form-control(type="text" name="priceProduct" placeholder="Nhập giá sản phẩm")
+										.row.form-group
+											.col.col-md-3
+												label.form-control-label(for="descriptionProduct") Mô tả
+											.col-12.col-md-9
+												textarea.form-control(name="descriptionProduct" rows="9" placeholder="Mô tả sản phẩm...")
+										.row.form-group
+											.col.col-md-3
+												label.form-control-label(for="select") Cửa hàng sở hữu
+											.col-12.col-md-3
+												select.form-control(name="ownerStore")
+													option(value="user") User
+													option(value="admin") Admin
+										.row.form-group
+											.col.col-md-3
+												label.form-control-label(for="file-input") Hình ảnh
+											.col-12.col-md-9
+												input.form-control-file(type="file" name="imagesProduct" multiple)
+								
+										button.btn.btn-primary.btn-sm(type="submit")
+											i.fa.fa-dot-circle-o
+											|  Submit
+										button.btn.btn-danger.btn-sm(type="reset")
+											i.fa.fa-ban
+											|  Reset

@@ -1,29 +1,93 @@
-extends ../layout/layout
+extends ../layout/admin-site
 
 block content
 
-	.container
-		.row
-			.col-6.offset-md-3
-				form(action='./' method='POST' enctype='multipart/form-data')
-					legend: h1 Create User
-					.form-group
-						lable Name
-						input(type='text' class='form-control' name='name')
-					.form-group
-						lable Email
-						input(type='email' class='form-control' name='email')
-					.form-group
-						lable Phone
-						input(type='text' class='form-control' name='phone')
-					.form-group
-						lable Username
-						input(type='text' class='form-control' name='username')
-					.form-group
-						lable Password
-						input(type='password' class='form-control' name='password')
-						input(type='hidden' name='grant' value='1')
-					.form-group
-						lable Avatar
-						input(type='file' class='form-control' name='avatar')
-					button(type='submit' class='btn btn-primary') Create
+			.breadcrumbs
+				.col-sm-4
+					.page-header.float-left
+						.page-title
+							h1 Dashboard
+				.col-sm-8
+					.page-header.float-right
+						.page-title
+							ol.breadcrumb.text-right
+								li
+									a(href="#") Dashboard
+								li
+									a(href="#") Forms
+								li.active Basic
+			.content.mt-3
+				.animated.fadeIn
+					.row
+						.col-lg-4
+							.card
+								.card-header
+									| Avatar
+								.card-body.card-block
+									img(src="")
+						.col-lg-8
+							.card
+								.card-header
+									strong Thông tin
+									|  User
+								.card-body.card-block
+									form.form-horizontal(action="./" method="post" enctype="multipart/form-data")
+										.row.form-group
+											.col.col-md-3
+												label.form-control-label(for="text-input") Họ
+											.col-12.col-md-3
+												input.form-control(type="text" name="firstnameUser" placeholder="Nhập họ")
+										.row.form-group
+											.col.col-md-3
+												label.form-control-label(for="text-input") Tên
+											.col-12.col-md-5
+												input.form-control(type="text" name="lastnameUser" placeholder="Nhập tên")
+										.row.form-group
+											.col.col-md-3
+												label.form-control-label Giới tính
+											.col.col-md-9
+												.form-check-inline.form-check
+													label.form-check-label(for="inline-radio1" style="margin-right:10px")
+														input.form-check-input(type="radio" name="genderUser" value="male")
+														| Nam
+													label.form-check-label(for="inline-radio2")
+														input.form-check-input(type="radio" name="genderUser" value="female")
+														| Nữ
+										.row.form-group
+											.col.col-md-3
+												label.form-control-label(for="text-input") Số điện thoại
+											.col-12.col-md-5
+												input.form-control(type="text" name="phoneUser" placeholder="Nhập số điện thoại")
+										.row.form-group
+											.col.col-md-3
+												label.form-control-label(for="email-input") Email
+											.col-12.col-md-5
+												input.form-control(type="email" name="emailUser" placeholder="Nhập email")
+										.row.form-group
+											.col.col-md-3
+												label.form-control-label(for="text-input") Username
+											.col-12.col-md-7
+												input.form-control(type="text" name="username" placeholder="Nhập username")
+										.row.form-group
+											.col.col-md-3
+												label.form-control-label(for="password-input") Password
+											.col-12.col-md-7
+												input.form-control(type="password" name="password" placeholder="Nhập password")
+										.row.form-group
+											.col.col-md-3
+												label.form-control-label(for="select") Phân quyền
+											.col-12.col-md-3
+												select.form-control(name="grantUser")
+													option(value="user") User
+													option(value="admin") Admin
+										.row.form-group
+											.col.col-md-3
+												label.form-control-label(for="file-input") Avatar
+											.col-12.col-md-9
+												input.form-control-file(type="file" name="avatarUser")
+										button.btn.btn-primary.btn-sm(type="submit")
+											i.fa.fa-dot-circle-o
+											|  Submit
+										button.btn.btn-danger.btn-sm(type="reset")
+											i.fa.fa-ban
+											|  Reset

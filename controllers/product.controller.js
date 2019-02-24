@@ -1,4 +1,4 @@
-
+'use strict'
 const Product = require('../models/product.model');
 const fs = require('fs');
 
@@ -71,11 +71,11 @@ module.exports.postProduct = (req,res)=>{
 	makeImageList
 	.then(function(image){
 		var product = new Product({
-			name: req.body.nameproduct,
-			description: req.body.description,
-			price: parseFloat(req.body.price),
+			name: req.body.nameProduct,
+			description: req.body.descriptionProduct,
+			price: parseFloat(req.body.priceProduct),
 			image: images,
-			owner_store: req.body.idStore
+			owner_store: req.body.ownerStore
 		});
 
 		product
@@ -107,12 +107,7 @@ module.exports.updateProduct = (req, res)=>{
 		var images = {};
 		var product;
 
-		if(result.error) {
-			res.json('Update product failed');
-			return;
-		}
-
-		if( req.files ){
+		if(req.files.length > 0){
 
 			req.files.forEach((image)=>{
 				let keyName = image.originalname.split('.')[0];

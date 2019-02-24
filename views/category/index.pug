@@ -2,16 +2,46 @@ extends ../layout/admin-site
 
 block content
     
-    
-    a(href='/admin/category/create').btn.btn-default Create
-    ul 
-      each item in data
-        li= item.name
-          a(href=`/admin/category/delete/${item._id}`) Xóa
-          form(method='POST', action='/admin/category/update-form')
-            input(type='hidden',name='category', value=item)
-            button(type='submit').btn.btn-default Update
-        
-    select
-      each item in listCategory
-        option(value=item) #{item}
+  .breadcrumbs
+    .col-sm-4
+      .page-header.float-left
+        .page-title
+          h1 Dashboard
+    .col-sm-8
+      .page-header.float-right
+        .page-title
+          ol.breadcrumb.text-right
+            li
+              a(href="#") Dashboard
+            li
+              a(href="#") Table
+            li.active Product
+  .content.mt-3
+    .animated.fadeIn
+      .row
+        .col-md-12
+          .card
+            .card-header
+              strong.card-title Danh sách sản phẩm
+            .card-body
+              table#bootstrap-data-table-export.table.table-striped.table-bordered
+                thead
+                  tr
+                    th Name
+                    th Position
+                    th Office
+                    th Salary
+                tbody
+                  each category in data
+                    tr
+                      td #{category.name}
+                      td #{category.parent}
+                      td #{category.description}													
+                      td.action
+                        form(method="post" action="/admin/category/update-form")
+                          input(type="hidden" name="category" value=category)
+                          button.btn.btn-action(type="submit")
+                            i.fa.fa-pencil
+                        a.btn.btn-action(href=`/admin/category/delete/${category._id}`)
+                          i.fa.fa-trash-o
+                        

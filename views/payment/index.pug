@@ -1,0 +1,16 @@
+html
+  head
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+  body
+    form#payment-form(action="/admin/payment/charge" method="post")
+      .form-row
+        label(for="card-element")
+          | Credit or debit card
+        #card-element
+          // A Stripe Element will be inserted here.
+        // Used to display Element errors.
+        #card-errors(role="alert")
+      button Submit Payment
+  
+    script(src="https://js.stripe.com/v3/")
+    script(src="/js/stripe.js")

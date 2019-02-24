@@ -1,19 +1,66 @@
 extends ../layout/admin-site
 
 block content
-  
-  form(action='/admin/store/update' method='POST' enctype='multipart/form-data')
     
-    input(name='idStore', type='hidden', value=store._id)
-      
-    input(name='nameStore', type='text', value=store.name)
-    br
-    input(name='ownerStore', type='text', value=store.owner)
-    br
-    input(name='descriptionStore', type='text', value=store.description)
-    br
-    input(name='imageStore', type='file')
-    
-    br
-    button(type='submit').btn.btn-default Update
-      
+  .breadcrumbs
+    .col-sm-4
+      .page-header.float-left
+        .page-title
+          h1 Dashboard
+    .col-sm-8
+      .page-header.float-right
+        .page-title
+          ol.breadcrumb.text-right
+            li
+              a(href="#") Dashboard
+            li
+              a(href="#") Forms
+            li.active Basic
+  .content.mt-3
+    .animated.fadeIn
+      .row
+        .col-lg-4
+          .card
+            .card-header
+              | Ảnh đại diện
+            .card-body.card-block
+              img(src=store.image)
+        .col-lg-8
+          .card
+            .card-header
+              strong Thông tin
+              |  Store
+            .card-body.card-block
+              form.form-horizontal(action="/admin/store/update" method="post" enctype="multipart/form-data")
+                .row.form-group
+                  .col.col-md-3
+                    label.form-control-label(for="text-input") ID Cửa hàng
+                  .col-12.col-md-9
+                    input.form-control(type="text" name="idStore" value=`${store._id}`)
+                .row.form-group
+                  .col.col-md-3
+                    label.form-control-label(for="text-input") Tên cửa hàng
+                  .col-12.col-md-9
+                    input.form-control(type="text" name="nameStore" value=`${store.name}`)
+                .row.form-group
+                  .col.col-md-3
+                    label.form-control-label(for="text-input") ID Chủ cửa hàng
+                  .col-12.col-md-5
+                    input.form-control(type="text" name="ownerStore" value=`${store.owner}`)
+                .row.form-group
+                  .col.col-md-3
+                    label.form-control-label(for="textarea-input") Mô tả
+                  .col-12.col-md-9
+                    textarea.form-control(name="descriptionStore" rows="9" placeholder="Mô tả cửa hàng...")!=store.description
+                .row.form-group
+                  .col.col-md-3
+                    label.form-control-label(for="file-input") Hình ảnh đại diện
+                  .col-12.col-md-9
+                    input.form-control-file(type="file" name="imageStore")
+
+                button.btn.btn-primary.btn-sm(type="submit")
+                  i.fa.fa-dot-circle-o
+                  |  Submit
+                button.btn.btn-danger.btn-sm(type="reset")
+                  i.fa.fa-ban
+                  |  Reset
