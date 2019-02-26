@@ -1,25 +1,55 @@
 'use strict'
 const Product = require('../models/product.model');
+const Category = require('../models/category.model');
+const Store = require('../models/store.model');
+
 const fs = require('fs');
+
+const categoryHelper = require('../helpers/category.helper');
 
 module.exports.index = (req,res)=>{
 
 	console.log(req.signedCookies.cart);
-
 	Product
 	.find()
-	.then(function(products){
-		res.render('product/product', {products: products});
-	});
+	.then(products => res.render('product/product', {products: products}));
+
 }
 
 module.exports.getCreateProduct = (req,res)=>{
-	res.render('product/create')
+  Category
+  .find()
+  .then(function(categories){
+    var t = {};
+    var temp = categories;
+  	for (var i = 0; i < temp.length; i++) {
+  	    t[temp[i]._id] = temp[i].parent;
+  	}
+    Store
+    .find()
+    .then(stores =>
+      res.render('product/create',{stores: stores, data: categoryHelper.f(t,'Root', categories)})
+    )
+  });
+
 }
 
 module.exports.getUpdateProduct = (req, res)=>{
 	 let product =  req.body.product;
-	 res.render('product/update',{product: JSON.parse(product)});
+   Category
+   .find()
+   .then(function(categories){
+     var t = {};
+     var temp = categories;
+     for (var i = 0; i < temp.length; i++) {
+       t[temp[i]._id] = temp[i].parent;
+     }
+     Store
+     .find()
+     .then(stores =>
+       res.render('product/update',{stores: stores, product: JSON.parse(product), data: categoryHelper.f(t,'Root', categories)})
+     )
+   });
 }
 
 module.exports.deleteProduct = (req, res) =>{
@@ -74,8 +104,11 @@ module.exports.postProduct = (req,res)=>{
 			name: req.body.nameProduct,
 			description: req.body.descriptionProduct,
 			price: parseFloat(req.body.priceProduct),
+      quantity: req.body.quantityProduct,
 			image: images,
-			owner_store: req.body.ownerStore
+      quantity: req.body.quantityProduct,
+			owner_store: req.body.ownerStore,
+      category_id: req.body.idCategory
 		});
 
 		product
@@ -116,6 +149,7 @@ module.exports.updateProduct = (req, res)=>{
 			product = {
 				name: req.body.nameProduct,
 				description: req.body.descriptionProduct,
+        quantity: req.body.quantityProduct,
 				price: parseFloat(req.body.priceProduct),
 				image: images
 			}
@@ -131,6 +165,7 @@ module.exports.updateProduct = (req, res)=>{
 			//If have not new image - use old image - not change image
 			product = {
 				name: req.body.nameProduct,
+        quantity: req.body.quantityProduct,
 				description: req.body.descriptionProduct,
 				price: parseFloat(req.body.priceProduct),
 			}

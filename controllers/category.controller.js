@@ -1,21 +1,7 @@
 const Category = require('../models/category.model');
 
-function f(t, c, ct) {
-    // The output structure
-    var a = [];
-    for( var key in t){
-      if(t[key] === c){
-        a.push({
-            _id: key,
-            name: ct.find(item=>{return item._id == key}).name,
-            // The `sub` property's value is generated recursively
-            sub: f(t, key, ct)
-        });
-      }
-    }
-    // Finish by returning the `a` array
-    return a;
-}
+const categoryHelper = require('../helpers/category.helper');
+
 
 
 
@@ -46,7 +32,7 @@ module.exports.getCreateCategory = (req, res)=>{
   	for (var i = 0; i < temp.length; i++) {
   	    t[temp[i]._id] = temp[i].parent;
   	}
-    res.render('category/create',{data: f(t,'Root', categories)});
+    res.render('category/create',{data: categoryHelper.f(t,'Root', categories)});
   });
 }
 
@@ -72,11 +58,9 @@ module.exports.deleteCategory = (req, res)=>{
   let idCategory = req.params.idCategory;
 
   //Update all record have parent equal idCategory with parent to ROOT
+
   Category
-  .updateMany({parent: idCategory},{parent: 'Root'},{multi: true}, function(err){
-    if(err)
-      res.json('Something wrong')
-  });
+  .updateMany({parent: idCategory},{parent: 'Root'},{multi: true}, (err)=>console.log(err));
 
 
   Category
@@ -97,7 +81,7 @@ module.exports.getUpdateCategory = (req, res)=>{
    	for (var i = 0; i < temp.length; i++) {
    	    t[temp[i]._id] = temp[i].parent;
    	}
-     res.render('category/update',{data: f(t,'Root', categories),category: JSON.parse(category)});
+     res.render('category/update',{data: categoryHelper.f(t,'Root', categories),category: JSON.parse(category)});
    });
 }
 

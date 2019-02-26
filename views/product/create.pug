@@ -2,68 +2,96 @@ extends ../layout/admin-site
 
 block content
 
-	
-			.breadcrumbs
-				.col-sm-4
-					.page-header.float-left
-						.page-title
-							h1 Dashboard
-				.col-sm-8
-					.page-header.float-right
-						.page-title
-							ol.breadcrumb.text-right
-								li
-									a(href="#") Dashboard
-								li
-									a(href="#") Forms
-								li.active Basic
-			.content.mt-3
-				.animated.fadeIn
-					.row
-						.col-lg-4
-							.card
-								.card-header
-									| Hình ảnh sản phẩm
-								.card-body.card-block
-									img(src="")
-						.col-lg-8
-							.card
-								.card-header
-									strong Thông tin
-									|  Product
-								.card-body.card-block
-									form.form-horizontal(action="./" method="post" enctype="multipart/form-data")
-										.row.form-group
-											.col.col-md-3
-												label.form-control-label(for="text-input") Tên sản phẩm
-											.col-12.col-md-9
-												input.form-control(type="text" name="nameProduct" placeholder="Nhập tên sản phẩm")
-										.row.form-group
-											.col.col-md-3
-												label.form-control-label(for="text-input") Giá sản phẩm
-											.col-12.col-md-5
-												input.form-control(type="text" name="priceProduct" placeholder="Nhập giá sản phẩm")
-										.row.form-group
-											.col.col-md-3
-												label.form-control-label(for="descriptionProduct") Mô tả
-											.col-12.col-md-9
-												textarea.form-control(name="descriptionProduct" rows="9" placeholder="Mô tả sản phẩm...")
-										.row.form-group
-											.col.col-md-3
-												label.form-control-label(for="select") Cửa hàng sở hữu
-											.col-12.col-md-3
-												select.form-control(name="ownerStore")
-													option(value="user") User
-													option(value="admin") Admin
-										.row.form-group
-											.col.col-md-3
-												label.form-control-label(for="file-input") Hình ảnh
-											.col-12.col-md-9
-												input.form-control-file(type="file" name="imagesProduct" multiple)
-								
-										button.btn.btn-primary.btn-sm(type="submit")
-											i.fa.fa-dot-circle-o
-											|  Submit
-										button.btn.btn-danger.btn-sm(type="reset")
-											i.fa.fa-ban
-											|  Reset
+  - function findCategory(ct,lv=1){
+  -  var str = '';
+  -  let count =0;
+  -  let star = '';
+  -  while(count<lv){
+  -    star+='-';
+  -    count++;
+  -  }
+  -  lv++
+  -  for(let item of ct){
+  -    str+= `<option value=${item._id}>${star + item.name}</option>`;
+  -    if(item.sub.length > 0){
+  -      str+= findCategory(item.sub,lv);
+  -    }
+  -  }
+  -  return str;
+  - }
+  - var categories = data 
+  - var x = findCategory(categories);
+      .breadcrumbs
+        .col-sm-4
+          .page-header.float-left
+            .page-title
+              h1 Dashboard
+        .col-sm-8
+          .page-header.float-right
+            .page-title
+              ol.breadcrumb.text-right
+                li
+                  a(href="#") Dashboard
+                li
+                  a(href="#") Forms
+                li.active Basic
+      .content.mt-3
+        .animated.fadeIn
+          .row
+            .col-lg-4
+              .card
+                .card-header
+                  | Hình ảnh sản phẩm
+                .card-body.card-block
+                  img(src="")
+            .col-lg-8
+              .card
+                .card-header
+                  strong Thông tin
+                  |  Product
+                .card-body.card-block
+                  form.form-horizontal(action="./" method="post" enctype="multipart/form-data")
+                    .row.form-group
+                      .col.col-md-3
+                        label.form-control-label(for="text-input") Tên sản phẩm
+                      .col-12.col-md-9
+                        input.form-control(type="text" name="nameProduct" placeholder="Nhập tên sản phẩm")
+                    .row.form-group
+                      .col.col-md-3
+                        label.form-control-label(for="text-input") Giá sản phẩm
+                      .col-12.col-md-5
+                        input.form-control(type="text" name="priceProduct" placeholder="Nhập giá sản phẩm")
+                    .row.form-group
+                      .col.col-md-3
+                        label.form-control-label(for="text-input") Số lượng sản phẩm
+                      .col-12.col-md-5
+                        input.form-control(type="text" name="quantityProduct" placeholder="Nhập số lượng sản phẩm")
+                    .row.form-group
+                      .col.col-md-3
+                        label.form-control-label(for="descriptionProduct") Mô tả
+                      .col-12.col-md-9
+                        textarea.form-control(name="descriptionProduct" rows="9" placeholder="Mô tả sản phẩm...")
+                    .row.form-group
+                      .col.col-md-3
+                        label.form-control-label(for="select") Chọn danh mục
+                      .col-12.col-md-3
+                        select.form-control(name="idCategory")!= x
+                    .row.form-group
+                      .col.col-md-3
+                        label.form-control-label(for="select") Cửa hàng sở hữu
+                      .col-12.col-md-3
+                        select.form-control(name="ownerStore")
+                         each store in stores
+                          option(value=store.id) #{store.name}
+                    .row.form-group
+                      .col.col-md-3
+                        label.form-control-label(for="file-input") Hình ảnh
+                      .col-12.col-md-9
+                        input.form-control-file(type="file" name="imagesProduct" multiple)
+                          
+                    button.btn.btn-primary.btn-sm(type="submit")
+                      i.fa.fa-dot-circle-o
+                        |  Submit
+                    button.btn.btn-danger.btn-sm(type="reset")
+                      i.fa.fa-ban
+                        |  Reset

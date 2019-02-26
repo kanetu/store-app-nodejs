@@ -53,8 +53,7 @@ module.exports.postUser = (req, res, next) => {
     }
 
     transporter.sendMail(mailOption, (err, info)=>{
-      if(err) return console.log("Gui email that bai");
-      console.log("Email duoc gui thanh cong");
+      if(err) res.json(err);
     });
 		res.json('Create user successfully!');
 	})
@@ -72,7 +71,6 @@ module.exports.updateUser = (req, res, next) =>{
 	/*Set information*/
 	let usernameUser = req.body.usernameUser,
 	emailUser = req.body.emailUser,
-	nameUser = req.body.nameUser,
 	phoneUser = req.body.phoneUser,
 	grantUser = req.body.grantUser
 	/*End set information*/
@@ -95,7 +93,6 @@ module.exports.updateUser = (req, res, next) =>{
 			user = {
 				username: usernameUser,
 				email: emailUser,
-				name: nameUser,
 				avatar: avatarUser,
 				phone: phoneUser,
 				grant: grantUser
@@ -105,7 +102,6 @@ module.exports.updateUser = (req, res, next) =>{
 			user = {
 				username: usernameUser,
 				email: emailUser,
-				name: nameUser,
 				phone: phoneUser,
 				grant: grantUser
 			}

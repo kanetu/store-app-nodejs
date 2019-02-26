@@ -35,6 +35,7 @@ module.exports.requireAuthv2 = (req, res, next)=>{
     	.findOne({_id: decoded.id})
     	.then(function(user){
         req.session.user = user;
+        req.app.locals.user = user;
         next();
     		// res.locals.user = doc;
     	})

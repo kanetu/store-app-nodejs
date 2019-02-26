@@ -7,6 +7,7 @@ module.exports.index = (req, res, next)=>{
 	console.log(cart.generateArray());
 	res.render('cart/index',{items: cart.generateArray(), totalPrice: cart.totalPrice})
 }
+
 module.exports.addItem = (req, res, next)=>{
 	let productId = req.params.id;
 
@@ -19,14 +20,27 @@ module.exports.addItem = (req, res, next)=>{
 	.then((product)=>{
 
 		var cart = new Cart(req.signedCookies.cart? req.signedCookies.cart:{items: {}});
+    console.log(cart);
+    
 		if(product.errors){
-			return res.redirect('/products');
+			return res.json(product.errors);
 		}
-		cart.add(product, product.id);
-		res.cookie('cart',cart, {signed:true});
 
-		res.redirect('/products');
-	});	
+    if(product.quantity >= 1){
+
+      product.quantity--;
+      Product.updateOne({_id: product.id}, product, (err)=>{
+        if(err) res.json(err);
+      });
+
+      cart.add(product, product.id);
+  		res.cookie('cart',cart, {signed:true});
+  		res.redirect('/');
+    }else{
+      res.json('Het hang')
+    }
+
+	});
 }
 
 module.exports.removeOneItem = (req, res, next)=>{

@@ -32,6 +32,7 @@ block content
 									|  User
 								.card-body.card-block
 									form.form-horizontal(action='/admin/user/update' method="post" enctype="multipart/form-data")
+										input.form-control(type="hidden" name="idUser"  value=`${user._id}`)
 										.row.form-group
 											.col.col-md-3
 												label.form-control-label(for="text-input") Họ
@@ -67,7 +68,7 @@ block content
 											.col.col-md-3
 												label.form-control-label(for="text-input") Username
 											.col-12.col-md-7
-												input.form-control(type="text" name="username" value=`${user.username}`)
+												input.form-control(type="text" name="usernameUser" value=`${user.username}`)
 										.row.form-group
 											.col.col-md-3
 												label.form-control-label(for="select") Phân quyền

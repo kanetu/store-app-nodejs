@@ -30,12 +30,14 @@ block content
 												th Position
 												th Office
 												th Salary
+												th Salary
 										tbody
 											each product in products
 												tr
 													td #{product.name}
 													td #{product.price}
-													td #{product.description}													
+													td #{product.quantity}
+													td #{product.description}	
 													td.action
 														form(method="post" action="/admin/product/update-form")
 															input(type="hidden" name="product" value=product)
