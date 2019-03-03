@@ -7,6 +7,10 @@ module.exports.login = (req, res) => {
 	res.render('auth/login',{title:'Login'});
 }
 
+module.exports.loginUser = (req, res)=>{
+  res.render('auth/login');
+}
+
 
 module.exports.postLogin = (req, res) => {
 

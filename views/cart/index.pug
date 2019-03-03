@@ -2,39 +2,38 @@ extends ../layout/layout
 
 block content
   .container
-   .cart-page-content
-    .cart-page-product-header.row
-      .col-md-7.col-lg-5.col-xl-5 Sản phẩm
-      .col-md-2.col-lg-2.col-xl-2 Đơn giá
-      .col-md-2.col-lg-2.col-xl-2 Số lượng
-      .col-md-2.col-lg-2.col-xl-2 Giá tiền
-      .col-md-1.col-lg-1.col-xl-1 Thao tác
-    .cart-page-product-section
-      .product-cart.row
-        .product-cart-detail.col-md-7.col-lg-5.col-xl-5
-          .product-cart-image
-            img(src='/img/ao-phong.jpg', alt='')
-          .product-cart-name
-            a(href='#') Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
-        .col-md-2.col-lg-2.col-xl-2 30.000 vnđ
-        .col-md-2.col-lg-2.col-xl-2 1
-        .col-md-2.col-lg-2.col-xl-2 30.000 vnđ
-        .col-md-1.col-lg-1.col-xl-1
-          a(href='#') Xóa
-      .product-cart.row
-        .product-cart-detail.col-md-7.col-lg-5.col-xl-5
-          .product-cart-image
-            img(src='/img/ao-phong.jpg', alt='')
-          .product-cart-name
-            a(href='#') Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
-        .col-md-2.col-lg-2.col-xl-2 30.000 vnđ
-        .col-md-2.col-lg-2.col-xl-2 1
-        .col-md-2.col-lg-2.col-xl-2 30.000 vnđ
-        .col-md-1.col-lg-1.col-xl-1
-          a(href='#') Xóa
-    .cart-page-buy-section.row
-      .cart-cost
-        | Tổng tiền:
-        span.cart-cost-number 30.000vnđ
-      .cart-pay-button
-        a(href='#') Mua hàng
+    .card.card-custom.shopping-cart
+       .card-body
+         // PRODUCT
+         if items
+         each item in items
+          .row
+             .col-12.col-sm-12.col-md-2.text-center
+               img(src=item.item.image[Object.keys(item.item.image)[0]] alt="prewiew" width="120" height="80")
+             .col-12.text-sm-center.col-sm-12.text-md-left.col-md-6
+               h5.product-name #{item.item.name}
+               h5
+                 small #{item.item.description}
+             .col-12.col-sm-12.text-sm-center.col-md-4.text-md-right.row
+               .col-3.col-sm-3.col-md-6.text-md-right(style="padding-top: 5px")
+                 h6
+                   strong
+                     | #{item.item.price} 
+                     span.text-muted x
+               .col-4.col-sm-4.col-md-4
+                 .quantity
+                   input.qty(type="number" step="1" max="99" min="1" value=item.qty title="Qty" size="4")
+               .col-2.col-sm-2.col-md-2.text-right
+                   a(href=`/cart/remove-one/${item.item._id}`).btn.btn-outline-danger.btn-xs
+                     i.fa.fa-trash(aria-hidden="true")
+          hr
+         // END PRODUCT
+         .pull-right
+           a.btn.btn-outline-secondary.pull-right(href="")
+             | Update
+       .card-footer
+         .pull-right(style="margin: 10px")
+           form(action="/admin/payment/checkout" method="post")
+             input(type="hidden" value={items, totalPrice} name="detail")
+             button(type="submit").btn.btn-success.pull-right Thanh toán #{totalPrice}đ
+           

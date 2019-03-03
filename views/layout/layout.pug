@@ -27,7 +27,7 @@ html(lang='en')
           a(href='cart/')
            img(src='/img/cart-icon.png', width='45', height='45', alt='')
         .account-link
-          img(src='/img/avatar.jpg', width='45', height='45', alt='')
+          img(src=user? user.avatar:'/img/avatar.jpg', width='45', height='45', alt='')
     block content
     footer
       .footer-top-block.mt-20.mb-20.pt-20.overflow-h

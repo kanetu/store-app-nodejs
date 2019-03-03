@@ -1,0 +1,57 @@
+extends ../layout/admin-site
+
+block content
+    
+  .breadcrumbs
+    .col-sm-4
+      .page-header.float-left
+        .page-title
+          h1 Dashboard
+    .col-sm-8
+      .page-header.float-right
+        .page-title
+          ol.breadcrumb.text-right
+            li
+              a(href="#") Dashboard
+            li
+              a(href="#") Forms
+            li.active Basic
+  .content.mt-3
+    .animated.fadeIn
+      .row
+        .col-lg-4
+          .card
+            .card-header
+              | Ảnh đại diện
+            .card-body.card-block
+              img(src=supplier.image)
+        .col-lg-8
+          .card
+            .card-header
+              strong Thông tin
+              |  Supplier
+            .card-body.card-block
+              form.form-horizontal(action="/admin/supplier/update" method="post" enctype="multipart/form-data")
+                    input.form-control(type="hidden" name="idSupplier" value=`${supplier._id}`)
+                .row.form-group
+                  .col.col-md-3
+                    label.form-control-label(for="text-input") Tên Nhà cung cấp
+                  .col-12.col-md-9
+                    input.form-control(type="text" name="nameSupplier" value=`${supplier.name}`)
+                .row.form-group
+                  .col.col-md-3
+                    label.form-control-label(for="textarea-input") Mô tả
+                  .col-12.col-md-9
+                    textarea.form-control(name="descriptionSupplier" rows="9" placeholder="Mô tả nhà cung cấp...")!=supplier.description
+                .row.form-group
+                  .col.col-md-3
+                    label.form-control-label(for="file-input") Hình ảnh đại diện
+                  .col-12.col-md-9
+                    input.form-control-file(type="file" name="imageSupplier")
+
+                button.btn.btn-primary.btn-sm(type="submit")
+                  i.fa.fa-dot-circle-o
+                  |  Submit
+                button.btn.btn-danger.btn-sm(type="reset")
+                  i.fa.fa-ban
+                  |  Reset

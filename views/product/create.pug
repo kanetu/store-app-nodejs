@@ -78,11 +78,11 @@ block content
                         select.form-control(name="idCategory")!= x
                     .row.form-group
                       .col.col-md-3
-                        label.form-control-label(for="select") Cửa hàng sở hữu
+                        label.form-control-label(for="select") Nhà cung cấp
                       .col-12.col-md-3
-                        select.form-control(name="ownerStore")
-                         each store in stores
-                          option(value=store.id) #{store.name}
+                        select.form-control(name="idSupplier")
+                         each supplier in suppliers
+                          option(value=supplier.id) #{supplier.name}
                     .row.form-group
                       .col.col-md-3
                         label.form-control-label(for="file-input") Hình ảnh

@@ -25,6 +25,28 @@ module.exports.confirmUser =  (req, res)=>{
 
 }
 
+
+module.exports.requireAuthv1 = (req, res, next)=>{
+  var token = req.cookies.token;
+  // verify a token symmetric
+  jwt.verify(token,  process.env.SECRET_KEY_TOKEN, function(err, decoded) {
+    if(err) res.redirect('/auth/user/login');
+    if(!err){
+      User
+    	.findOne({_id: decoded.id})
+    	.then(function(user){
+        req.session.user = user;
+        req.app.locals.user = user;
+        next();
+    		// res.locals.user = doc;
+    	})
+      .catch(err=>{
+        console.log(err)
+      })
+    }
+  });
+}
+
 module.exports.requireAuthv2 = (req, res, next)=>{
   var token = req.cookies.token;
   // verify a token symmetric
@@ -44,5 +66,4 @@ module.exports.requireAuthv2 = (req, res, next)=>{
       })
     }
   });
-
 }

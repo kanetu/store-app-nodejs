@@ -1,30 +1,11 @@
-const express = require('express');
-const router = express.Router();
+var express = require('express');
+var router = express.Router();
 
+var controller = require('../controllers/user.controller');
+var middleware = require('../controllers/auth.controller');
 
-const multer = require('multer');
-const upload = multer({ dest: './public/uploads/avatars/' })
+router.get('/login', middleware.loginUser);
 
-
-//Controller
-const controller = require('../controllers/user.controller');
-
-/* GET users listing. */
-router.get('/', controller.getUser);
-
-router.get('/create', controller.getCreateUser);
-
-router.post('/', upload.single('avatarUser'), controller.postUser);
-
-router.get('/delete/:id', controller.deleteUser);
-
-router.post('/update-form', controller.getUpdateUser);
-
-router.post('/update',upload.single('avatar'), controller.updateUser);
-
-
-//API
-router.delete('/:id', controller.deleteUser);
-
+router.get('/',controller.index);
 
 module.exports = router;

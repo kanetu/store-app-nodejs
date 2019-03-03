@@ -82,14 +82,14 @@ block content
                   .col.col-md-3
                     label.form-control-label(for="select") Chọn danh mục
                   .col-12.col-md-3
-                    select.form-control(name="parentCategory")!= x
+                    select.form-control(name="idCategory")!= x
                 .row.form-group
                   .col.col-md-3
                     label.form-control-label(for="select") Cửa hàng sở hữu
                   .col-12.col-md-3
-                    select.form-control(name="ownerStore"  value=`${product.ownerStore}`)
-                     each store in stores
-                      option(value=store.id) #{store.name}
+                    select.form-control(name="idCategory"  value=`${product.ownerStore}`)
+                     each supplier in suppliers
+                      option(value=supplier.id) #{supplier.name}
                 .row.form-group
                   .col.col-md-3
                     label.form-control-label(for="file-input") Hình ảnh

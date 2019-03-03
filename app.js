@@ -22,6 +22,8 @@ var indexRouter = require('./routes/index.route');
 var adminRouter = require('./routes/admin.route');
 var authRouter = require('./routes/auth.route');
 var cartRouter = require('./routes/cart.route');
+var userRouter = require('./routes/user.route');
+
 
 var app = express();
 
@@ -51,6 +53,7 @@ app.use('/admin',
       authMiddleware
       .requireAuthv2,
       adminRouter);
+app.use('/user', authMiddleware.requireAuthv1, userRouter)
 app.use('/cart', cartRouter);
 app.use('/confirm-user/:token', authMiddleware.confirmUser);
 

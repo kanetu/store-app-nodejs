@@ -1,0 +1,96 @@
+extends ../layout/admin-site
+
+block content
+
+			.breadcrumbs
+				.col-sm-4
+					.page-header.float-left
+						.page-title
+							h1 Dashboard
+				.col-sm-8
+					.page-header.float-right
+						.page-title
+							ol.breadcrumb.text-right
+								li
+									a(href="#") Dashboard
+								li
+									a(href="#") Forms
+								li.active Basic
+			.content.mt-3
+				.animated.fadeIn
+					.row
+						.col-lg-4
+							.card
+								.card-header
+									| Avatar
+								.card-body.card-block
+									img(src=user.avatar)
+						.col-lg-8
+							.card
+								.card-header
+									strong Thông tin
+									|  User
+								.card-body.card-block
+									form.form-horizontal(action='/admin/account/update' method="post" enctype="multipart/form-data")
+										input.form-control(type="hidden" name="idUser"  value=`${user._id}`)
+										.row.form-group
+											.col.col-md-3
+												label.form-control-label(for="text-input") Họ
+											.col-12.col-md-3
+												input.form-control(type="text" name="firstnameUser"  value=`${user.firstname}`)
+										.row.form-group
+											.col.col-md-3
+												label.form-control-label(for="text-input") Tên
+											.col-12.col-md-5
+												input.form-control(type="text" name="lastnameUser" value=`${user.lastname}`)
+										.row.form-group
+											.col.col-md-3
+												label.form-control-label Giới tính
+											.col.col-md-9
+												.form-check-inline.form-check
+													label.form-check-label(for="inline-radio1" style="margin-right:10px")
+														input.form-check-input(type="radio" name="genderUser" value="male" checked=user.gender=="male")
+														| Nam
+													label.form-check-label(for="inline-radio2")
+														input.form-check-input(type="radio" name="genderUser" value="female" checked=user.gender=="female")
+														| Nữ
+										.row.form-group
+											.col.col-md-3
+												label.form-control-label(for="text-input") Số điện thoại
+											.col-12.col-md-5
+												input.form-control(type="text" name="phoneUser" value=`${user.phone}`)
+										.row.form-group
+											.col.col-md-3
+												label.form-control-label(for="email-input") Email
+											.col-12.col-md-5
+												input.form-control(type="email" name="emailUser" value=`${user.email}`)
+										.row.form-group
+											.col.col-md-3
+												label.form-control-label(for="text-input") Username
+											.col-12.col-md-7
+												input.form-control(type="text" name="usernameUser" value=`${user.username}`)
+										.row.form-group
+											.col.col-md-3
+												label.form-control-label(for="select") Phân quyền
+											.col-12.col-md-3
+												select#grant-user.form-control(name="grantUser")
+													option(value="user") User
+													option(value="admin") Admin
+										.row.form-group
+											.col.col-md-3
+												label.form-control-label(for="file-input") Avatar
+											.col-12.col-md-9
+												input.form-control-file(type="file" name="avatarUser")
+										button.btn.btn-primary.btn-sm(type="submit")
+											i.fa.fa-dot-circle-o
+											|  Submit
+										button.btn.btn-danger.btn-sm(type="reset")
+											i.fa.fa-ban
+											|  Reset
+
+										script.
+												var pOptions = document.getElementById('grant-user').options;
+												var grant = !{JSON.stringify(user.grant)};
+												for (i=0; i < pOptions.length; i++) {
+													if (pOptions[i].value == grant) pOptions[i].selected = true;
+												}

@@ -1,7 +1,7 @@
 'use strict'
 const Product = require('../models/product.model');
 const Category = require('../models/category.model');
-const Store = require('../models/store.model');
+const Supplier = require('../models/supplier.model');
 
 const fs = require('fs');
 
@@ -25,10 +25,10 @@ module.exports.getCreateProduct = (req,res)=>{
   	for (var i = 0; i < temp.length; i++) {
   	    t[temp[i]._id] = temp[i].parent;
   	}
-    Store
+    Supplier
     .find()
-    .then(stores =>
-      res.render('product/create',{stores: stores, data: categoryHelper.f(t,'Root', categories)})
+    .then(suppliers =>
+      res.render('product/create',{suppliers: suppliers, data: categoryHelper.f(t,'Root', categories)})
     )
   });
 
@@ -44,10 +44,10 @@ module.exports.getUpdateProduct = (req, res)=>{
      for (var i = 0; i < temp.length; i++) {
        t[temp[i]._id] = temp[i].parent;
      }
-     Store
+     Supplier
      .find()
-     .then(stores =>
-       res.render('product/update',{stores: stores, product: JSON.parse(product), data: categoryHelper.f(t,'Root', categories)})
+     .then(suppliers =>
+       res.render('product/update',{suppliers: suppliers, product: JSON.parse(product), data: categoryHelper.f(t,'Root', categories)})
      )
    });
 }
@@ -107,7 +107,7 @@ module.exports.postProduct = (req,res)=>{
       quantity: req.body.quantityProduct,
 			image: images,
       quantity: req.body.quantityProduct,
-			owner_store: req.body.ownerStore,
+			supplier_id: req.body.idSupplier,
       category_id: req.body.idCategory
 		});
 

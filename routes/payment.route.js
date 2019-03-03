@@ -10,5 +10,9 @@ var controller = require('../controllers/payment.controller');
 /* GET home page. */
 router.get('/', controller.index);
 
-router.post('/charge', controller.charge)
+router.post('/checkout', controller.checkout);
+
+router.get('/callback', controller.callback);
+
+
 module.exports = router;
