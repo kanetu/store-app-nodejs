@@ -90,6 +90,6 @@ const transporter = nodemailer.createTransport({
    }
 })
 
-//module.exports.transporter = transporter;
+module.exports.transporter = transporter;
 
 // module.exports.authorize = authorize(credentials);

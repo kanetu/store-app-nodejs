@@ -2,6 +2,8 @@
 const User = require('../models/user.model');
 const fs = require('fs');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 const transporter = require('../helpers/mail.helper').transporter;
 
@@ -28,9 +30,11 @@ module.exports.postUser = (req, res, next) => {
 
 	req.body.file = '\\' + req.file.path.split('\\').slice(1).join('\\');
 
+  var hashPassword = bcrypt.hashSync(req.body.password, saltRounds);
+
 	let user = new User({
 		username: req.body.username,
-		password: req.body.password,
+		password: hashPassword,
 		lastname: req.body.lastnameUser,
 		firstname: req.body.firstnameUser,
 		gender: req.body.genderUser,

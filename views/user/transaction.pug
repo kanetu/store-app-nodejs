@@ -1,0 +1,37 @@
+extends ../layout/layout
+
+block content
+  .container
+    .row
+      #profile-panel.ool-12.col-md-3
+        .profile-user
+          #avatar-user
+            image(src=user.avatar)
+          ul#profile-navigation
+            li
+              a(href="#") Cập nhật thông tin
+            li
+              a(href="#") Đơn hàng
+            li
+              a(href="#") Địa chỉ
+      #profile-content.col-12.col-md-9
+        h5#profile-content-title Đơn hàng
+        each transaction in transactions
+          .transaction
+              p.transaction-id
+                | Transaction:
+                strong #{transaction._id}
+              table.table.table-without-margin
+                thead
+                  tr
+                    th Tên sản phẩm
+                    th Số lượng
+                    th Giá
+                    th Trạng thái
+                tbody
+                  each product in transaction.cart
+                    tr
+                      td #{product.item.name}
+                      td #{product.qty}
+                      td #{product.price}
+                      td Đang giao..

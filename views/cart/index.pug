@@ -1,39 +1,83 @@
 extends ../layout/layout
 
 block content
+  
+  -function isEmpty(obj) {
+  -  for(var key in obj) {
+  -      if(obj.hasOwnProperty(key))
+  -          return false;
+  -  }
+  -  return true;
+  -}
+  
   .container
-    .card.card-custom.shopping-cart
-       .card-body
-         // PRODUCT
+    if isEmpty(items)
+      .cart-empty.col-12
+       .cart-empty-image
+         img(src="/img/cart-empty.png" alt="")
+       .cart-empty-message
+         | Giỏ hàng của bạn chưa có gì cả!
+    else
+    
+     .row
+      .personal-info.col-5.mt-10.mb-10
+        h4 KaneStore - Thanh toán
+        form(method="post" action="/cart/payment/checkout").form-payment
+          label Họ tên
+          .row.form-group
+            .col-6
+              input.form-control(type="text" placeholder="Họ" name="firstname")
+            .col-6
+              input.form-control(type="text" placeholder="Tên" name="lastname")
+          .form-group
+            label Địa chỉ nhà
+            input.form-control(type="text" placeholder="Địa chỉ nhà" name="billingStreet")
+          label Huyện/Tỉnh
+          .row.form-group
+            .col-6
+              input.form-control(type="text" placeholder="Huyện" name="billingCity")
+            .col-6
+              input.form-control(type="text" placeholder="Tỉnh" name="billingStateProvince")
+          .row.form-group
+            .col-6
+              label Email
+              .input-group
+                .input-group-prepend
+                  span.input-group-text
+                    i.far.fa-envelope
+                input.form-control(type="email" name="email" required)
+            .col-6
+              label Số điện thoại
+              .input-group
+                .input-group-prepend
+                  span.input-group-text
+                    i.fas.fa-phone
+                input.form-control(type="text" name="phoneNumber")
+          input(type="hidden" value=totalPrice name="totalPrice")
+          button.btn.btn-success.btn-custom-success(type="submit")  Thanh Toán #{totalPrice}
+      .col-7
+        .cart.mt-10.mb-10
          if items
-         each item in items
-          .row
-             .col-12.col-sm-12.col-md-2.text-center
-               img(src=item.item.image[Object.keys(item.item.image)[0]] alt="prewiew" width="120" height="80")
-             .col-12.text-sm-center.col-sm-12.text-md-left.col-md-6
-               h5.product-name #{item.item.name}
-               h5
-                 small #{item.item.description}
-             .col-12.col-sm-12.text-sm-center.col-md-4.text-md-right.row
-               .col-3.col-sm-3.col-md-6.text-md-right(style="padding-top: 5px")
-                 h6
-                   strong
-                     | #{item.item.price} 
-                     span.text-muted x
-               .col-4.col-sm-4.col-md-4
-                 .quantity
-                   input.qty(type="number" step="1" max="99" min="1" value=item.qty title="Qty" size="4")
-               .col-2.col-sm-2.col-md-2.text-right
-                   a(href=`/cart/remove-one/${item.item._id}`).btn.btn-outline-danger.btn-xs
-                     i.fa.fa-trash(aria-hidden="true")
-          hr
-         // END PRODUCT
-         .pull-right
-           a.btn.btn-outline-secondary.pull-right(href="")
-             | Update
-       .card-footer
-         .pull-right(style="margin: 10px")
-           form(action="/admin/payment/checkout" method="post")
-             input(type="hidden" value={items, totalPrice} name="detail")
-             button(type="submit").btn.btn-success.pull-right Thanh toán #{totalPrice}đ
-           
+          each item in items
+            // PRODUCT
+            .cart-product-item
+              .cart-product-item-image
+                img.img-responsive(src=item.item.image[Object.keys(item.item.image)[0]] alt="prewiew" width="120" height="80")
+              .cart-product-item-detail
+                h5 #{item.item.name}
+                p #{item.item.description}
+              .cart-product-item-more-info
+                .col-6.flex-center
+                  h6.item-price #{item.item.price}
+                .col-3.item-quantity
+                  a.plus-one(href=`/cart/add/${item.item._id}`) +
+                  |                     #{item.qty}
+                  a.minus-one(href=`/cart/remove-one/${item.item._id}`) -
+                .col-3.flex-center
+                  a.btn.btn-outline-danger.btn-xs(href=`/cart/remove-one/${item.item._id}`)
+                    i.fa.fa-trash(aria-hidden="true")
+            hr
+          // END PRODUCT
+          .pull-right
+            a.btn.btn-outline-secondary.pull-right(href="")
+              | Update

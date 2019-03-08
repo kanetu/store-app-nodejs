@@ -2,6 +2,10 @@
 const { OnePayDomestic } = require('vn-payments');
 const { OnePayInternational } = require('vn-payments');
 
+const Transaction = require('../models/transaction.model');
+const Cart = require('../models/cart.model');
+
+var mongoose = require('mongoose');
 const  {checkoutOnePayDomestic, callbackOnePayDomestic} = require('../helpers/onepay-handlers');
 
 
@@ -23,7 +27,7 @@ module.exports.checkout =(req, res) => {
 		req.socket.remoteAddress ||
 		(req.connection.socket ? req.connection.socket.remoteAddress : null);
 
-	const amount = parseInt(JSON.parse(params.detail).totalPrice, 10);//params.amount.replace(/,/g, '')
+	const amount = parseInt(JSON.parse(params.totalPrice), 10);//params.amount.replace(/,/g, '')
 	const now = new Date();
 
 	// NOTE: only set the common required fields and optional fields from all gateways here, redundant fields will invalidate the payload schema checker
@@ -43,15 +47,16 @@ module.exports.checkout =(req, res) => {
 		deliveryProvince: params.billingStateProvince || '',
 		customerEmail: params.email,
 		customerPhone: params.phoneNumber,
-		orderId: `node-${now.toISOString()}`,
+		orderId: `kt-${now.toISOString()}`,
 		// returnUrl: ,
-		transactionId: `node-${now.toISOString()}`, // same as orderId (we don't have retry mechanism)
+		transactionId: `kt-${now.toISOString()}`, // same as orderId (we don't have retry mechanism)
 		customerId: params.email,
 	};
-
+  // need to save in transaction
+  req.app.locals.checkoutData = Object.assign({}, checkoutData);
+  req.app.locals.checkoutData.customerFullName = params.firstname + " " + params.lastname;
 	// pass checkoutData to gateway middleware via res.locals
 	res.locals.checkoutData = checkoutData;
-
 	// Note: these handler are asynchronous
 	let asyncCheckout = null;
   asyncCheckout = checkoutOnePayDomestic(req, res);
@@ -77,20 +82,39 @@ module.exports.callback = (req, res) => {
 
 	if (asyncFunc) {
 		asyncFunc.then(() => {
-			// res.render('result', {
-			// 	title: `Nau Store Payment via ${gateway.toUpperCase()}`,
-			// 	isSucceed: res.locals.isSucceed,
-			// 	email: res.locals.email,
-			// 	orderId: res.locals.orderId,
-			// 	price: res.locals.price,
-			// 	message: res.locals.message,
-			// 	billingStreet: res.locals.billingStreet,
-			// 	billingCountry: res.locals.billingCountry,
-			// 	billingCity: res.locals.billingCity,
-			// 	billingStateProvince: res.locals.billingStateProvince,
-			// 	billingPostalCode: res.locals.billingPostalCode,
-			// });
-      res.send(res.locals.message);
+      let cart = new Cart(req.signedCookies.cart);
+      let totalQty = cart.totalQty;
+      let totalPrice = cart.totalPrice;
+
+      cart = cart.generateArray();
+
+
+
+      if(res.locals.isSucceed){
+        var checkoutData = req.app.locals.checkoutData;
+        var transactionID = mongoose.Types.ObjectId();
+
+        let transaction = new Transaction({
+           _id: transactionID,
+          cart: cart,
+          deliveryAddress: checkoutData.deliveryAddress,
+          deliveryCity: checkoutData.deliveryCity,
+          deliveryProvince: checkoutData.deliveryProvince,
+          customerPhone: checkoutData.customerPhone,
+          customerFullName: checkoutData.customerFullName
+        });
+        transaction
+        .save()
+        .then((result)=>{
+          res.clearCookie("cart");
+          res.render('payment/success',{transactionID, email: checkoutData.customerEmail, message: res.locals.message});
+        })
+        .catch((err)=>res.json("lOI SAVE TRANSACTION"));
+      }else{
+        res.render('payment/fail',{message: res.locals.message});
+      }
+
+
 		}).catch((err)=> res.send(err));
 	} else {
 		res.send('No callback found');

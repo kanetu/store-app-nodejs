@@ -58,7 +58,10 @@ module.exports.requireAuthv2 = (req, res, next)=>{
     	.then(function(user){
         req.session.user = user;
         req.app.locals.user = user;
-        next();
+        if(user.grant == "admin")
+          next();
+        else
+        res.redirect('/')
     		// res.locals.user = doc;
     	})
       .catch(err=>{

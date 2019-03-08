@@ -3,12 +3,12 @@ const Schema = mongoose.Schema;
 
 var productSchema = new mongoose.Schema({
 	name: String,
-	image: {},
+	image: Object(),
 	price: {type: Number, default: 1},
   quantity: {type: Number, default: 1},
 	description: String,
-	supplier_id: [{ type: Schema.Types.ObjectId, ref: 'suppliers' }],
-  category_id: [{ type: Schema.Types.ObjectId, ref: 'categories' }],
+	supplier_id: [{ type: Schema.Types.ObjectId, ref: 'Supplier' }],
+  category_id: [{ type: Schema.Types.ObjectId, ref: 'Categorie' }],
 	creat_time: { type: Date, default: Date.now },
 	update_time: { type: Date, default: Date.now }
 });

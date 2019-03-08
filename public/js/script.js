@@ -1,3 +1,22 @@
+$(window).on('resize load',function(){
+	if($('body').width() < 576){
+		$('#footer-one').addClass('collapse');
+		$('#footer-two').addClass('collapse');
+		$('#footer-three').addClass('collapse');
+		$('#footer-four').addClass('collapse');
+	}else{
+		$('#footer-one').removeClass('collapse');
+		$('#footer-two').removeClass('collapse');
+		$('#footer-three').removeClass('collapse');
+		$('#footer-four').removeClass('collapse');
+	}
+
+});
+
+$('#datepicker').datepicker({
+        uiLibrary: 'bootstrap4'
+    });
+
 $('#owl-example').owlCarousel({
 	items: 4,
 	margin: 10,

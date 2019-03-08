@@ -1,0 +1,44 @@
+extends ../layout/layout
+
+block content
+  .container
+    .row
+      #profile-panel.ool-12.col-md-3
+        .profile-user
+          #avatar-user
+            image(src=user.avatar? user.avatar:'/img/anonymous-user.png')
+          ul#profile-navigation
+            li
+              a(href="/user/update-information") Cập nhật thông tin
+            li
+              a(href="#") Đơn hàng
+            li
+              a(href="/user/update-address") Địa chỉ
+            li
+              a(href="/user/change-password") Đổi mật khẩu
+            li
+              a(href="/auth/logout") Đăng xuất
+      #profile-content.col-12.col-md-9
+        h5#profile-content-title Thay đổi mật khẩu
+        .col-8
+          form(action="/user/update-information" method="post" autocomplete="off")
+            input(type="hidden" value=user._id name="idUser")
+            label(for="") Họ và tên
+            .form-group.row
+              .col
+                input.form-control(type="text" placeholder="Họ" name="firstnameUser" value=user.firstname)
+              .col
+                input.form-control(type="text" placeholder="Tên" name="lastnameUser" value=user.lastname)
+            .form-group.row
+              .col-12.col-md-5
+                label(for="") Giới tính
+                select.form-control(name="genderUser" value=user.gender)
+                  option(value="Male") Nam
+                  option(value="Female") Nữ
+              .col-12.col-md-7
+                label Ngày sinh
+                input#datepicker(type="text" placeholder="Ngày sinh" name="birthdayUser")
+            .form-group
+              label Số điện thoại
+              input.form-control(type="text" placeholder="Số điện thoại" name="phoneUser" value=user.phone)
+            button.btn.btn-primary(type="submit") Cập nhật

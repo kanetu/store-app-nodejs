@@ -1,0 +1,22 @@
+extends ../layout/layout
+
+block content
+  .container
+    .col-12.col-md-4.offset-md-4
+      .login-panel
+        .login-title Login
+        .login-content
+          form(action="/auth/user/login" method="post")
+            .form-group
+              input.form-control.form-control-login(type="text" placeholder=" Username" name="username")
+            .form-group
+              input.form-control.form-control-login(type="password" placeholder="Password" name="password")
+            p
+              a(href="") Quên mật khẩu?
+            button.btn-login(type="submit") Đăng nhập
+        .login-footer
+          p
+            i Chưa có tài khoản?
+            br
+            strong
+              a(href="") Đăng kí

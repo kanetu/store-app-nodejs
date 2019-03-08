@@ -113,17 +113,16 @@ block content
       p.section-category-title GỢI Ý HÔM NAY
        .row.product-list
         each product in products
-         .col-6.col-sm-6.col-md-3.col-lg-3.col-xl-3.mt-10
-          .product
-            .product-buy-now
-              a(href=`/cart/add/${product._id}`) Mua
-            .product-sale
-              .rectangular
-                .sale-number 50%
-                .sale-lable SALE
-              .triangle
-            .product-image
-              img(src=product.image[Object.keys(product.image)[0]], alt='')
-            .product-title #{product.name}
-            .product-price #{product.price}
-        
+          .col-6.col-sm-6.col-md-2.col-lg-2.col-xl-2.mt-10
+           .product
+             .product-buy-now
+               a(href=`/cart/add/${product._id}`) Mua
+             .product-sale
+               .rectangular
+                 .sale-number 10%
+                 .sale-lable Sale
+               .triangle
+             .product-image
+               img(src=product.image[Object.keys(product.image)[0]] alt="")
+             .product-title #{product.name}
+             .product-price #{product.price} vnđ

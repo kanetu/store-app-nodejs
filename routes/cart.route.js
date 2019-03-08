@@ -4,6 +4,11 @@ const router = express.Router();
 //Controller
 const controller = require('../controllers/cart.controller');
 
+//Route
+var paymentRouter = require('./payment.route');
+
+router.use('/payment', paymentRouter);
+
 
 
 router.get('/',controller.index);

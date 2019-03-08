@@ -1,0 +1,19 @@
+extends ../layout/layout
+
+block content
+
+  .container
+   .notification.col-12.col-md-8.offset-md-2.mt-20.pb-20
+    .notification-sign-image
+      img(src="/img/payment-successed.png" alt="")
+    h4(style="color:#67C100") #{message}
+    .content
+      hr
+      h5
+        | Mã đơn hàng 
+        strong #{transactionID}
+      |             Hóa đơn đã được gửi đến email: #{email}
+      hr
+      .next-action
+        a.btn-view-profile(href="#") Xem thông tin tài khoản
+        a.btn-continue-shopping(href="/") Tiếp tục mua sắm

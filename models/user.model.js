@@ -4,14 +4,17 @@ var userSchema = new mongoose.Schema({
 	firstname: String,
 	lastname: String,
 	gender: String,
+  birthday: Date,
 	username: String,
 	password: String,
 	email: String,
-	name: String,
 	avatar: String,
 	phone: String,
 	grant: String,
-  isVerify: {type: Boolean, default: false}
+  address: Object(),
+  isVerify: {type: Boolean, default: false},
+  create_time: { type: Date, default: Date.now },
+	update_time: { type: Date, default: Date.now }
 });
 
 userSchema.methods.validPassword = function( pwd ) {

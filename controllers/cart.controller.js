@@ -4,7 +4,7 @@ const Product = require('../models/product.model');
 
 module.exports.index = (req, res, next)=>{
 	let cart = new Cart(req.signedCookies.cart);
-	console.log(cart.generateArray());
+	console.log(cart);
 	res.render('cart/index',{items: cart.generateArray(), totalPrice: cart.totalPrice})
 }
 
@@ -20,8 +20,7 @@ module.exports.addItem = (req, res, next)=>{
 	.then((product)=>{
 
 		var cart = new Cart(req.signedCookies.cart? req.signedCookies.cart:{items: {}});
-    console.log(cart);
-    
+
 		if(product.errors){
 			return res.json(product.errors);
 		}
@@ -35,7 +34,7 @@ module.exports.addItem = (req, res, next)=>{
 
       cart.add(product, product.id);
   		res.cookie('cart',cart, {signed:true});
-  		res.redirect('/');
+  		res.redirect('/cart');
     }else{
       res.json('Het hang')
     }
@@ -46,7 +45,7 @@ module.exports.addItem = (req, res, next)=>{
 module.exports.removeOneItem = (req, res, next)=>{
 	var cart = new Cart(req.signedCookies.cart);
 	let itemId = req.params.id;
-
+  Product.findOneAndUpdate({_id :itemId}, {$inc : {'quantity' : 1}},{new:true}).exec();
 	cart.removeOneItem(itemId);
 	res.cookie('cart',cart,{signed:true});
 	console.log(cart);

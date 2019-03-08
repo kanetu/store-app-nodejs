@@ -1,0 +1,16 @@
+extends ../layout/layout
+
+block content
+
+  .container
+   .notification.col-12.col-md-8.offset-md-2.mt-20.pb-20
+    .notification-sign-image
+      img(src="/img/payment-failed.png" alt="")
+    h4(style="color:#FF4949") #{message}
+    .content
+      hr
+      p Quí khách vui lòng thanh toán lại
+      hr
+      .next-action
+        a.btn-view-profile(href="#") Xem thông tin tài khoản
+        a.btn-continue-shopping(href="/") Tiếp tục mua sắm

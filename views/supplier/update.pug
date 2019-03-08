@@ -32,7 +32,7 @@ block content
               |  Supplier
             .card-body.card-block
               form.form-horizontal(action="/admin/supplier/update" method="post" enctype="multipart/form-data")
-                    input.form-control(type="hidden" name="idSupplier" value=`${supplier._id}`)
+                input.form-control(type="hidden" name="idSupplier" value=`${supplier._id}`)
                 .row.form-group
                   .col.col-md-3
                     label.form-control-label(for="text-input") Tên Nhà cung cấp

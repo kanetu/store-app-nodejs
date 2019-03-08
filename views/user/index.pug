@@ -1,4 +1,46 @@
 extends ../layout/layout
 
 block content
-  p Xin chào #{user.username}
+  .container
+    .row
+      #profile-panel.col-12.col-md-3
+        .profile-user
+          #avatar-user
+            image(src=user.avatar? user.avatar:'/img/anonymous-user.png')
+          ul#profile-navigation
+            li
+              a(href="/user/update-information") Cập nhật thông tin
+            li
+              a(href="#") Đơn hàng
+            li
+              a(href="/user/update-address") Địa chỉ
+            li
+              a(href="/user/change-password") Đổi mật khẩu
+            li
+              a(href="/auth/logout") Đăng xuất
+      #profile-content.col-12.col-md-9
+        h5#profile-content-title Thông tin tài khoản
+        table.table.table-custom.borderless
+          tbody
+            tr
+              th(scope="row") Họ tên
+              td #{user.firstname + " " + user.lastname}
+            tr
+              th(scope="row") Giới tính
+              td #{user.gender}
+            tr
+              th(scope="row") Email
+              td #{user.email}
+            tr
+              th(scope="row") Số điện thoại
+              td #{user.phone}
+            tr
+              th(scope="row") Địa chỉ
+              if user.address
+               td #{user.address.detail + " " + user.address.district + " " +user.address.province}
+              else
+                
+               td
+                i
+                | Chưa cập nhật địa chỉ 
+                a(href="/user/update-address") Cập nhật
