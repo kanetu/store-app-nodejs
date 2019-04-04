@@ -1,6 +1,12 @@
 const User = require('../models/user.model');
 
-var jwt = require('jsonwebtoken');
+const { check, validationResult  } = require('express-validator/check')
+
+const mailHelper = require('../helpers/mail.helper');
+const transporter = mailHelper.transporter;
+
+
+const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
@@ -10,6 +16,16 @@ module.exports.logout = (req, res)=>{
   res.redirect('/');
 }
 module.exports.login = (req, res) => {
+  // let mailOption = {
+  //   form: '"Tu Minh Hieu" <sufuijk@gmail.com>',
+  //   to: "110115019@sv.tvu.edu.vn",
+  //   subject: "Hoá đơn",
+  //   html: mailHelper.htmlInvoice()
+  // }
+  //
+  // transporter.sendMail(mailOption, (err, info)=>{
+  //   if(err) res.json(err);
+  // });
 	res.render('auth/login',{title:'Login'});
 }
 
@@ -17,6 +33,12 @@ module.exports.getUserLoginPage = (req, res)=>{
   res.render('user/login');
 }
 module.exports.postUserLoginPage = (req, res) => {
+
+  const errors = validationResult(req);
+
+  if(!errors.isEmpty()){
+    return res.render('user/login',{errors: errors.array()})
+  }
 
 	let username = req.body.username;
 	let password = req.body.password;
@@ -53,6 +75,11 @@ module.exports.postUserRegisterPage = (req, res)=>{
 
   var hashPassword = bcrypt.hashSync(req.body.passwordUser, saltRounds);
 
+  let address = {
+    district: "Chưa rõ",
+    province: "Chưa rõ",
+    detail: "Chưa rõ"
+  }
   let user = new User({
     firstname: req.body.firstnameUser,
     lastname: req.body.lastnameUser,
@@ -61,16 +88,40 @@ module.exports.postUserRegisterPage = (req, res)=>{
     email: req.body.emailUser,
     phone: req.body.phoneUser,
     avatar: "\\img\\anonymous-user.png",
-    grant: "user"
+    grant: "user",
+    address: address
   });
-  user.save()
-  .then((result)=>{
-    if(result)
-      res.redirect('/auth/user/login')
+
+  User.count({username: req.body.usernameUser}).then((count)=>{
+    if(count > 0){
+      return res.render('user/login',{errRegister: "Username đã có người sử dụng"})
+    }else{
+      user.save()
+      .then((result)=>{
+
+        if(result){
+
+          var token = jwt.sign({ id: user._id }, process.env.SECRET_KEY_TOKEN,{ expiresIn: '24h' });
+          let mailOption = {
+            form: '"Tu Minh Hieu" <sufuijk@gmail.com>',
+            to: user.email,
+            subject: "Confirm Email KaneStore",
+            text: `Nhấn vào link sau để xác nhận tài khoản http://localhost:3000/confirm-user/${token}`
+          }
+
+          transporter.sendMail(mailOption, (err, info)=>{
+            if(err) res.json(err);
+          });
+          res.redirect('/auth/user/login')
+        }
+      })
+      .catch((err)=>{
+        console.log(err);
+      })
+    }
   })
-  .catch((err)=>{
-    console.log(err);
-  })
+
+
 
 }
 
@@ -102,4 +153,15 @@ module.exports.postLogin = (req, res) => {
     console.log("Username not found");
     res.redirect('/auth/login')
   })
+}
+
+module.exports.validate = (method) => {
+switch (method) {
+    case 'login': {
+     return [
+        check('username').not().isEmpty().withMessage('Username không được để trống').trim().escape(),
+        check('password').not().isEmpty().withMessage('Password không được để trống').trim().escape()
+       ]
+    }
+  }
 }

@@ -5,16 +5,15 @@ block content
 				.col-sm-4
 					.page-header.float-left
 						.page-title
-							h1 Dashboard
+							h1 Quản trị
 				.col-sm-8
 					.page-header.float-right
 						.page-title
 							ol.breadcrumb.text-right
 								li
-									a(href="#") Dashboard
-								li
-									a(href="#") Table
-								li.active Product
+									a(href="/admin/dashboard") Quản trị
+								li.active
+									a(href="/admin/product") Sản phẩm
 			.content.mt-3
 				.animated.fadeIn
 					.row
@@ -26,18 +25,20 @@ block content
 									table#bootstrap-data-table-export.table.table-striped.table-bordered
 										thead
 											tr
-												th Name
-												th Position
-												th Office
-												th Salary
-												th Salary
+												th Hình ảnh
+												th Tên sản phẩm
+												th Giá
+												th Ngày tạo
+												th Hành động
 										tbody
 											each product in products
 												tr
+													td 
+														each image in product.image
+															img(src=image style="width: 50px; height: 50px;object-fit: cover;")
 													td #{product.name}
-													td #{product.price}
-													td #{product.quantity}
-													td #{product.description}	
+													td #{product.priceCurrency}đ
+													td #{product.create_time}
 													td.action
 														form(method="post" action="/admin/product/update-form")
 															input(type="hidden" name="product" value=product)

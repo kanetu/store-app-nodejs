@@ -19,7 +19,15 @@ router.post('/update',upload.array('imagesProduct', 10), controller.updateProduc
 
 router.post('/', upload.array('imagesProduct', 10), controller.postProduct);
 
+router.post('/update/classify', controller.formClassifyProduct);
 
+router.post('/update/add-classify', controller.addClassifyProduct);
+
+router.post('/update/classify/update-classify-form', controller.getUpdateClassifyProduct);
+
+router.post('/update/classify/update-classify', controller.postUpdateClassifyProduct);
+
+router.get('/update/classify/delete/:id', controller.deleteClassifyProduct);
 //API
 
 router.delete('/:id', controller.deleteProduct);

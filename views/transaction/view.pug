@@ -7,32 +7,80 @@ block content
     .col-sm-4
       .page-header.float-left
         .page-title
-          h1 Dashboard
+          h1 Quản trị
     .col-sm-8
       .page-header.float-right
         .page-title
           ol.breadcrumb.text-right
             li
-              a(href="#") Dashboard
-            li
-              a(href="#") Table
-            li.active Product
+              a(href="/admin/dashboard") Quản trị
+            li.active
+              a(href="/admin/transaction") Giao dịch
   .content.mt-3
     .animated.fadeIn
       .row
-        each item, index in items
-         .col-lg-4
+        .col-2.transaction-customer-avatar
+          img(src=customer.avatar alt="")
+        .col-6.transaction-customer-info
           .card
-            .card-header
-              | Sản phẩm 
-              strong #{index}
-            .card-body.card-block
-              .product-image
-                img(src=item.item.image[Object.keys(item.item.image)[0]] alt="")
-              strong Tên sản phẩm
-              p #{item.item.name}
-              strong Mô tả
+            .card-body
+              table.table.table-custom.borderless
+                tbody
+                  tr
+                    td Trạng thái
+                    td
+                      form(action="/admin/transaction/change-status" method="post")
+                        input(name="idTransaction" type="hidden" value=idTransaction)
+                        select#status.form-control(name="status" style="display: inline; width: auto;")
+                          option(value="Chờ xác nhận") Chờ xác nhận
+                          option(value="Đang vận chuyển") Đang vận chuyển
+                          option(value="Hoàn tất") Hoàn tất
+                        button.btn.btn-info(type="submit" style="border-radius:5px; margin: 0 0 5px 5px") Cập nhật  
+                        
+                  tr
+                    td Huyện
+                    td #{delivery.city}
+                  tr
+                    td Tỉnh
+                    td #{delivery.province}
+                  tr
+                    td Địa chỉ
+                    td #{delivery.address}
+                  tr
+                    td Người nhận
+                    td #{customer.fullName}
+                  tr
+                    td Số điện thoại
+                    td #{customer.phone}
               p
-                | #{item.item.description}
-              strong Giá sản phẩm
-              p #{item.item.price}
+              | 
+              a(href=`/admin/transaction/invoice/${idTransaction}`) Xuất hóa đơn
+      .row
+        .col-12
+         .card
+           .card-body
+             table.table
+               thead.thead-dark
+                 tr
+                   th(scope="col") #
+                   th(scope="col") Hình ảnh
+                   th(scope="col") Tên sản phẩm
+                   th(scope="col") Kích thước và Màu
+                   th(scope="col") Số lượng
+                   th(scope="col") Tổng giá
+               tbody
+                 each item, index in items
+                   tr
+                     th(scope="row") #{index}
+                     td 
+                        img(src=item.item.image[0] width="50px")
+                     td #{item.item.name}
+                     td #{item.classify.size + " " + item.classify.color}
+                     td #{item.qty}
+                     td #{item.price}đ
+      script.
+         var pOptions = document.getElementById('status').options;
+         var curentStatus = !{JSON.stringify(statusCurrent)};
+         for (i=0; i < pOptions.length; i++) {
+           if (pOptions[i].value == curentStatus) pOptions[i].selected = true;
+         }

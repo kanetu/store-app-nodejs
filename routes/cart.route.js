@@ -12,7 +12,9 @@ router.use('/payment', paymentRouter);
 
 
 router.get('/',controller.index);
-router.get('/add/:id', controller.addItem);
+router.get('/checkout', controller.checkout);
+router.get('/add', controller.addItem);
+router.get('/add-in-cart', controller.addItemInCart);
 router.get('/remove-one/:id',controller.removeOneItem);
 router.get('/remove-all/:id',controller.removeAllItem);
 

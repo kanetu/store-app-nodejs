@@ -1,0 +1,124 @@
+extends ../layout/home-site
+
+block content
+
+  
+  section#slider
+    // slider
+    .container
+      .row
+        .col-sm-12
+          #slider-carousel.carousel.slide(data-ride="carousel")
+            ol.carousel-indicators
+              li.active(data-target="#slider-carousel" data-slide-to="0")
+              li(data-target="#slider-carousel" data-slide-to="1")
+              li(data-target="#slider-carousel" data-slide-to="2")
+            .carousel-inner
+              .item.active
+                .col-sm-6
+                  h1
+                    span E
+                    | -SHOPPER
+                  h2 Free E-Commerce Template
+                  p
+                    | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  button.btn.btn-default.get(type="button") Get it now
+                .col-sm-6
+                  img.girl.img-responsive(src="/home-site/images/home/girl1.jpg" alt="")
+                  img.pricing(src="/home-site/images/home/pricing.png" alt="")
+              .item
+                .col-sm-6
+                  h1
+                    span E
+                    | -SHOPPER
+                  h2 100% Responsive Design
+                  p
+                    | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  button.btn.btn-default.get(type="button") Get it now
+                .col-sm-6
+                  img.girl.img-responsive(src="/home-site/images/home/girl2.jpg" alt="")
+                  img.pricing(src="/home-site/images/home/pricing.png" alt="")
+              .item
+                .col-sm-6
+                  h1
+                    span E
+                    | -SHOPPER
+                  h2 Free Ecommerce Template
+                  p
+                    | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  button.btn.btn-default.get(type="button") Get it now
+                .col-sm-6
+                  img.girl.img-responsive(src="/home-site/images/home/girl3.jpg" alt="")
+                  img.pricing(src="/home-site/images/home/pricing.png" alt="")
+            a.left.control-carousel.hidden-xs(href="#slider-carousel" data-slide="prev")
+              i.fa.fa-angle-left
+            a.right.control-carousel.hidden-xs(href="#slider-carousel" data-slide="next")
+              i.fa.fa-angle-right
+  section
+  .container
+    .row
+      .col-sm-3
+        .left-sidebar
+          h2 Danh mục
+          #accordian.panel-group.category-products
+            // category-productsr
+            each category in categories
+              .panel.panel-default
+                .panel-heading
+                  h4.panel-title
+                    a(data-toggle="collapse" data-parent="#accordian" href="#"+category.name)
+                      span.badge.pull-right
+                        i.fa.fa-plus
+                      | #{category.name}
+                div(id=category.name).panel-collapse.collapse
+                  .panel-body
+                   ul
+                    if category.sub
+                      each sub in category.sub
+                      
+                          li
+                            a(href=`/category?id=${sub._id}`) #{sub.name} 
+            
+          // /category-products
+          .brands_products
+            // brands_products
+            h2 Thương hiệu
+            .brands-name
+              ul.nav.nav-pills.nav-stacked
+               each supplier in suppliers
+                li
+                  a(href=`/brand?id=${supplier._id}`)
+                    span.pull-right
+                    | #{supplier.name}
+          // /brands_products
+          .shipping.text-center
+            // shipping
+            img(src="/home-site/images/home/shipping.jpg" alt="")
+          // /shipping
+      .col-sm-9.padding-right
+        .features_items
+          // features_items
+          h2.title.text-center Sản phẩm
+          each product in products
+            
+            .col-sm-4
+              .product-image-wrapper
+                .single-products
+                  .productinfo.text-center
+                    img(src=product.image[0] alt="" style="height: 250px; object-fit:cover")
+                    h2 #{product.priceCurrency}đ
+                    p #{product.name}
+                    a.btn.btn-default.add-to-cart(href=`/product/detail?id=${product._id}`)
+                      i.fa.fa-shopping-cart
+                      | Xem chi tiết
+                  .product-overlay
+                    .overlay-content
+                      h2 #{product.priceCurrency}đ
+                      p #{product.name}
+                      a.btn.btn-default.add-to-cart(href=`/product/detail?id=${product._id}`)
+                        i.fa.fa-shopping-cart
+                        | Xem chi tiết
+                
+          // features_items
+
+        

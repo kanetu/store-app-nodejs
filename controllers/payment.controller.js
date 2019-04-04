@@ -4,6 +4,10 @@ const { OnePayInternational } = require('vn-payments');
 
 const Transaction = require('../models/transaction.model');
 const Cart = require('../models/cart.model');
+const User = require('../models/user.model');
+
+const mailHelper = require('../helpers/mail.helper');
+const transporter = mailHelper.transporter;
 
 var mongoose = require('mongoose');
 const  {checkoutOnePayDomestic, callbackOnePayDomestic} = require('../helpers/onepay-handlers');
@@ -93,29 +97,82 @@ module.exports.callback = (req, res) => {
       if(res.locals.isSucceed){
         var checkoutData = req.app.locals.checkoutData;
         var transactionID = mongoose.Types.ObjectId();
+        if(req.app.locals.user != null){
+          let idUser = new mongoose.Types.ObjectId(res.app.locals.user._id);
+          if(req.app.locals.user == null) console.log("user NULLL HERE");
+          let transaction = new Transaction({
+             _id: transactionID,
+            cart: cart,
+            user_id: idUser,
+            deliveryAddress: checkoutData.deliveryAddress,
+            deliveryCity: checkoutData.deliveryCity,
+            deliveryProvince: checkoutData.deliveryProvince,
+            customerPhone: checkoutData.customerPhone,
+            customerFullName: checkoutData.customerFullName
+          });
+          transaction
+          .save()
+          .then((result)=>{
+            let mailOption = {
+              form: '"Tu Minh Hieu" <sufuijk@gmail.com>',
+              to: checkoutData.customerEmail,
+              subject: "Hoá đơn điện tử Eshopper",
+              html: mailHelper.htmlInvoice(cart, checkoutData, transactionID)
+            }
 
-        let transaction = new Transaction({
-           _id: transactionID,
-          cart: cart,
-          deliveryAddress: checkoutData.deliveryAddress,
-          deliveryCity: checkoutData.deliveryCity,
-          deliveryProvince: checkoutData.deliveryProvince,
-          customerPhone: checkoutData.customerPhone,
-          customerFullName: checkoutData.customerFullName
-        });
-        transaction
-        .save()
-        .then((result)=>{
-          res.clearCookie("cart");
-          res.render('payment/success',{transactionID, email: checkoutData.customerEmail, message: res.locals.message});
-        })
-        .catch((err)=>res.json("lOI SAVE TRANSACTION"));
+            transporter.sendMail(mailOption, (err, info)=>{
+              if(err) res.json(err);
+            });
+            console.log(result);
+            res.clearCookie("cart");
+            res.render('payment/success',{transactionID, email: checkoutData.customerEmail, message: res.locals.message});
+          })
+          .catch((err)=>res.json("Error save transaction"));
+
+        }else{
+          //PHAT HIEN USER CHUA DANG NHAP, SU DUNG ID CUA ADMIN
+          User.findOne({grant:"admin"}).then(admin=>{
+            let idUser = admin._id;
+            if(req.app.locals.user == null) console.log("user NULLL HERE");
+            let transaction = new Transaction({
+               _id: transactionID,
+              cart: cart,
+              user_id: idUser,
+              deliveryAddress: checkoutData.deliveryAddress,
+              deliveryCity: checkoutData.deliveryCity,
+              deliveryProvince: checkoutData.deliveryProvince,
+              customerPhone: checkoutData.customerPhone,
+              customerFullName: checkoutData.customerFullName
+            });
+            transaction
+            .save()
+            .then((result)=>{
+              let mailOption = {
+                form: '"Tu Minh Hieu" <sufuijk@gmail.com>',
+                to: checkoutData.customerEmail,
+                subject: "Hoá đơn điện tử Eshopper",
+                html: mailHelper.htmlInvoice(cart, checkoutData, transactionID)
+              }
+
+              transporter.sendMail(mailOption, (err, info)=>{
+                if(err) res.json(err);
+              });
+              console.log(result);
+              res.clearCookie("cart");
+              res.render('payment/success',{transactionID, email: checkoutData.customerEmail, message: res.locals.message});
+            })
+            .catch((err)=>res.json("Error save transaction"));
+          })
+
+        }
+
+
       }else{
         res.render('payment/fail',{message: res.locals.message});
       }
 
 
-		}).catch((err)=> res.send(err));
+		}).catch((err)=> res.send("Lỗi tại đây:"+err));
 	} else {
 		res.send('No callback found');
 	}

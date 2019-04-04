@@ -1,128 +1,189 @@
-extends layout/layout
+extends layout/home-site
 
 block content
+
+  
+  section#slider
+    // slider
+    .container
+      .row
+        .col-sm-12
+          #slider-carousel.carousel.slide(data-ride="carousel")
+            ol.carousel-indicators
+              li.active(data-target="#slider-carousel" data-slide-to="0")
+              li(data-target="#slider-carousel" data-slide-to="1")
+              li(data-target="#slider-carousel" data-slide-to="2")
+            .carousel-inner
+              .item.active
+                .col-sm-6
+                  h1
+                    span E
+                    | -SHOPPER
+                  h2 Free E-Commerce Template
+                  p
+                    | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  button.btn.btn-default.get(type="button") Get it now
+                .col-sm-6
+                  img.girl.img-responsive(src="/home-site/images/home/girl1.jpg" alt="")
+                  img.pricing(src="/home-site/images/home/pricing.png" alt="")
+              .item
+                .col-sm-6
+                  h1
+                    span E
+                    | -SHOPPER
+                  h2 100% Responsive Design
+                  p
+                    | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  button.btn.btn-default.get(type="button") Get it now
+                .col-sm-6
+                  img.girl.img-responsive(src="/home-site/images/home/girl2.jpg" alt="")
+                  img.pricing(src="/home-site/images/home/pricing.png" alt="")
+              .item
+                .col-sm-6
+                  h1
+                    span E
+                    | -SHOPPER
+                  h2 Free Ecommerce Template
+                  p
+                    | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  button.btn.btn-default.get(type="button") Get it now
+                .col-sm-6
+                  img.girl.img-responsive(src="/home-site/images/home/girl3.jpg" alt="")
+                  img.pricing(src="/home-site/images/home/pricing.png" alt="")
+            a.left.control-carousel.hidden-xs(href="#slider-carousel" data-slide="prev")
+              i.fa.fa-angle-left
+            a.right.control-carousel.hidden-xs(href="#slider-carousel" data-slide="next")
+              i.fa.fa-angle-right
+  section
   .container
-   .row
-    .col-xs-12.col-sm-12.col-md-8.col-lg-8
-      #carouselExampleIndicators.carousel.slide.carousel-custom(data-ride='carousel')
-        ol.carousel-indicators
-          li.active(data-target='#carouselExampleIndicators', data-slide-to='0')
-          li(data-target='#carouselExampleIndicators', data-slide-to='1')
-          li(data-target='#carouselExampleIndicators', data-slide-to='2')
-        .carousel-inner
-          .carousel-item.active
-            img.d-block.w-100(src='img/img1.jpg', alt='First slide')
-          .carousel-item
-            img.d-block.w-100(src='img/img2.jpg', alt='Second slide')
-          .carousel-item
-            img.d-block.w-100(src='img/img3.jpg', alt='Third slide')
-        a.carousel-control-prev(href='#carouselExampleIndicators', role='button', data-slide='prev')
-          span.carousel-control-prev-icon(aria-hidden='true')
-          span.sr-only Previous
-        a.carousel-control-next(href='#carouselExampleIndicators', role='button', data-slide='next')
-          span.carousel-control-next-icon(aria-hidden='true')
-          span.sr-only Next
-    .col-xs-12.col-sm-12.col-md-4.col-lg-4.banner-right
-      .banner-right-item
-        img(src='img/img1.jpg', alt='')
-      .banner-right-item
-        img(src='img/img2.jpg', alt='')
-   .row
-    .section-category
-      .section-category-title DANH MỤC
-      #owl-example.owl-carousel
-        .group-two-item.item
-          .item-one
-            .item-image
-            .item-title Quần áo nam
-          .item-two
-            .item-image
-            .item-title Quần áo nam
-        .group-two-item.item
-          .item-one
-            .item-image
-            .item-title Quần áo nam
-          .item-two
-            .item-image
-            .item-title Quần áo nam
-        .group-two-item.item
-          .item-one
-            .item-image
-            .item-title Quần áo nam
-          .item-two
-            .item-image
-            .item-title Quần áo nam
-        .group-two-item.item
-          .item-one
-            .item-image
-            .item-title Quần áo nam
-          .item-two
-            .item-image
-            .item-title Quần áo nam
-        .group-two-item.item
-          .item-one
-            .item-image
-            .item-title Quần áo nam
-          .item-two
-            .item-image
-            .item-title Quần áo nam
-        .group-two-item.item
-          .item-one
-            .item-image
-            .item-title Quần áo nam
-          .item-two
-            .item-image
-            .item-title Quần áo nam
-        .group-two-item.item
-          .item-one
-            .item-image
-            .item-title Quần áo nam
-          .item-two
-            .item-image
-            .item-title Quần áo nam
-        .group-two-item.item
-          .item-one
-            .item-image
-            .item-title Quần áo nam
-          .item-two
-            .item-image
-            .item-title Quần áo nam
-        .group-two-item.item
-          .item-one
-            .item-image
-            .item-title Quần áo nam
-          .item-two
-            .item-image
-            .item-title Quần áo nam
-        .group-two-item.item
-          .item-one
-            .item-image
-            .item-title Quần áo nam
-          .item-two
-            .item-image
-            .item-title Quần áo nam
-        .group-two-item.item
-          .item-one
-            .item-image
-            .item-title Quần áo nam
-          .item-two
-            .item-image
-            .item-title Quần áo nam
-   .row
-    .section-category
-      p.section-category-title GỢI Ý HÔM NAY
-       .row.product-list
-        each product in products
-          .col-6.col-sm-6.col-md-2.col-lg-2.col-xl-2.mt-10
-           .product
-             .product-buy-now
-               a(href=`/cart/add/${product._id}`) Mua
-             .product-sale
-               .rectangular
-                 .sale-number 10%
-                 .sale-lable Sale
-               .triangle
-             .product-image
-               img(src=product.image[Object.keys(product.image)[0]] alt="")
-             .product-title #{product.name}
-             .product-price #{product.price} vnđ
+    .row
+      .col-sm-3
+        .left-sidebar
+          h2 Danh mục
+          #accordian.panel-group.category-products
+            // category-productsr
+            each category in categories
+              .panel.panel-default
+                .panel-heading
+                  h4.panel-title
+                    a(data-toggle="collapse" data-parent="#accordian" href="#"+category.name)
+                      span.badge.pull-right
+                        i.fa.fa-plus
+                      | #{category.name}
+                div(id=category.name).panel-collapse.collapse
+                  .panel-body
+                   ul
+                    if category.sub
+                      each sub in category.sub
+                      
+                          li
+                            a(href=`/category?id=${sub._id}`) #{sub.name} 
+            
+          // /category-products
+          .brands_products
+            // brands_products
+            h2 Thương hiệu
+            .brands-name
+              ul.nav.nav-pills.nav-stacked
+               each supplier in suppliers
+                li
+                  a(href=`/brand?id=${supplier._id}`)
+                    span.pull-right
+                    | #{supplier.name}
+          // /brands_products
+          .shipping.text-center
+            // shipping
+            img(src="/home-site/images/home/shipping.jpg" alt="")
+          // /shipping
+      .col-sm-9.padding-right
+        .recommended_items
+          
+          // recommended_items
+          h2.title.text-center Sản phẩm bán chạy
+          .owl-carousel.owl-theme
+            each pHotSell in sixHotSell
+              
+                .product-image-wrapper
+                  .single-products
+                    .productinfo.text-center
+                      img(src=pHotSell.image[0] alt=""  style="height: 250px; object-fit:cover")
+                      h2 #{pHotSell.priceCurrency}đ
+                      p #{pHotSell.name}
+                      a.btn.btn-default.add-to-cart(href=`/product/detail?id=${pHotSell._id}`)
+                        i.fa.fa-shopping-cart
+                        | Xem chi tiết
+                    
+        .features_items
+          // features_items
+          h2.title.text-center Sản phẩm mới trong tháng
+          each product in newProduct
+             .col-sm-4
+              .product-image-wrapper
+                .single-products
+                  .productinfo.text-center
+                    img(src=product.image[0] alt="" style="height: 250px; object-fit:cover")
+                    h2 #{product.priceCurrency}đ
+                    p #{product.name}
+                    a.btn.btn-default.add-to-cart(href=`/product/detail?id=${product._id}`)
+                      i.fa.fa-shopping-cart
+                      | Xem chi tiết
+                  .product-overlay
+                    .overlay-content
+                      h2 #{product.priceCurrency}đ
+                      p #{product.name}
+                      a.btn.btn-default.add-to-cart(href=`/product/detail?id=${product._id}`)
+                        i.fa.fa-shopping-cart
+                        | Xem chi tiết
+                  img.new(src="/home-site/images/home/new.png" alt="")
+             
+        .features_items
+          // features_items
+          h2.title.text-center Tất cả sản phẩm
+          each product in products
+             .col-sm-4
+              .product-image-wrapper
+                .single-products
+                  .productinfo.text-center
+                    img(src=product.image[0] alt="" style="height: 250px; object-fit:cover")
+                    h2 #{product.priceCurrency}đ
+                    p #{product.name}
+                    a.btn.btn-default.add-to-cart(href=`/product/detail?id=${product._id}`)
+                      i.fa.fa-shopping-cart
+                      | Xem chi tiết
+                  if product.inStock
+                   .product-overlay
+                    .overlay-content
+                      h2 #{product.priceCurrency}đ
+                      p #{product.name}
+                      a.btn.btn-default.add-to-cart(href=`/product/detail?id=${product._id}`)
+                        i.fa.fa-shopping-cart
+                        | Xem chi tiết
+                  else
+                    
+                    .product-sold-out
+                     .product-sold-out-content
+                       h2 Hết hàng
+                  if product.isNew  
+                    img.new(src="/home-site/images/home/new.png" alt="")
+          
+        script(src="owlcarousel/owl.carousel.min.js")
+        script.
+          $(document).ready(function(){
+            $('.owl-carousel').owlCarousel({
+                loop:true,
+                margin:10,
+                dots: false,
+                autoplay: true,
+                autoplayTimeout: 1000,
+                autoplayHoverPause: true,
+                
+                responsive:{
+                    0:{
+                        items:1
+                    },
+                    600:{
+                        items:3
+                    }
+                }
+            })
+          });

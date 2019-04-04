@@ -1,37 +1,102 @@
-extends ../layout/layout
+extends ../layout/home-site
 
 block content
-  .container
-    .row
-      #profile-panel.ool-12.col-md-3
-        .profile-user
-          #avatar-user
-            image(src=user.avatar)
-          ul#profile-navigation
-            li
-              a(href="#") Cập nhật thông tin
-            li
-              a(href="#") Đơn hàng
-            li
-              a(href="#") Địa chỉ
-      #profile-content.col-12.col-md-9
-        h5#profile-content-title Đơn hàng
-        each transaction in transactions
-          .transaction
-              p.transaction-id
-                | Transaction:
-                strong #{transaction._id}
-              table.table.table-without-margin
-                thead
-                  tr
-                    th Tên sản phẩm
-                    th Số lượng
-                    th Giá
-                    th Trạng thái
-                tbody
-                  each product in transaction.cart
-                    tr
-                      td #{product.item.name}
-                      td #{product.qty}
-                      td #{product.price}
-                      td Đang giao..
+  
+  section
+    .container
+      .row
+        .col-sm-3
+          .left-sidebar
+            h2 Tài khoản
+            #accordian.panel-group.category-products
+              // category-productsr
+              .panel.panel-default
+                .panel-heading(style="text-align:center")
+                  img(src=user.avatar? user.avatar:'/img/anonymous-user.png' style="height: 200px; object-fit: cover")
+              .panel.panel-default
+                .panel-heading
+                  h4.panel-title
+                    a(href="/user/update-information") Cập nhật thông tin
+              .panel.panel-default
+                .panel-heading
+                  h4.panel-title
+                    a(href="/user/transaction") Đơn hàng
+              .panel.panel-default
+                .panel-heading
+                  h4.panel-title
+                    a(href="/user/update-address") Cập nhật địa chỉ
+              .panel.panel-default
+                .panel-heading
+                  h4.panel-title
+                    a(href="/user/change-password") Đổi mật khẩu
+              .panel.panel-default
+                .panel-heading
+                  h4.panel-title
+                    a(href="/auth/logout") Đăng xuất
+            // /category-products
+        .col-sm-9.padding-right
+          h2.title.text-center Đơn hàng
+          .panel.panel-default
+            .panel-body
+              each transaction in transactions
+                .transaction
+                    p.transaction-id
+                      | Đơn hàng: 
+                      strong #{transaction._id}
+                    table.table.table-without-margin
+                      thead
+                        tr
+                          th Tên sản phẩm
+                          th Kích thước màu sắc
+                          th Số lượng
+                          th Giá
+                          th Trạng thái
+                      tbody
+                        each product in transaction.cart
+                          tr
+                            td #{product.item.name}
+                            td #{product.classify.size +" "+ product.classify.color}
+                            td #{product.qty}
+                            td #{product.price}
+                            td #{transaction.status}
+
+  
+  
+  //- .container
+  //-   .row
+  //-     #profile-panel.ool-12.col-md-3
+  //-       .profile-user
+  //-         #avatar-user
+  //-           image(src=user.avatar? user.avatar:'/img/anonymous-user.png')
+  //-         ul#profile-navigation
+  //-           li
+  //-             a(href="/user/update-information") Cập nhật thông tin
+  //-           li
+  //-             a(href="/user/transaction") Đơn hàng
+  //-           li
+  //-             a(href="/user/update-address") Cập nhật địa chỉ
+  //-           li
+  //-             a(href="/user/change-password") Đổi mật khẩu
+  //-           li
+  //-             a(href="/auth/logout") Đăng xuất
+  //-     #profile-content.col-12.col-md-9
+  //-       h5#profile-content-title Đơn hàng
+  //-       each transaction in transactions
+  //-         .transaction
+  //-             p.transaction-id
+  //-               | Đơn hàng: 
+  //-               strong #{transaction._id}
+  //-             table.table.table-without-margin
+  //-               thead
+  //-                 tr
+  //-                   th Tên sản phẩm
+  //-                   th Số lượng
+  //-                   th Giá
+  //-                   th Trạng thái
+  //-               tbody
+  //-                 each product in transaction.cart
+  //-                   tr
+  //-                     td #{product.item.name}
+  //-                     td #{product.qty}
+  //-                     td #{product.price}
+  //-                     td Đang giao..

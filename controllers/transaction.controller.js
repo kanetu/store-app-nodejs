@@ -5,17 +5,24 @@ const User = require('../models/user.model');
 
 //Helper
 const dateHelper = require('../helpers/date.helper');
-
+const stringHelper = require('../helpers/string.helper');
 
 module.exports.index = (req, res)=>{
   Transaction.find().populate('user_id').then((transactions)=>{
-    let result = transactions.map((item)=>{
+    let result = transactions.map((transaction)=>{
+      let totalPrice = 0;
+
+       transaction.cart.forEach((item)=>{
+         totalPrice+= item.price;
+       })
+
       let obj = {
-        _id: item._id,
-        firstname:item.user_id.firstname,
-        lastname:item.user_id.lastname,
-        totalPrice:item.cart.totalPrice,
-        create_time: dateHelper.convertDate(item.create_time)
+        _id: transaction._id,
+        firstname:transaction.user_id.firstname,
+        lastname:transaction.user_id.lastname,
+        totalPrice: totalPrice,
+        status: transaction.status,
+        create_time: dateHelper.convertDate(transaction.create_time)
       }
       return obj;
     });
@@ -30,9 +37,52 @@ module.exports.viewTransaction = (req, res)=>{
 
   Transaction.findOne({_id: idTransaction}).populate('user_id')
   .then((result)=>{
-    res.render('transaction/view',{items: result.cart.items})
+    let delivery = {
+      city: result.deliveryCity,
+      province: result.deliveryProvince,
+      address: result.deliveryAddress
+    }
+    let customer ={
+      fullName: result.customerFullName,
+      phone: result.customerPhone,
+      avatar: result.user_id.avatar
+    }
+    res.render('transaction/view',{idTransaction,statusCurrent: result.status, items: result.cart, delivery, customer})
   })
   .catch((err)=>{
     res.json(err);
   })
+}
+
+module.exports.changeStatus = (req, res)=>{
+  let status = req.body.status;
+  let id = req.body.idTransaction;
+
+  Transaction.findOneAndUpdate({_id: id},{status: status},{new: true}).exec()
+  .then(result=>{
+    if(result)
+      res.redirect('/admin/transaction');
+  })
+}
+
+module.exports.getInvoice = (req, res)=>{
+
+  let idTransaction = req.params.idTransaction;
+  Transaction.findOne({_id: idTransaction}).then(transaction=>{
+    var cart = transaction.cart;
+    var cartHTML = "";
+    var totalPrice = 0;
+    for(var index=0; index<cart.length; index++){
+      cartHTML+= "<tr>";
+      cartHTML+= `<td>${parseInt(index,10)+1}</td>`;
+      cartHTML+= `<td>${cart[index].item.name}</td>`;
+      cartHTML+= `<td>${cart[index].qty}</td>`;
+      cartHTML+= `<td>${cart[index].classify.color + " - " + cart[index].classify.size}</td>`;
+      cartHTML+= `<td>${cart[index].item.price.toLocaleString('it-IT').split(',').join('.')}đ</td>`;
+      cartHTML+= `<td>${cart[index].price.toLocaleString('it-IT').split(',').join('.')}đ</td>`;
+      cartHTML+= "</tr>";
+      totalPrice+= cart[index].price;
+    }
+    res.render('transaction/invoice',{cartHTML, totalPrice, transaction, num2Word: stringHelper.num2Word.convert((totalPrice)) })
+  });
 }

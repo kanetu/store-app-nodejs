@@ -1809,7 +1809,7 @@ header .form-inline {
     font-size: 24px; }
 
 .login-content {
-  max-width: 540px;
+  max-width: 400px;
   margin: 8vh auto; }
 
 .login-form {
@@ -2489,4 +2489,45 @@ td.action form{
 }
 .open aside.left-panel .navbar .navbar-nav li.menu-item-has-children.show .sub-menu{
   padding-left: 20px;
+}
+
+/*CSS TU THEM VAO*/
+button.btn.btn-primary{
+  margin-right: 10px;
+}
+.table-custom{
+  width: auto
+}
+.borderless td, .borderless th{
+  border:none;
+}
+.transaction-customer-avatar img{
+  max-width: 200px;
+}
+.transaction-customer-info{
+  font-style: italic;
+}
+
+ul.rank-top3-product-sale{
+  list-style: none;
+}
+ul.rank-top3-product-sale li{
+  margin: 10px 0px;
+}
+.top3-product-detail{
+  display: flex;
+  align-items: center;
+}
+.top3-product-detail img{
+  width: 110px;
+  height: 80px;
+  margin-right: 10px;
+  border-radius: 20px;
+  object-fit: cover;
+}
+
+select#chooseYearR,
+select#chooseYearT{
+  width: fit-content;
+  display: inline;
 }

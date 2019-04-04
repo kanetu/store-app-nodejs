@@ -6,16 +6,15 @@ block content
     .col-sm-4
       .page-header.float-left
         .page-title
-          h1 Dashboard
+          h1 Quản trị
     .col-sm-8
       .page-header.float-right
         .page-title
           ol.breadcrumb.text-right
             li
-              a(href="#") Dashboard
-            li
-              a(href="#") Table
-            li.active Product
+              a(href="/admin/dashboard") Quản trị
+            li.active
+              a(href="/admin/category") Danh mục
   .content.mt-3
     .animated.fadeIn
       .row
@@ -27,10 +26,10 @@ block content
               table#bootstrap-data-table-export.table.table-striped.table-bordered
                 thead
                   tr
-                    th Name
-                    th Position
-                    th Office
-                    th Salary
+                    th Tên danh mục
+                    th Danh mục cha
+                    th Mô tả
+                    th Hành động
                 tbody
                   each category in data
                     tr

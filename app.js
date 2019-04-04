@@ -2,6 +2,7 @@ require('dotenv').config();
 
 var createError = require('http-errors');
 var express = require('express');
+var expressValidator = require('express-validator');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
@@ -49,11 +50,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', sessionMiddleware.initCart, indexRouter);
 app.use('/auth', authRouter);
-app.use('/admin',
-      authMiddleware
-      .requireAuthv2,
-      adminRouter);
 app.use('/user', authMiddleware.requireAuthv1, userRouter)
+app.use('/admin', authMiddleware.requireAuthv2, adminRouter);
+
 app.use('/cart', cartRouter);
 app.use('/confirm-user/:token', authMiddleware.confirmUser);
 

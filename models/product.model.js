@@ -1,17 +1,21 @@
 var mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+var mongoosastic = require('mongoosastic');
+
 
 var productSchema = new mongoose.Schema({
-	name: String,
-	image: Object(),
-	price: {type: Number, default: 1},
-  quantity: {type: Number, default: 1},
+	name: {type:String},
+	image: [{type: String}],
+	price: {type: Number, default: 1000, min: 1000},
 	description: String,
-	supplier_id: [{ type: Schema.Types.ObjectId, ref: 'Supplier' }],
-  category_id: [{ type: Schema.Types.ObjectId, ref: 'Categorie' }],
-	creat_time: { type: Date, default: Date.now },
+	supplier_id: { type: Schema.Types.ObjectId, ref: 'Supplier' },
+  category_id: { type: Schema.Types.ObjectId, ref: 'Categorie' },
+  classifyproduct_id: [{type: Schema.Types.ObjectId, ref: 'Classifyproduct'}],
+	create_time: { type: Date, default: Date.now },
 	update_time: { type: Date, default: Date.now }
 });
+
+productSchema.index({name:'text'});
 
 var Product = mongoose.model('Product',productSchema,'products');
 

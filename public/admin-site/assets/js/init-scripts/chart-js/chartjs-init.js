@@ -1,6 +1,6 @@
 ( function ( $ ) {
     "use strict";
-
+    
     //Team chart
     var ctx = document.getElementById( "team-chart" );
     ctx.height = 150;

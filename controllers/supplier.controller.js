@@ -1,11 +1,20 @@
 const Supplier = require('../models/supplier.model');
 const fs = require('fs');
 
+//Helper
+const dateHelper = require('../helpers/date.helper');
+
 module.exports.index = (req, res)=>{
+
 
   Supplier
   .find()
+  .lean()
   .then(function(suppliers){
+    suppliers.forEach(item=> {
+      item.create_time = dateHelper.convertDate(item.create_time);
+      return item;
+    })
     res.render('supplier/index',{suppliers});
   })
 }

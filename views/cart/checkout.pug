@@ -1,0 +1,103 @@
+extends ../layout/home-site
+
+block content
+  section#cart_items
+    .container
+      .breadcrumbs
+        ol.breadcrumb
+          li
+            a(href="#") Home
+          li.active Check out
+      // /breadcrums
+      .register-req
+        p Bạn nên đăng ký tài khoản nếu chưa có để dễ dàng tra cứu đơn hàng
+      // /register-req
+      .shopper-informations
+        .row
+          .col-sm-12.col-md-6.col-md-offset-3
+            .shopper-info
+              p Thông tin người nhận hàng
+              form#checkout-form(method="post" action="/cart/payment/checkout")
+                if user
+                  input#autofill-address(type="checkbox" style="display:inline; width: auto; margin-right: 5px")
+                  |Sử dụng địa chỉ khác
+                  input(type="text" placeholder="Họ" name="firstname" value=user.firstname required)
+                  input(type="text" placeholder="Tên*" name="lastname" value=user.lastname required)
+                  input(type="text" placeholder="Huyện" name="billingCity" value=user.address.district required)
+                  input(type="text" placeholder="Tỉnh *" name="billingStateProvince" value=user.address.province required)
+                  input(type="text" placeholder="Địa chỉ nhà" name="billingStreet" value=user.address.detail required)
+                  input(type="text" placeholder="Số điện thoại *" name="phoneNumber" value=user.phone required)
+                  input(type="email" placeholder="Email *" name="email" value= user.email required)
+                  input(type="hidden" value=totalPrice name="totalPrice")
+                else
+                  
+                  input(type="text" placeholder="Họ" name="firstname" required)
+                  input(type="text" placeholder="Tên*" name="lastname" required)
+                  input(type="text" placeholder="Huyện" name="billingCity" required)
+                  input(type="text" placeholder="Tỉnh *" name="billingStateProvince" required)
+                  input(type="text" placeholder="Địa chỉ nhà" name="billingStreet" required)
+                  input(type="text" placeholder="Số điện thoại *" name="phoneNumber" required)
+                  input(type="email" placeholder="Email *" name="email" required)
+                  input(type="hidden" value=totalPrice name="totalPrice" required)
+                  
+                button.btn.btn-primary(type="submit") Thanh toán
+      .review-payment
+        h2 Review & Payment
+      .table-responsive.cart_info
+        table.table.table-condensed
+          thead
+            tr.cart_menu
+              td.image Item
+              td.description
+              td.price Price
+              td.quantity Quantity
+              td.total Total
+              td
+          tbody
+            each item in items
+              tr
+                td.cart_product
+                  a(href="")
+                    img(src=item.item.image[0] style="width: 60px; height:60px")
+                td.cart_description
+                  h4
+                    a(href="") #{item.item.name}
+                  p #{item.classify.color + " " + item.classify.size}
+                td.cart_price
+                  p #{item.item.price.toLocaleString('it-IT').split(',').join('.')}đ
+                td.cart_quantity
+                  .cart_quantity_button
+                    a.cart_quantity_up(href=`/cart/add?idProduct=${item.item._id}&idClassify=${item.classify._id}`)  + 
+                    input.cart_quantity_input(type="text" name="quantity" autocomplete="off" size="2" value=item.qty)
+                    a.cart_quantity_down(href=`/cart/remove-one/${item.classify._id}`)  - 
+                td.cart_total
+                  p.cart_total_price #{item.price.toLocaleString('it-IT').split(',').join('.')}đ
+                td.cart_delete
+                  a.cart_quantity_delete(href=`/cart/remove-all/${item.classify._id}`)
+                    i.fa.fa-times
+
+  script(src='/admin-site/vendors/jquery/dist/jquery.min.js')
+  if user
+   script.
+      $('#autofill-address').on('change', function(e) {
+        var isChecked = e.target.checked;
+        var form = document.getElementById('checkout-form').elements;
+        if (!isChecked) {
+          form.firstname.value = "#{user.firstname}";
+          form.lastname.value = "#{user.lastname}";
+          form.billingCity.value = "#{user.address.district}"; // district
+          form.billingStateProvince.value = "#{user.address.province}";
+          form.billingStreet.value = "#{user.address.detail}";
+          form.email.value = "#{user.email}";
+          form.phoneNumber.value = "#{user.phone}";
+        } else {
+        
+          form.firstname.value = "";
+          form.lastname.value = "";
+          form.billingCity.value = ""; 
+          form.billingStateProvince.value = "";
+          form.billingStreet.value = "";
+          form.email.value = "";
+          form.phoneNumber.value = "";
+        }
+      });

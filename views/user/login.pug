@@ -1,22 +1,48 @@
-extends ../layout/layout
+extends ../layout/home-site
 
 block content
-  .container
-    .col-12.col-md-4.offset-md-4
-      .login-panel
-        .login-title Login
-        .login-content
-          form(action="/auth/user/login" method="post")
-            .form-group
-              input.form-control.form-control-login(type="text" placeholder=" Username" name="username")
-            .form-group
-              input.form-control.form-control-login(type="password" placeholder="Password" name="password")
-            p
-              a(href="") Quên mật khẩu?
-            button.btn-login(type="submit") Đăng nhập
-        .login-footer
-          p
-            i Chưa có tài khoản?
-            br
-            strong
-              a(href="") Đăng kí
+  section#form
+    // form
+    .container
+      .row
+        .col-sm-4.col-sm-offset-1
+          .login-form
+            // login form
+            h2 Login to your account
+            form(action="/auth/user/login" method="post")
+             //- input(type="text" placeholder="Username" name="username")
+             //- input(type="password" placeholder="Password" name="password")
+             if errors
+               each err in errors
+                if err.param == 'username'
+                  input(type="text" placeholder="Username" name="username" required)
+                  label #{err.msg}
+                if err.param == 'password'
+                  input(type="password" placeholder="Password" name="password" required)
+                  label #{err.msg}
+             else 
+              
+                input(type="text" placeholder="Username" name="username" required)
+                input(type="password" placeholder="Password" name="password" required)
+                        
+             button.btn.btn-default(type="submit") Login
+          // /login form
+        .col-sm-1
+          h2.or OR
+        .col-sm-4
+          .signup-form
+            // sign up form
+            h2 New User Signup!
+            form(action="/auth/user/register" method="post")
+              input(type="text" placeholder="Họ" name="firstnameUser" required)
+              input(type="text" placeholder="Tên" name="lastnameUser" required)
+              input(type="text" placeholder="Username" name="usernameUser" required)
+              if errRegister
+                p #{errRegister}
+              input(type="password" placeholder="Password" name="passwordUser" required)
+              input(type="text" placeholder="Email" name="emailUser" required)
+              input(type="text" placeholder="Số điện thoại" name="phoneUser" required)
+              
+              button.btn.btn-default(type="submit") Signup
+          // /sign up form
+          // /form

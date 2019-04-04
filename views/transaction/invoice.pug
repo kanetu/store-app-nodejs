@@ -1,0 +1,123 @@
+
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    meta(http-equiv="X-UA-Compatible" content="ie=edge")
+    title Document
+    style.
+      *{
+      margin: 0;
+      padding: 0;
+      }
+      body{
+      color: #023C76;
+      }
+      #container{
+      min-height: 550px;
+      width: 800px;
+      margin: 20px auto;
+      padding: 10px;
+      background: #ECE8E5;
+      }
+      #header-invoice{
+      text-align: center;
+      margin-bottom: 15px;
+      }
+      #title-store{
+      font-weight: bold;
+      font-size: 1.3em;
+      text-transform: uppercase;
+      margin-bottom: 5px;
+      }
+      #caption{
+      font-weight: bold;
+      font-size: 2em;
+      text-transform: uppercase;
+      margin: 20px 0;
+      text-align: center;
+      }
+      table{
+      margin-top: 10px;
+      border-collapse: collapse;
+      width: 100%;
+      text-align: center;
+      }
+      table td,
+      table th{
+      border:1px solid;
+      }
+      #total-price{
+      text-align: right;
+      margin: 10px 30px;
+      }
+      #footer-invoice{
+      width: 100%;
+      display: flex;
+      text-align: center;
+      margin-top:80px;
+      }
+      #customer-sign{
+      width: 40%;
+      }
+      #owner-sign{
+      width: 40%;
+      }
+      #shipper-sign{
+      width: 40%;
+      }
+      #thankful{
+      text-align: center;
+      font-style: italic;
+      }
+      #billcode{
+        text-align: right;
+        margin-right: 10px;
+      }
+  body
+    #container
+      section
+        #header-invoice
+          p#title-store Cửa hàng quần áo ESHOPPER
+          p
+            strong Địa chỉ:
+            |  145 Nguyễn Thiện Thành, TP Trà Vinh
+          p
+            strong Số điện thoại:
+            |  0974648234 - 097597493
+        hr
+        #body-invoice
+          p#caption hóa đơn mua hàng
+          p#billcode Mã đơn hàng: #{transaction._id}
+          p#customer-name Tên khách hàng: #{transaction.customerFullName}
+          p#customer-address Địa chỉ: #{transaction.deliveryAddress + " - " + transaction.deliveryCity +" - "+ transaction.deliveryProvince}
+          p#customer-phone Số điện thoại: #{transaction.customerPhone}
+          table
+            thead
+              tr
+                th STT
+                th Tên sản phẩm
+                th Số lượng
+                th Màu sắc - Kích thước
+                th Đơn giá
+                th Thành tiền
+            tbody!= cartHTML
+          p#total-price TỔNG CỘNG: #{totalPrice.toLocaleString('it-IT').split(',').join('.')}đ
+          p#total-price Số tiền viết bằng chữ: #{num2Word} đồng
+          
+          p#thankful Cảm ơn bạn đã mua hàng của chúng tôi!
+        #footer-invoice
+          #customer-sign
+            strong Khách hàng
+            br
+            |           (Ký và ghi gõ họ tên)
+          #shipper-sign
+            strong Người giao hàng 
+            br
+            |           (Ký và ghi gõ họ tên)
+          #owner-sign
+            strong Người lập hóa đơn
+            br
+            |           (Ký và ghi gõ họ tên)
+            

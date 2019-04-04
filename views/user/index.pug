@@ -1,46 +1,64 @@
-extends ../layout/layout
+extends ../layout/home-site
 
 block content
-  .container
-    .row
-      #profile-panel.col-12.col-md-3
-        .profile-user
-          #avatar-user
-            image(src=user.avatar? user.avatar:'/img/anonymous-user.png')
-          ul#profile-navigation
-            li
-              a(href="/user/update-information") Cập nhật thông tin
-            li
-              a(href="#") Đơn hàng
-            li
-              a(href="/user/update-address") Địa chỉ
-            li
-              a(href="/user/change-password") Đổi mật khẩu
-            li
-              a(href="/auth/logout") Đăng xuất
-      #profile-content.col-12.col-md-9
-        h5#profile-content-title Thông tin tài khoản
-        table.table.table-custom.borderless
-          tbody
-            tr
-              th(scope="row") Họ tên
-              td #{user.firstname + " " + user.lastname}
-            tr
-              th(scope="row") Giới tính
-              td #{user.gender}
-            tr
-              th(scope="row") Email
-              td #{user.email}
-            tr
-              th(scope="row") Số điện thoại
-              td #{user.phone}
-            tr
-              th(scope="row") Địa chỉ
-              if user.address
-               td #{user.address.detail + " " + user.address.district + " " +user.address.province}
-              else
-                
-               td
-                i
-                | Chưa cập nhật địa chỉ 
-                a(href="/user/update-address") Cập nhật
+  
+  -function convertDate(date){
+  -  var d = new Date(date),
+  -      dformat = [d.getMonth()+1,
+  -                 d.getDate(),
+  -                 d.getFullYear()].join('/');
+  -  return dformat;
+  -}
+  
+  section
+    .container
+      .row
+        .col-sm-3
+          .left-sidebar
+            h2 Tài khoản
+            #accordian.panel-group.category-products
+              // category-productsr
+              .panel.panel-default
+                .panel-heading(style="text-align:center")
+                  img(src=user.avatar? user.avatar:'/img/anonymous-user.png' style="height: 200px; object-fit: cover")
+              .panel.panel-default
+                .panel-heading
+                  h4.panel-title
+                    a(href="/user/update-information") Cập nhật thông tin
+              .panel.panel-default
+                .panel-heading
+                  h4.panel-title
+                    a(href="/user/transaction") Đơn hàng
+              .panel.panel-default
+                .panel-heading
+                  h4.panel-title
+                    a(href="/user/update-address") Cập nhật địa chỉ
+              .panel.panel-default
+                .panel-heading
+                  h4.panel-title
+                    a(href="/user/change-password") Đổi mật khẩu
+              .panel.panel-default
+                .panel-heading
+                  h4.panel-title
+                    a(href="/auth/logout") Đăng xuất
+            // /category-products
+        .col-sm-9.padding-right
+          h2.title.text-center Thông tin cá nhân
+          .panel.panel-default
+            .panel-body
+              .test
+                p Họ tên: #{user.firstname + " " + user.lastname}
+                p Giới tính: #{user.gender}
+                p Email: #{user.email}
+                p Số điện thoại: #{user.phone}
+                if user.birthday
+                  p= `Ngày sinh: `+convertDate(user.birthday)
+                if (user.address.district!='Chưa rõ')
+                  p Địa chỉ: #{user.address.detail + " " + user.address.district + " " +user.address.province}
+                else
+                  
+                  p
+                  | Chưa cập nhật địa chỉ 
+                  a(href="/user/update-address") Cập nhật
+            
+              

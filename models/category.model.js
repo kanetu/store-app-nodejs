@@ -5,7 +5,7 @@ var categorySchema = new mongoose.Schema({
 	name: String,
   parent: String,
 	description: String,
-	creat_time: { type: Date, default: Date.now },
+	create_time: { type: Date, default: Date.now },
 	update_time: { type: Date, default: Date.now }
 });
 

@@ -1,0 +1,102 @@
+extends ../layout/home-site
+
+block content
+  section
+    .container
+      .row
+        .col-sm-3
+          .left-sidebar
+            h2 Danh mục
+            #accordian.panel-group.category-products
+              // category-productsr
+              each category in categories
+                .panel.panel-default
+                  .panel-heading
+                    h4.panel-title
+                      a(data-toggle="collapse" data-parent="#accordian" href="#"+category.name)
+                        span.badge.pull-right
+                          i.fa.fa-plus
+                        | #{category.name}
+                  div(id=category.name).panel-collapse.collapse
+                    .panel-body
+                     ul
+                      if category.sub
+                        each sub in category.sub
+                        
+                            li
+                              a(href=`/category?id=${sub._id}`) #{sub.name} 
+              
+            // /category-products
+            .brands_products
+              // brands_products
+              h2 Thương hiệu
+              .brands-name
+                ul.nav.nav-pills.nav-stacked
+                 each supplier in suppliers
+                  li
+                    a(href=`/brand?id=${supplier._id}`)
+                      span.pull-right
+                      | #{supplier.name}
+            // /brands_products
+            .shipping.text-center
+              // shipping
+              img(src="/home-site/images/home/shipping.jpg" alt="")
+            // /shipping
+            
+        .col-sm-9.padding-right
+          .product-details
+            // product-details
+            .col-sm-5
+              .view-product
+                img(src=product.image[0] alt="" style="object-fit:cover")
+                // Controls
+                
+            .col-sm-7
+              .product-information
+                // /product-information
+                h2 #{product.name}
+                span
+                  span #{product.priceCurrency}đ
+                  form(action=`/cart/add` method="get")
+                     input(value=product._id type="hidden" name="idProduct")
+                     br
+                     select(name="idClassify" style="width: 200px") 
+                      each classify in product.classifyproduct_id
+                       option(value=classify._id) #{classify.color + " " + classify.size + " Còn hàng: " + classify.quantity }
+                     button.btn.btn-fefault.cart(type="submit") Mua
+                p
+                  b Tình trạng:
+                  |  Mới 100%
+                p
+                  b Thương hiệu:
+                  |  Gucci
+              // /product-information
+          // /product-details
+          .category-tab.shop-details-tab
+            // category-tab
+            .col-sm-12
+              ul.nav.nav-tabs
+                li.active
+                  a(href="#detail" data-toggle="tab") Chi tiết
+              
+            .tab-content
+              #detail.tab-pane.fade.active.in
+                .col-sm-12
+                  div(class="detail-content")!= product.description
+                  each image in product.image
+                    div(style="text-align:center")
+                      img(src=image width="400px" height="400px" style="object-fit:cover")
+          // /category-tab
+
+      
+
+    script.
+      window.onload = function(){
+        var url_string = window.location.href;
+        var url = new URL(url_string);
+        var err = url.searchParams.get("err");
+        if(err){
+          alert(err);
+        }
+      }
+      

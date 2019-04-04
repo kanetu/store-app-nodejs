@@ -2,6 +2,60 @@ extends ../layout/admin-site
 
 block content
   
-  p Doanh thu tháng hiện tại #{sumMoneyInCurrentMonth}
   
-  p Tổng sản phẩm bán ra trong tháng #{sumProductSold}
+  .content.mt-3
+   .animated.fadeIn
+    .row
+      
+      .col-xl-3.col-lg-6
+        .card
+          .card-body
+            .stat-widget-one
+              .stat-icon.dib
+                i.ti-money.text-success.border-success
+              .stat-content.dib
+                .stat-text Doanh thu trong tháng
+                .stat-digit #{stCurrentMonth.sumMoneyInCurrentMonth}
+        .card
+          .card-body
+            .stat-widget-one
+              .stat-icon.dib
+                i.ti-layout-grid2.text-warning.border-warning
+              .stat-content.dib
+                .stat-text Đã bán trong tháng
+                .stat-digit #{stCurrentMonth.sumProductSold}
+        .card
+          .card-body
+            .stat-widget-one
+              .stat-icon.dib
+                i.ti-user.text-primary.border-primary
+              .stat-content.dib
+                .stat-text Tổng số người dùng
+                .stat-digit #{tUser}
+      .col-lg-6
+        .card
+          .card-body
+            h4.mb-3 Doanh thu trong năm 
+              select#chooseYearR.form-control
+            canvas#revenueChart
+      .col-lg-6
+        .card
+          .card-body
+            h4.mb-3 Số giao dịch trong năm 
+              select#chooseYearT.form-control
+            canvas#transactionChart
+      .col-lg-4
+        .card
+          .card-body
+           h4.mb-3 Top 3 Sản phẩm được mua nhiều
+           ul.rank-top3-product-sale
+            each product in t3HotSaleProduct
+              li
+                .top3-product-detail 
+                  img(src=product.image[0])
+                  p #{product.name + "("+ product.soldOut+")"}
+  
+  script(src='/admin-site/vendors/jquery/dist/jquery.min.js')
+  script(src="/admin-site/vendors/chart.js/dist/Chart.bundle.min.js")
+  script(src="/admin-site/assets/js/init-scripts/chart-js/chartjs-init-custom.js")
+  

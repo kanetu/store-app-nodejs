@@ -1,0 +1,51 @@
+extends ../layout/admin-site
+
+block content
+
+  .breadcrumbs
+    .col-sm-4
+      .page-header.float-left
+        .page-title
+          h1 Dashboard
+    .col-sm-8
+      .page-header.float-right
+        .page-title
+          ol.breadcrumb.text-right
+            li
+              a(href="#") Dashboard
+            li
+              a(href="#") Forms
+            li.active Basic
+  .content.mt-3
+    .animated.fadeIn
+      .row
+        .col-lg-8
+          .card
+            .card-header
+              strong Thông tin
+              |  Product
+            .card-body.card-block
+              form.form-horizontal(action="/admin/product/update/add-classify" method="post")
+                input.form-control(type="hidden" name="idProduct" value=idProduct )
+                .row.form-group
+                  .col.col-md-3
+                    label.form-control-label(for="text-input") Màu sắc
+                  .col-12.col-md-5
+                    input.form-control(type="text" name="color")
+                .row.form-group
+                  .col.col-md-3
+                    label.form-control-label(for="text-input") Kích thước
+                  .col-12.col-md-5
+                    input.form-control(type="text" name="size")
+                .row.form-group
+                  .col.col-md-3
+                    label.form-control-label(for="text-input") Số lượng
+                  .col-12.col-md-5
+                    input.form-control(type="number" min="0" name="quantity")
+                      
+                button.btn.btn-primary.btn-sm(type="submit")
+                  i.fa.fa-dot-circle-o
+                    |  Submit
+                button.btn.btn-danger.btn-sm(type="reset")
+                  i.fa.fa-ban
+                    |  reset

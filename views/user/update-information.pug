@@ -1,44 +1,105 @@
-extends ../layout/layout
+extends ../layout/home-site
 
 block content
-  .container
-    .row
-      #profile-panel.ool-12.col-md-3
-        .profile-user
-          #avatar-user
-            image(src=user.avatar? user.avatar:'/img/anonymous-user.png')
-          ul#profile-navigation
-            li
-              a(href="/user/update-information") Cập nhật thông tin
-            li
-              a(href="#") Đơn hàng
-            li
-              a(href="/user/update-address") Địa chỉ
-            li
-              a(href="/user/change-password") Đổi mật khẩu
-            li
-              a(href="/auth/logout") Đăng xuất
-      #profile-content.col-12.col-md-9
-        h5#profile-content-title Thay đổi mật khẩu
-        .col-8
-          form(action="/user/update-information" method="post" autocomplete="off")
-            input(type="hidden" value=user._id name="idUser")
-            label(for="") Họ và tên
-            .form-group.row
-              .col
-                input.form-control(type="text" placeholder="Họ" name="firstnameUser" value=user.firstname)
-              .col
-                input.form-control(type="text" placeholder="Tên" name="lastnameUser" value=user.lastname)
-            .form-group.row
-              .col-12.col-md-5
-                label(for="") Giới tính
-                select.form-control(name="genderUser" value=user.gender)
-                  option(value="Male") Nam
-                  option(value="Female") Nữ
-              .col-12.col-md-7
-                label Ngày sinh
-                input#datepicker(type="text" placeholder="Ngày sinh" name="birthdayUser")
-            .form-group
-              label Số điện thoại
-              input.form-control(type="text" placeholder="Số điện thoại" name="phoneUser" value=user.phone)
-            button.btn.btn-primary(type="submit") Cập nhật
+  
+  section
+    .container
+      .row
+        .col-sm-3
+          .left-sidebar
+            h2 Tài khoản
+            #accordian.panel-group.category-products
+              // category-productsr
+              .panel.panel-default
+                .panel-heading(style="text-align:center")
+                  img(src=user.avatar? user.avatar:'/img/anonymous-user.png' style="height: 200px; object-fit: cover")
+              .panel.panel-default
+                .panel-heading
+                  h4.panel-title
+                    a(href="/user/update-information") Cập nhật thông tin
+              .panel.panel-default
+                .panel-heading
+                  h4.panel-title
+                    a(href="/user/transaction") Đơn hàng
+              .panel.panel-default
+                .panel-heading
+                  h4.panel-title
+                    a(href="/user/update-address") Cập nhật địa chỉ
+              .panel.panel-default
+                .panel-heading
+                  h4.panel-title
+                    a(href="/user/change-password") Đổi mật khẩu
+              .panel.panel-default
+                .panel-heading
+                  h4.panel-title
+                    a(href="/auth/logout") Đăng xuất
+            // /category-products
+        .col-sm-6.padding-right
+          h2.title.text-center Cập nhật địa chỉ
+          .panel.panel-default
+            .panel-body
+              form(action="/user/update-information" method="post" autocomplete="off")
+                input(type="hidden" value=user._id name="idUser")
+                label(for="") Họ và tên
+                .form-group.row
+                  .col-sm-6
+                    input.form-control(type="text" placeholder="Họ" name="firstnameUser" value=user.firstname)
+                  .col-sm-6
+                    input.form-control(type="text" placeholder="Tên" name="lastnameUser" value=user.lastname)
+                .form-group.row
+                  .col-12.col-md-5
+                    label(for="") Giới tính
+                    select.form-control(name="genderUser" value=user.gender)
+                      option(value="Male") Nam
+                      option(value="Female") Nữ
+                  .col-12.col-md-7
+                    label Ngày sinh
+                    input#datepicker(type="text" placeholder="Ngày sinh" name="birthdayUser")
+                .form-group
+                  label Số điện thoại
+                  input.form-control(type="text" placeholder="Số điện thoại" name="phoneUser" value=user.phone)
+                button.btn.btn-primary(type="submit") Cập nhật
+
+  
+  
+  //- .container
+  //-   .row
+  //-     #profile-panel.ool-12.col-md-3
+  //-       .profile-user
+  //-         #avatar-user
+  //-           image(src=user.avatar? user.avatar:'/img/anonymous-user.png')
+  //-         ul#profile-navigation
+  //-           li
+  //-             a(href="/user/update-information") Cập nhật thông tin
+  //-           li
+  //-             a(href="/user/transaction") Đơn hàng
+  //-           li
+  //-             a(href="/user/update-address") Cập nhật địa chỉ
+  //-           li
+  //-             a(href="/user/change-password") Đổi mật khẩu
+  //-           li
+  //-             a(href="/auth/logout") Đăng xuất
+  //-     #profile-content.col-12.col-md-9
+  //-       h5#profile-content-title Cập nhật thông tin cá nhân
+  //-       .col-8
+  //-         form(action="/user/update-information" method="post" autocomplete="off")
+  //-           input(type="hidden" value=user._id name="idUser")
+  //-           label(for="") Họ và tên
+  //-           .form-group.row
+  //-             .col
+  //-               input.form-control(type="text" placeholder="Họ" name="firstnameUser" value=user.firstname)
+  //-             .col
+  //-               input.form-control(type="text" placeholder="Tên" name="lastnameUser" value=user.lastname)
+  //-           .form-group.row
+  //-             .col-12.col-md-5
+  //-               label(for="") Giới tính
+  //-               select.form-control(name="genderUser" value=user.gender)
+  //-                 option(value="Male") Nam
+  //-                 option(value="Female") Nữ
+  //-             .col-12.col-md-7
+  //-               label Ngày sinh
+  //-               input#datepicker(type="text" placeholder="Ngày sinh" name="birthdayUser")
+  //-           .form-group
+  //-             label Số điện thoại
+  //-             input.form-control(type="text" placeholder="Số điện thoại" name="phoneUser" value=user.phone)
+  //-           button.btn.btn-primary(type="submit") Cập nhật

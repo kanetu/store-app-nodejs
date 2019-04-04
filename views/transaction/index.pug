@@ -7,16 +7,15 @@ block content
     .col-sm-4
       .page-header.float-left
         .page-title
-          h1 Dashboard
+          h1 Quản trị
     .col-sm-8
       .page-header.float-right
         .page-title
           ol.breadcrumb.text-right
             li
-              a(href="#") Dashboard
-            li
-              a(href="#") Table
-            li.active Product
+              a(href="/admin/dashboard") Quản trị
+            li.active
+              a(href="/admin/transaction") Giao dịch
   .content.mt-3
     .animated.fadeIn
       .row
@@ -28,10 +27,11 @@ block content
               table#bootstrap-data-table-export.table.table-striped.table-bordered
                 thead
                   tr
-                    th ID
-                    th Họ tên
+                    th Mã đơn hàng
+                    th Khách hàng
                     th Tổng tiền
                     th Ngày tạo
+                    th Trạng thái
                     th Action
                 tbody
                   each transaction in transactions
@@ -40,11 +40,8 @@ block content
                       td #{transaction.firstname +" "+ transaction.lastname}
                       td #{transaction.totalPrice}
                       td #{transaction.create_time}
+                      td #{transaction.status}
                       td.action
-                        form(method="post" action="/admin/supplier/update-form")
-                          input(type="hidden" name="supplier" value='teest')
-                          button.btn.btn-action(type="submit")
-                            i.fa.fa-pencil
                         a.btn.btn-action(href=`/admin/transaction/view/${transaction._id}`)
-                          i.fa.fa-trash-o
+                          i.fa.fa-eye
                         

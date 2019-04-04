@@ -15,9 +15,11 @@ module.exports.index = (req, res)=>{
   	for (var i = 0; i < categories.length; i++) {
   	    t[categories[i]._id] = categories[i].parent;
   	}
+    var x = categoryHelper.f(t,'Root',categories);
     // var x = f(t,'Root', categories);
-    // console.log(findCategory(f(t,'Root', categories),1));
+    console.log(categoryHelper.f(t,'Root',categories));
     res.render('category/index',{data: categories, listCategory: t});
+
   });
 
 }

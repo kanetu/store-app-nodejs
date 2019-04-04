@@ -14,7 +14,7 @@ module.exports.confirmUser =  (req, res)=>{
         user.isVerify = true;
         User.updateOne({_id: decoded.id}, user, (err) => {
           if(err) res.json(err)
-            else res.json('Verify user successfully')
+            else res.render('auth/verify-success')
         })
       })
       .catch(err=>{
@@ -35,10 +35,13 @@ module.exports.requireAuthv1 = (req, res, next)=>{
       User
     	.findOne({_id: decoded.id})
     	.then(function(user){
-        req.session.user = user;
-        req.app.locals.user = user;
-        next();
-    		// res.locals.user = doc;
+        if(user.isVerify){
+          req.session.user = user;
+          req.app.locals.user = user;
+          next();
+        }
+        else
+          res.render('auth/require-verify',{email: user.email});
     	})
       .catch(err=>{
         console.log(err)

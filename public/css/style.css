@@ -87,7 +87,7 @@ button.search-button{
 .navbar-kane-color{
 	background: #2ecc71;
 }
-.search-input{
+#search-input{
 	border-radius: 20px;
 	width: 100% !important;
 	border: none;

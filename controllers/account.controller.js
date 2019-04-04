@@ -31,7 +31,11 @@ module.exports.postUser = (req, res, next) => {
 	req.body.file = '\\' + req.file.path.split('\\').slice(1).join('\\');
 
   var hashPassword = bcrypt.hashSync(req.body.password, saltRounds);
-
+  let address = {
+    district: "Chưa rõ",
+    province: "Chưa rõ",
+    detail: "Chưa rõ"
+  }
 	let user = new User({
 		username: req.body.username,
 		password: hashPassword,
@@ -41,14 +45,15 @@ module.exports.postUser = (req, res, next) => {
 		email: req.body.emailUser,
 		avatar: req.body.file,
 		phone: req.body.phoneUser,
-		grant: req.body.grantUser
+		grant: req.body.grantUser,
+    address: address
 	});
 
 	user
 	.save()
 	.then((result)=>{
 
-    var token = jwt.sign({ id: user._id }, process.env.SECRET_KEY_TOKEN,{ expiresIn: '1h' });
+    var token = jwt.sign({ id: user._id }, process.env.SECRET_KEY_TOKEN,{ expiresIn: '24h' });
     let mailOption = {
       form: '"Tu Minh Hieu" <sufuijk@gmail.com>',
       to: user.email,

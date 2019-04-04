@@ -1,38 +1,90 @@
-extends ../layout/layout
+extends ../layout/home-site
 
 block content
-  .container
-    .row
-      #profile-panel.ool-12.col-md-3
-        .profile-user
-          #avatar-user
-            image(src=user.avatar? user.avatar:'/img/anonymous-user.png')
-          ul#profile-navigation
-            li
-              a(href="/user/update-information") Cập nhật thông tin
-            li
-              a(href="#") Đơn hàng
-            li
-              a(href="/user/update-address") Cập nhật địa chỉ
-            li
-              a(href="/user/change-password") Đổi mật khẩu
-            li
-              a(href="/auth/logout") Đăng xuất
-      #profile-content.col-12.col-md-9
-        h5#profile-content-title Cập nhật địa chỉ
-        .col-12.col-md-8
-          form(action="/user/update-address" method="post")
-            input(value=user._id type="hidden" name="idUser")
-            .form-group.row
-              .col
-                label(for="") Huyện thành
-                  input.form-control(type="text" name="district" placeholder="Huyện")
-                
-              .col
-                label(for="") Tỉnh thành
-                input.form-control(type="text" name="province" placeholder="Tỉnh")
-            .form-group
-              label Địa chỉ cụ thể
-              textarea.form-control(placeholder="Địa chỉ cụ thể" name="detail" rows="3")
-              small.form-text.text-muted Ghi gõ địa chỉ số nhà, đường, xã thị trấn
-            button.btn.btn-primary(type="submit") Cập nhật
+  
+  section
+    .container
+      .row
+        .col-sm-3
+          .left-sidebar
+            h2 Tài khoản
+            #accordian.panel-group.category-products
+              // category-productsr
+              .panel.panel-default
+                .panel-heading(style="text-align:center")
+                  img(src=user.avatar? user.avatar:'/img/anonymous-user.png' style="height: 200px; object-fit: cover")
+              .panel.panel-default
+                .panel-heading
+                  h4.panel-title
+                    a(href="/user/update-information") Cập nhật thông tin
+              .panel.panel-default
+                .panel-heading
+                  h4.panel-title
+                    a(href="/user/transaction") Đơn hàng
+              .panel.panel-default
+                .panel-heading
+                  h4.panel-title
+                    a(href="/user/update-address") Cập nhật địa chỉ
+              .panel.panel-default
+                .panel-heading
+                  h4.panel-title
+                    a(href="/user/change-password") Đổi mật khẩu
+              .panel.panel-default
+                .panel-heading
+                  h4.panel-title
+                    a(href="/auth/logout") Đăng xuất
+            // /category-products
+        .col-sm-6.padding-right
+          h2.title.text-center Cập nhật địa chỉ
+          .panel.panel-default
+            .panel-body
+              form(action="/user/update-address" method="post")
+                input(value=user._id type="hidden" name="idUser")
+                .form-group
+                    label(for="") Huyện thành
+                    input.form-control(type="text" name="district" placeholder="Huyện")
+                .form-group
+                    label(for="") Tỉnh thành
+                    input.form-control(type="text" name="province" placeholder="Tỉnh")
+                .form-group
+                  label Địa chỉ cụ thể
+                  textarea.form-control(placeholder="Địa chỉ cụ thể" name="detail" rows="3")
+                  small.form-text.text-muted Ghi gõ địa chỉ số nhà, đường, xã thị trấn
+                button.btn.btn-primary(type="submit") Cập nhật
+  
+  
+  //- .container
+  //-   .row
+  //-     #profile-panel.ool-12.col-md-3
+  //-       .profile-user
+  //-         #avatar-user
+  //-           image(src=user.avatar? user.avatar:'/img/anonymous-user.png')
+  //-         ul#profile-navigation
+  //-           li
+  //-             a(href="/user/update-information") Cập nhật thông tin
+  //-           li
+  //-             a(href="/user/transaction") Đơn hàng
+  //-           li
+  //-             a(href="/user/update-address") Cập nhật địa chỉ
+  //-           li
+  //-             a(href="/user/change-password") Đổi mật khẩu
+  //-           li
+  //-             a(href="/auth/logout") Đăng xuất
+  //-     #profile-content.col-12.col-md-9
+  //-       h5#profile-content-title Cập nhật địa chỉ
+  //-       .col-12.col-md-8
+  //-         form(action="/user/update-address" method="post")
+  //-           input(value=user._id type="hidden" name="idUser")
+  //-           .form-group.row
+  //-             .col
+  //-               label(for="") Huyện thành
+  //-                 input.form-control(type="text" name="district" placeholder="Huyện")
+  //- 
+  //-             .col
+  //-               label(for="") Tỉnh thành
+  //-               input.form-control(type="text" name="province" placeholder="Tỉnh")
+  //-           .form-group
+  //-             label Địa chỉ cụ thể
+  //-             textarea.form-control(placeholder="Địa chỉ cụ thể" name="detail" rows="3")
+  //-             small.form-text.text-muted Ghi gõ địa chỉ số nhà, đường, xã thị trấn
+  //-           button.btn.btn-primary(type="submit") Cập nhật

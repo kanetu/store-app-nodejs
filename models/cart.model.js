@@ -4,39 +4,40 @@ module.exports = function Cart(oldCart){
 	this.totalQty = oldCart.totalQty || 0;
 	this.totalPrice = oldCart.totalPrice || 0;
 
-	this.add = function(item, id){
-		var storeItem = this.items[id];
+	this.add = function(item, classify_id, classify){
+		var storeItem = this.items[classify_id];
 		if(!storeItem){
-			storeItem = this.items[id] = {item: item, qty: 0, price:0};
+			storeItem = this.items[classify_id] = {item: item, qty: 0, price:0};
 		}
+    storeItem.classify = classify
 		storeItem.qty++;
 		storeItem.price = storeItem.item.price * storeItem.qty;
 		this.totalQty++;
-		this.totalPrice += storeItem.item.price; 
+		this.totalPrice += storeItem.item.price;
 
 	};
 
-	this.removeOneItem = function(id){
-		var storeItem = this.items[id];
+	this.removeOneItem = function(classify_id){
+		var storeItem = this.items[classify_id];
 		if(storeItem.qty <= 1 && storeItem){
 			this.totalPrice-=storeItem.item.price;
 			this.totalQty--;
-			delete this.items[id];
+			delete this.items[classify_id];
 		}else{
 			storeItem.qty--;
-			storeItem.price = storeItem.item.price * storeItem.qty;	
+			storeItem.price = storeItem.item.price * storeItem.qty;
 			this.totalQty--;
 			this.totalPrice-=storeItem.item.price;
 		}
-		
+
 
 	};
 
-	this.removeAllItem = function(id){
-		var storeItem = this.items[id];
+	this.removeAllItem = function(classify_id){
+		var storeItem = this.items[classify_id];
 		this.totalPrice-=storeItem.item.price  * storeItem.qty;
 		this.totalQty-= storeItem.qty;
-		delete this.items[id];
+		delete this.items[classify_id];
 	}
 
 	this.generateArray = function(){

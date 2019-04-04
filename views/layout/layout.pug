@@ -22,8 +22,8 @@ html(lang='en')
       .container.container-custom
         a.navbar-brand.logo(href="/")
           img(src='/img/logo-kane-store.png' alt="")
-        form.form-inline.search-box(name="search-form")
-          input.form-control.search-input(type="search" placeholder="Search on store" aria-label="Search")
+        form.form-inline.search-box(action="/search" name="search-form" method="get")
+          input.form-control#search-input(type="text" placeholder="Search on store" name="name" aria-label="Search")
           button.search-button(type="submit")
             i.fas.fa-search
         .cart-store

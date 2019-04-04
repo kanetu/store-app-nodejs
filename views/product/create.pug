@@ -2,7 +2,7 @@ extends ../layout/admin-site
 
 block content
 
-  - function findCategory(ct,lv=1){
+  - function findCategory(ct,lv=0){
   -  var str = '';
   -  let count =0;
   -  let star = '';
@@ -12,9 +12,11 @@ block content
   -  }
   -  lv++
   -  for(let item of ct){
-  -    str+= `<option value=${item._id}>${star + item.name}</option>`;
   -    if(item.sub.length > 0){
+  -      str+= `<option value=${item._id} disabled style="font-weight: bold;">${star + item.name}</option>`;
   -      str+= findCategory(item.sub,lv);
+  -    }else{
+  -      str+= `<option value=${item._id}>${star + item.name}</option>`;
   -    }
   -  }
   -  return str;
@@ -25,16 +27,15 @@ block content
         .col-sm-4
           .page-header.float-left
             .page-title
-              h1 Dashboard
+              h1 Quản trị
         .col-sm-8
           .page-header.float-right
             .page-title
               ol.breadcrumb.text-right
                 li
-                  a(href="#") Dashboard
-                li
-                  a(href="#") Forms
-                li.active Basic
+                  a(href="/admin/dashboard") Quản trị
+                li.active
+                  a(href="/admin/product") Sản phẩm
       .content.mt-3
         .animated.fadeIn
           .row
@@ -60,17 +61,12 @@ block content
                       .col.col-md-3
                         label.form-control-label(for="text-input") Giá sản phẩm
                       .col-12.col-md-5
-                        input.form-control(type="text" name="priceProduct" placeholder="Nhập giá sản phẩm")
-                    .row.form-group
-                      .col.col-md-3
-                        label.form-control-label(for="text-input") Số lượng sản phẩm
-                      .col-12.col-md-5
-                        input.form-control(type="text" name="quantityProduct" placeholder="Nhập số lượng sản phẩm")
+                        input.form-control(type="number" name="priceProduct" placeholder="Nhập giá sản phẩm")
                     .row.form-group
                       .col.col-md-3
                         label.form-control-label(for="descriptionProduct") Mô tả
                       .col-12.col-md-9
-                        textarea.form-control(name="descriptionProduct" rows="9" placeholder="Mô tả sản phẩm...")
+                        textarea.form-control(name="descriptionProduct" id="editor" rows="9" placeholder="Mô tả sản phẩm...")
                     .row.form-group
                       .col.col-md-3
                         label.form-control-label(for="select") Chọn danh mục
@@ -95,3 +91,6 @@ block content
                     button.btn.btn-danger.btn-sm(type="reset")
                       i.fa.fa-ban
                         |  Reset
+      script(src="/ckeditor/ckeditor.js")
+      script.
+        CKEDITOR.replace( 'editor' );

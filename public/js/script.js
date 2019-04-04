@@ -12,7 +12,9 @@ $(window).on('resize load',function(){
 	}
 
 });
-
+$('#search-input').keypress(function(event){
+  $this.parent().submit();
+});
 $('#datepicker').datepicker({
         uiLibrary: 'bootstrap4'
     });

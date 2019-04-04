@@ -5,7 +5,7 @@ var supplierSchema = new mongoose.Schema({
 	name: String,
 	description: String,
   image: String,
-	creat_time: { type: Date, default: Date.now },
+	create_time: { type: Date, default: Date.now },
 	update_time: { type: Date, default: Date.now }
 });
 

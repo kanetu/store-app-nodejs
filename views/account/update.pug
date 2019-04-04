@@ -6,16 +6,15 @@ block content
 				.col-sm-4
 					.page-header.float-left
 						.page-title
-							h1 Dashboard
+							h1 Quản trị
 				.col-sm-8
 					.page-header.float-right
 						.page-title
 							ol.breadcrumb.text-right
 								li
-									a(href="#") Dashboard
-								li
-									a(href="#") Forms
-								li.active Basic
+									a(href="/admin/dashboard") Quản trị
+								li.active
+									a(href="/admin/account") Người dùng
 			.content.mt-3
 				.animated.fadeIn
 					.row
@@ -29,7 +28,7 @@ block content
 							.card
 								.card-header
 									strong Thông tin
-									|  User
+									|  Người dùng
 								.card-body.card-block
 									form.form-horizontal(action='/admin/account/update' method="post" enctype="multipart/form-data")
 										input.form-control(type="hidden" name="idUser"  value=`${user._id}`)
@@ -49,10 +48,10 @@ block content
 											.col.col-md-9
 												.form-check-inline.form-check
 													label.form-check-label(for="inline-radio1" style="margin-right:10px")
-														input.form-check-input(type="radio" name="genderUser" value="male" checked=user.gender=="male")
+														input.form-check-input(type="radio" name="genderUser" value="male" checked=user.gender=="Male")
 														| Nam
 													label.form-check-label(for="inline-radio2")
-														input.form-check-input(type="radio" name="genderUser" value="female" checked=user.gender=="female")
+														input.form-check-input(type="radio" name="genderUser" value="female" checked=user.gender=="Female")
 														| Nữ
 										.row.form-group
 											.col.col-md-3
