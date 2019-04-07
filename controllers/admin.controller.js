@@ -28,7 +28,7 @@ module.exports.getDashboard = (req, res)=>{
   var get3HotSaleProduct = Transaction.find({},{'cart':1,'_id': 0}).then(result => {return result});
 
   Promise.all([getStCurrentMonth, getSt12Month, getTotalUser, get3HotSaleProduct])
-  .then(arr=>{
+  .then(async arr=>{
     var tCurrentMonth = arr[0],
         t12Month = arr[1],
         tUser = arr[2],
@@ -76,6 +76,7 @@ module.exports.getDashboard = (req, res)=>{
         t3HotSaleProduct.forEach(item=>{
           all= all.concat(item.cart);
         })
+        all = await convertCart(all);
         // console.log(all);
 
         var t3HotSaleProducts = all.reduce(function(t3HotSaleProducts, product) {
@@ -205,4 +206,15 @@ module.exports.twelveMonths = async (req, res)=>{
     })
   })
   console.log(product);
+}
+
+async function convertCart(cart){
+  let arr = []
+  for(let index in cart){
+    let product = await Product.findOne({_id: cart[index].item._id}).select({image: '1'}).lean();
+    cart[index].item.image = product.image;
+    arr.push(cart[index]);
+  }
+
+  return arr
 }

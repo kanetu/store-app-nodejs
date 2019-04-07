@@ -118,7 +118,7 @@ module.exports.htmlInvoice = (cart, checkoutData, transactionID)=>{
     cartHTML+= `<td>${cart[index].item.name}</td>`;
     cartHTML+= `<td>${cart[index].qty}</td>`;
     cartHTML+= `<td>${cart[index].classify.color + " - " + cart[index].classify.size}</td>`;
-    cartHTML+= `<td>${cart[index].item.price}đ</td>`;
+    cartHTML+= `<td>${cart[index].item.price.toLocaleString('it-IT').split(',').join('.')}đ</td>`;
     cartHTML+= `<td>${cart[index].price}đ</td>`;
     cartHTML+="</tr>";
     totalPrice+= cart[index].price;
@@ -208,7 +208,7 @@ module.exports.htmlInvoice = (cart, checkoutData, transactionID)=>{
     <div id="container">
       <section >
         <div id="header-invoice">
-          <p id="title-store">Cửa hàng quần áo ESHOPPER</p>
+          <p id="title-store">Cửa hàng quần áo Thời trang Hai lúa</p>
           <p><strong>Địa chỉ:</strong> 145 Nguyễn Thiện Thành, TP Trà Vinh</p>
           <p><strong>Số điện thoại:</strong> 0974648234 - 097597493</p>
         </div>
@@ -235,7 +235,7 @@ module.exports.htmlInvoice = (cart, checkoutData, transactionID)=>{
             </tbody>
           </table>
 
-          <p id="total-price">TỔNG CỘNG: ${totalPrice}đ</p>
+          <p id="total-price">TỔNG CỘNG: ${totalPrice.toLocaleString('it-IT').split(',').join('.')}đ</p>
           <p id="total-price">Số tiền viết bằng chữ: ${num2Word} đồng</p>
           <p id="thankful">Cảm ơn bạn đã mua hàng của chúng tôi!</p>
         </div>

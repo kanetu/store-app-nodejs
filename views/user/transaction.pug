@@ -36,9 +36,9 @@ block content
             // /category-products
         .col-sm-9.padding-right
           h2.title.text-center Đơn hàng
-          .panel.panel-default
-            .panel-body
-              each transaction in transactions
+          each transaction in transactions
+            .panel.panel-default
+              .panel-body
                 .transaction
                     p.transaction-id
                       | Đơn hàng: 
@@ -57,7 +57,7 @@ block content
                             td #{product.item.name}
                             td #{product.classify.size +" "+ product.classify.color}
                             td #{product.qty}
-                            td #{product.price}
+                            td #{product.price.toLocaleString('it-IT').split(',').join('.')}đ
                             td #{transaction.status}
 
   

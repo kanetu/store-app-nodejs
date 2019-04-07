@@ -35,7 +35,7 @@ block content
 										.row.form-group
 											.col.col-md-3
 												label.form-control-label(for="text-input") Họ
-											.col-12.col-md-3
+											.col-12.col-md-5
 												input.form-control(type="text" name="firstnameUser"  value=`${user.firstname}`)
 										.row.form-group
 											.col.col-md-3
@@ -48,10 +48,10 @@ block content
 											.col.col-md-9
 												.form-check-inline.form-check
 													label.form-check-label(for="inline-radio1" style="margin-right:10px")
-														input.form-check-input(type="radio" name="genderUser" value="male" checked=user.gender=="Male")
+														input.form-check-input(type="radio" name="genderUser" value="Male" checked=user.gender=="Male")
 														| Nam
 													label.form-check-label(for="inline-radio2")
-														input.form-check-input(type="radio" name="genderUser" value="female" checked=user.gender=="Female")
+														input.form-check-input(type="radio" name="genderUser" value="Female" checked=user.gender=="Female")
 														| Nữ
 										.row.form-group
 											.col.col-md-3
@@ -63,11 +63,6 @@ block content
 												label.form-control-label(for="email-input") Email
 											.col-12.col-md-5
 												input.form-control(type="email" name="emailUser" value=`${user.email}`)
-										.row.form-group
-											.col.col-md-3
-												label.form-control-label(for="text-input") Username
-											.col-12.col-md-7
-												input.form-control(type="text" name="usernameUser" value=`${user.username}`)
 										.row.form-group
 											.col.col-md-3
 												label.form-control-label(for="select") Phân quyền

@@ -111,14 +111,21 @@ block content
                     a.btn.btn-default.add-to-cart(href=`/product/detail?id=${product._id}`)
                       i.fa.fa-shopping-cart
                       | Xem chi tiết
-                  .product-overlay
+                  if product.inStock
+                   .product-overlay
                     .overlay-content
                       h2 #{product.priceCurrency}đ
                       p #{product.name}
                       a.btn.btn-default.add-to-cart(href=`/product/detail?id=${product._id}`)
                         i.fa.fa-shopping-cart
                         | Xem chi tiết
-                
+                  else 
+                    
+                    .product-sold-out
+                     .product-sold-out-content
+                       p(style="font-size:24px; margin:0; padding: 5px") Hết hàng
+                  if product.isNew  
+                    img.new(src="/home-site/images/home/new.png" alt="")
           // features_items
 
         

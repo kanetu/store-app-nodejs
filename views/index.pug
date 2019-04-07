@@ -16,37 +16,37 @@ block content
             .carousel-inner
               .item.active
                 .col-sm-6
-                  h1
-                    span E
-                    | -SHOPPER
-                  h2 Free E-Commerce Template
+                  h1(style="font-family: 'Oswald', sans-serif;")
+                    |Thời trang 
+                    span Hai lúa
+                  h2 Website bán hàng trực tuyến.
                   p
-                    | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  button.btn.btn-default.get(type="button") Get it now
+                    | Chất lượng luôn là ưu tiên hàng đầu của chúng tôi
+                  button.btn.btn-default.get(type="button") Mua ngay
                 .col-sm-6
                   img.girl.img-responsive(src="/home-site/images/home/girl1.jpg" alt="")
                   img.pricing(src="/home-site/images/home/pricing.png" alt="")
               .item
                 .col-sm-6
-                  h1
-                    span E
-                    | -SHOPPER
-                  h2 100% Responsive Design
+                  h1(style="font-family: 'Oswald', sans-serif;")
+                    |Thời trang 
+                    span Hai lúa
+                  h2 Thanh toán trực tuyến
                   p
-                    | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  button.btn.btn-default.get(type="button") Get it now
+                    | Thanh toán trực tuyến nhận ngay hàng tại nội thành, giao hàng trong vòng 7 ngày ngoại thành.
+                  button.btn.btn-default.get(type="button") Mua ngay
                 .col-sm-6
                   img.girl.img-responsive(src="/home-site/images/home/girl2.jpg" alt="")
                   img.pricing(src="/home-site/images/home/pricing.png" alt="")
               .item
                 .col-sm-6
-                  h1
-                    span E
-                    | -SHOPPER
-                  h2 Free Ecommerce Template
+                  h1(style="font-family: 'Oswald', sans-serif;")
+                    |Thời trang 
+                    span Hai lúa
+                  h2 Hỗ trợ tư vấn và bảo hành sản phẩm
                   p
-                    | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  button.btn.btn-default.get(type="button") Get it now
+                    | Hỗ trợ tư vấn trực tiếp qua fanpage và bảo hành sản phẩm bị lỗi khi nhận hàng.
+                  button.btn.btn-default.get(type="button") Mua ngay
                 .col-sm-6
                   img.girl.img-responsive(src="/home-site/images/home/girl3.jpg" alt="")
                   img.pricing(src="/home-site/images/home/pricing.png" alt="")
@@ -102,17 +102,19 @@ block content
           h2.title.text-center Sản phẩm bán chạy
           .owl-carousel.owl-theme
             each pHotSell in sixHotSell
-              
-                .product-image-wrapper
-                  .single-products
-                    .productinfo.text-center
-                      img(src=pHotSell.image[0] alt=""  style="height: 250px; object-fit:cover")
-                      h2 #{pHotSell.priceCurrency}đ
-                      p #{pHotSell.name}
-                      a.btn.btn-default.add-to-cart(href=`/product/detail?id=${pHotSell._id}`)
-                        i.fa.fa-shopping-cart
-                        | Xem chi tiết
-                    
+              .product-image-wrapper
+                .single-products
+                  .productinfo.text-center
+                    img(src=pHotSell.image[0] alt=""  style="height: 250px; object-fit:cover")
+                    h2 #{pHotSell.priceCurrency}đ
+                    p #{pHotSell.name}
+                    a.btn.btn-default.add-to-cart(href=`/product/detail?id=${pHotSell._id}`)
+                      i.fa.fa-shopping-cart
+                      | Xem chi tiết
+                  if !pHotSell.inStock
+                    .product-sold-out
+                     .product-sold-out-content
+                       p(style="font-size:24px; margin:0; padding: 5px") Hết hàng
         .features_items
           // features_items
           h2.title.text-center Sản phẩm mới trong tháng
@@ -127,13 +129,19 @@ block content
                     a.btn.btn-default.add-to-cart(href=`/product/detail?id=${product._id}`)
                       i.fa.fa-shopping-cart
                       | Xem chi tiết
-                  .product-overlay
+                  if product.inStock
+                   .product-overlay
                     .overlay-content
                       h2 #{product.priceCurrency}đ
                       p #{product.name}
                       a.btn.btn-default.add-to-cart(href=`/product/detail?id=${product._id}`)
                         i.fa.fa-shopping-cart
                         | Xem chi tiết
+                  else
+                    
+                    .product-sold-out
+                     .product-sold-out-content
+                       p(style="font-size:24px; margin:0; padding: 5px") Hết hàng
                   img.new(src="/home-site/images/home/new.png" alt="")
              
         .features_items
@@ -162,7 +170,7 @@ block content
                     
                     .product-sold-out
                      .product-sold-out-content
-                       h2 Hết hàng
+                       p(style="font-size:24px; margin:0; padding: 5px") Hết hàng
                   if product.isNew  
                     img.new(src="/home-site/images/home/new.png" alt="")
           

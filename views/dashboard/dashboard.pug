@@ -15,7 +15,7 @@ block content
                 i.ti-money.text-success.border-success
               .stat-content.dib
                 .stat-text Doanh thu trong tháng
-                .stat-digit #{stCurrentMonth.sumMoneyInCurrentMonth}
+                .stat-digit #{stCurrentMonth.sumMoneyInCurrentMonth.toLocaleString('it-IT').split(',').join('.')}đ
         .card
           .card-body
             .stat-widget-one

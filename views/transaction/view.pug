@@ -77,7 +77,7 @@ block content
                      td #{item.item.name}
                      td #{item.classify.size + " " + item.classify.color}
                      td #{item.qty}
-                     td #{item.price}đ
+                     td #{item.price.toLocaleString('it-IT').split(',').join('.')}đ
       script.
          var pOptions = document.getElementById('status').options;
          var curentStatus = !{JSON.stringify(statusCurrent)};

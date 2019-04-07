@@ -1,7 +1,7 @@
 
 const Transaction = require('../models/transaction.model');
 const User = require('../models/user.model');
-
+const Product = require('../models/product.model');
 
 //Helper
 const dateHelper = require('../helpers/date.helper');
@@ -32,11 +32,11 @@ module.exports.index = (req, res)=>{
 
 }
 
-module.exports.viewTransaction = (req, res)=>{
+module.exports.viewTransaction = async (req, res)=>{
   let idTransaction = req.params.idTransaction;
 
-  Transaction.findOne({_id: idTransaction}).populate('user_id')
-  .then((result)=>{
+  Transaction.findOne({_id: idTransaction}).populate('user_id').lean()
+  .then(async (result)=>{
     let delivery = {
       city: result.deliveryCity,
       province: result.deliveryProvince,
@@ -47,11 +47,27 @@ module.exports.viewTransaction = (req, res)=>{
       phone: result.customerPhone,
       avatar: result.user_id.avatar
     }
-    res.render('transaction/view',{idTransaction,statusCurrent: result.status, items: result.cart, delivery, customer})
+    //
+    var arr = await convertCart(result.cart);
+
+    console.log(arr)
+
+    res.render('transaction/view',{idTransaction,statusCurrent: result.status, items: arr, delivery, customer})
   })
   .catch((err)=>{
     res.json(err);
   })
+}
+
+async function convertCart(cart){
+  let arr = []
+  for(let index in cart){
+    let product = await Product.findOne({_id: cart[index].item._id}).select({image: '1'}).lean();
+    cart[index].item.image = product.image;
+    arr.push(cart[index]);
+  }
+
+  return arr
 }
 
 module.exports.changeStatus = (req, res)=>{

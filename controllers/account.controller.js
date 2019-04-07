@@ -64,7 +64,7 @@ module.exports.postUser = (req, res, next) => {
     transporter.sendMail(mailOption, (err, info)=>{
       if(err) res.json(err);
     });
-		res.json('Create user successfully!');
+		res.redirect('/admin/account');
 	})
 
 }
@@ -78,10 +78,12 @@ module.exports.updateUser = (req, res, next) =>{
 	let idUser = req.body.idUser;
 
 	/*Set information*/
-	let usernameUser = req.body.usernameUser,
-	emailUser = req.body.emailUser,
+	let	emailUser = req.body.emailUser,
 	phoneUser = req.body.phoneUser,
-	grantUser = req.body.grantUser
+	grantUser = req.body.grantUser,
+  genderUser = req.body.genderUser,
+  firstnameUser = req.body.firstnameUser,
+  lastnameUser = req.body.lastnameUser
 	/*End set information*/
 	let userBefore = User
 	.findOne({_id: idUser})
@@ -100,25 +102,29 @@ module.exports.updateUser = (req, res, next) =>{
 			});
 
 			user = {
-				username: usernameUser,
 				email: emailUser,
 				avatar: avatarUser,
 				phone: phoneUser,
-				grant: grantUser
+				grant: grantUser,
+        gender: genderUser,
+        firstname: firstnameUser,
+        lastname: lastnameUser
 			}
 		}else{
 
 			user = {
-				username: usernameUser,
 				email: emailUser,
 				phone: phoneUser,
-				grant: grantUser
+				grant: grantUser,
+        gender: genderUser,
+        firstname: firstnameUser,
+        lastname: lastnameUser
 			}
 		}
 
 		User.updateOne({_id: idUser}, user, (err) => {
 			if(err) res.json(err)
-				else res.json('Update user successfully')
+				else res.redirect('/admin/account')
 		})
 	})
 }
@@ -137,7 +143,7 @@ module.exports.deleteUser = (req, res, next) => {
 		User
 		.deleteOne({_id: req.params.id}, (err)=>{
 			if(err) res.json(err)
-				else res.json('Delete user successfully')
+				else res.redirect('admin/account')
 		})
 	});
 

@@ -14,6 +14,7 @@ html(lang='en')
     link(href='/home-site/css/extra-margin-padding.css' rel='stylesheet' )
     link(href="/home-site/css/responsive.css" rel="stylesheet")
     link(href="/home-site/vendors/themify-icons/themify-icons.css")
+    link(href="https://fonts.googleapis.com/css?family=Oswald&amp;subset=vietnamese" rel="stylesheet")
     
     link(rel="stylesheet" href="owlcarousel/assets/owl.carousel.min.css")
     link(rel="stylesheet" href="owlcarousel/assets/owl.theme.default.min.css")
@@ -46,11 +47,11 @@ html(lang='en')
                   li
                     a(href="#")
                       i.fa.fa-phone
-                      |  +2 95 01 88 821
+                      |  0743 874 947
                   li
                     a(href="#")
                       i.fa.fa-envelope
-                      |  info@domain.com
+                      |  sufuijk@gmail.com
             .col-sm-6
               .social-icons.pull-right
                 ul.nav.navbar-nav
@@ -77,22 +78,22 @@ html(lang='en')
             .col-sm-4
               .logo.pull-left
                 a(href="/")
-                  img(src="/home-site/images/home/logo.png" alt="")
+                  img(src="/img/logo.png" style="width:200px; height: 100px")
             .col-sm-8
               .shop-menu.pull-right
                 ul.nav.navbar-nav
                   li
                     a(href="/user")
                       i.fa.fa-user
-                      |  Account
+                      |  Tài khoản
                   li
                     a(href="/cart/checkout")
                       i.fa.fa-crosshairs
-                      |  Checkout
+                      |  Thanh toán
                   li
                     a(href="/cart")
                       i.fa.fa-shopping-cart
-                      |  Cart
+                      |  Giỏ hàng
                   
       // /header-middle
       .header-bottom
@@ -109,10 +110,10 @@ html(lang='en')
               .mainmenu.pull-left
                 ul.nav.navbar-nav.collapse.navbar-collapse
                   li
-                    a.active(href="index.html") Home
+                    a.active(href="/") Trang chủ
                   li.dropdown
                     a(href="#")
-                      | Shop
+                      | Cửa hàng
                       i.fa.fa-angle-down
                     ul.sub-menu(role="menu")
                       li
@@ -120,24 +121,13 @@ html(lang='en')
                       li
                         a(href="product-details.html") Product Details
                       li
-                        a(href="checkout.html") Checkout
+                        a(href="checkout.html") Thanh toán
                       li
-                        a(href="cart.html") Cart
+                        a(href="cart.html") Giỏ hàng
                       li
-                        a(href="login.html") Login
-                  li.dropdown
-                    a(href="#")
-                      | Blog
-                      i.fa.fa-angle-down
-                    ul.sub-menu(role="menu")
-                      li
-                        a(href="blog.html") Blog List
-                      li
-                        a(href="blog-single.html") Blog Single
+                        a(href="login.html") Đăng nhập
                   li
-                    a(href="404.html") 404
-                  li
-                    a(href="contact-us.html") Contact
+                    a(href="contact-us.html") Liên hệ
             .col-sm-3
               .search_box.pull-right
                 form(action="/search")
@@ -160,9 +150,10 @@ html(lang='en')
             .col-sm-2
               .companyinfo
                 h2
-                  span e
-                  | -shopper
-                p Lorem ipsum dolor sit amet, consectetur adipisicing elit,sed do eiusmod tempor
+                  |Thời trang
+                  br
+                  span Hai lúa
+                p Chất lượng luôn là ưu tiên hàng đầu của chúng tôi
             .col-sm-7
               .col-sm-3
                 .video-gallery.text-center
@@ -203,85 +194,65 @@ html(lang='en')
             .col-sm-3
               .address
                 img(src="/home-site/images/home/map.png" alt="")
-                p 505 S Atlantic Ave Virginia Beach, VA(Virginia)
+                p Số 145 Nguyễn Thiện Thành, Thành phố Trà Vinh
       .footer-widget
         .container
           .row
             .col-sm-2
               .single-widget
-                h2 Service
+                h2 Dịch vụ
                 ul.nav.nav-pills.nav-stacked
                   li
-                    a(href="#") Online Help
+                    a(href="#") Trợ giúp
                   li
-                    a(href="#") Contact Us
-                  li
-                    a(href="#") Order Status
-                  li
-                    a(href="#") Change Location
-                  li
-                    a(href="#") FAQ’s
+                    a(href="#") Liên hệ
             .col-sm-2
               .single-widget
-                h2 Quock Shop
+                h2 FAQ
                 ul.nav.nav-pills.nav-stacked
                   li
-                    a(href="#") T-Shirt
+                    a(href="#") Vận chuyển
                   li
-                    a(href="#") Mens
+                    a(href="#") Chính sách đổi trả
                   li
-                    a(href="#") Womens
-                  li
-                    a(href="#") Gift Cards
-                  li
-                    a(href="#") Shoes
+                    a(href="#") Đối tác cung cấp
+                
             .col-sm-2
               .single-widget
-                h2 Policies
+                h2 Chính sách
                 ul.nav.nav-pills.nav-stacked
                   li
-                    a(href="#") Terms of Use
+                    a(href="#") Đổi trả
                   li
-                    a(href="#") Privecy Policy
+                    a(href="#") Bảo hành
                   li
-                    a(href="#") Refund Policy
-                  li
-                    a(href="#") Billing System
-                  li
-                    a(href="#") Ticket System
+                    a(href="#") Vận chuyển
+                  
             .col-sm-2
               .single-widget
-                h2 About Shopper
+                h2 Thông tin
                 ul.nav.nav-pills.nav-stacked
                   li
-                    a(href="#") Company Information
+                    a(href="#") Địa chỉ
                   li
-                    a(href="#") Careers
-                  li
-                    a(href="#") Store Location
-                  li
-                    a(href="#") Affillate Program
-                  li
-                    a(href="#") Copyright
+                    a(href="#") Chi nhánh
+                  
             .col-sm-3.col-sm-offset-1
               .single-widget
-                h2 About Shopper
+                h2 Nhận tin sản phẩm mới
                 form.searchform(action="#")
-                  input(type="text" placeholder="Your email address")
+                  input(type="text" placeholder="Địa chỉ email của bạn")
                   button.btn.btn-default(type="submit")
                     i.fa.fa-arrow-circle-o-right
                   p
-                    | Get the most recent updates from 
+                    | Nhận ngay thông tin mới nhất tại 
                     br
-                    | our site and be updated your self...
+                    | cửa hàng bằng email...
       .footer-bottom
         .container
           .row
-            p.pull-left Copyright © 2013 E-SHOPPER Inc. All rights reserved.
-            p.pull-right
-              | Designed by 
-              span
-                a(target="_blank" href="http://www.themeum.com") Themeum
+            p.pull-left Copyright © 2019 Thời trang Hai lúa.
+            
     // /Footer
     script(src="/home-site/js/bootstrap.min.js")
     script(src="/home-site/js/jquery.scrollUp.min.js")
