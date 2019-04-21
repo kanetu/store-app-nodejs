@@ -6,15 +6,23 @@ module.exports = function Cart(oldCart){
 
 	this.add = function(item, classify_id, classify){
 		var storeItem = this.items[classify_id];
+    console.log(storeItem);
 		if(!storeItem){
-			storeItem = this.items[classify_id] = {item: item, qty: 0, price:0};
+      let customItem = {
+        _id: item._id,
+        image: item.image[0],
+        price: item.price,
+        name: item.name
+      }
+      //cookie chi co 4kb chứa nhìu không được
+			this.items[classify_id] = {item: customItem, qty: 0, price:0};
+      storeItem = this.items[classify_id];
 		}
-    storeItem.classify = classify
+    storeItem.classify = classify;
 		storeItem.qty++;
 		storeItem.price = storeItem.item.price * storeItem.qty;
 		this.totalQty++;
 		this.totalPrice += storeItem.item.price;
-
 	};
 
 	this.removeOneItem = function(classify_id){

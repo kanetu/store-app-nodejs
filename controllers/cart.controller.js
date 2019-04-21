@@ -7,7 +7,6 @@ const jwt = require('jsonwebtoken');
 
 module.exports.index = (req, res, next)=>{
 	let cart = new Cart(req.signedCookies.cart);
-	console.log(cart);
 	res.render('cart/index',{items: cart.generateArray(), totalPrice: cart.totalPrice})
 }
 module.exports.checkout = (req, res, next)=>{
@@ -26,6 +25,9 @@ module.exports.checkout = (req, res, next)=>{
             items: cart.generateArray(),
             totalPrice: cart.totalPrice})
         })
+      }else{
+        //Hết hạn hoặc không có
+        res.render('cart/checkout',{items: cart.generateArray(), totalPrice: cart.totalPrice})
       }
     });
   }else{
@@ -36,7 +38,6 @@ module.exports.checkout = (req, res, next)=>{
 }
 module.exports.addItem = (req, res, next)=>{
 	// let productId = req.params.id;
-  console.log(req.query);
   var productId = req.query.idProduct;
   var classifyId = req.query.idClassify;
 
@@ -45,6 +46,7 @@ module.exports.addItem = (req, res, next)=>{
 
 	Product
 	.findOne({_id: productId})
+  .lean()
 	.exec()
 	.then((product)=>{
 
@@ -57,6 +59,7 @@ module.exports.addItem = (req, res, next)=>{
           if(err) res.json(err);
         });
         cart.add(product, classify._id, classify);
+        console.log(cart);
        	res.cookie('cart',cart, {signed:true});
        	res.redirect('/cart');
       }else{

@@ -7,23 +7,25 @@ block content
    .animated.fadeIn
     .row
       
-      .col-xl-3.col-lg-6
+      .col-xl-4.col-lg-6
         .card
           .card-body
             .stat-widget-one
               .stat-icon.dib
                 i.ti-money.text-success.border-success
               .stat-content.dib
-                .stat-text Doanh thu trong tháng
+                .stat-text Doanh thu / tháng
                 .stat-digit #{stCurrentMonth.sumMoneyInCurrentMonth.toLocaleString('it-IT').split(',').join('.')}đ
+      .col-xl-4.col-lg-6
         .card
           .card-body
             .stat-widget-one
               .stat-icon.dib
                 i.ti-layout-grid2.text-warning.border-warning
               .stat-content.dib
-                .stat-text Đã bán trong tháng
+                .stat-text Đã bán / tháng
                 .stat-digit #{stCurrentMonth.sumProductSold}
+      .col-xl-4.col-lg-6
         .card
           .card-body
             .stat-widget-one
@@ -46,15 +48,28 @@ block content
             canvas#transactionChart
       .col-lg-4
         .card
+          .card-header
+            strong.card-title.mb-3 Top 3 Sản phẩm được mua nhiều
           .card-body
-           h4.mb-3 Top 3 Sản phẩm được mua nhiều
            ul.rank-top3-product-sale
             each product in t3HotSaleProduct
               li
                 .top3-product-detail 
                   img(src=product.image[0])
                   p #{product.name + "("+ product.soldOut+")"}
-  
+      .col-md-4
+        .card
+          .card-header
+            strong.card-title.mb-3 Quản lý
+          .card-body
+            .mx-auto.d-block
+              img(style="width:150px; height:150px").rounded-circle.mx-auto.d-block(src=user.avatar)
+              h5.text-sm-center.mt-2.mb-1 #{user.firstname + " " + user.lastname}
+              .location.text-sm-center
+                i.fa.fa-map-marker
+                |  #{user.address.detail +" - "+ user.address.district +" - "+ user.address.province}
+      
+
   script(src='/admin-site/vendors/jquery/dist/jquery.min.js')
   script(src="/admin-site/vendors/chart.js/dist/Chart.bundle.min.js")
   script(src="/admin-site/assets/js/init-scripts/chart-js/chartjs-init-custom.js")

@@ -6,24 +6,24 @@ block content
     .col-sm-4
       .page-header.float-left
         .page-title
-          h1 Dashboard
+          h1 Quản trị
     .col-sm-8
       .page-header.float-right
         .page-title
           ol.breadcrumb.text-right
             li
-              a(href="#") Dashboard
+              a(href="/admin/dashboard") Quản trị
             li
-              a(href="#") Forms
-            li.active Basic
+              a(href="/admin/product") Sản phẩm
+            li.active Phân loại
   .content.mt-3
     .animated.fadeIn
       .row
         .col-lg-8
           .card
             .card-header
-              strong Thông tin
-              |  Product
+              strong Cập nhật
+              |  Phân loại sản phẩm
             .card-body.card-block
               form.form-horizontal(action="/admin/product/update/classify/update-classify" method="post")
                 input.form-control(type="hidden" name="id" value=classify._id )
@@ -41,11 +41,11 @@ block content
                   .col.col-md-3
                     label.form-control-label(for="text-input") Số lượng
                   .col-12.col-md-5
-                    input.form-control(type="text" name="quantity" value=classify.quantity)
+                    input.form-control(type="number" min="0" name="quantity" value=classify.quantity)
                       
                 button.btn.btn-primary.btn-sm(type="submit")
                   i.fa.fa-dot-circle-o
                     |  Submit
                 button.btn.btn-danger.btn-sm(type="reset")
                   i.fa.fa-ban
-                    |  reset
+                    |  Reset

@@ -20,7 +20,7 @@ router.get('/delete/:id', controller.deleteUser);
 
 router.post('/update-form', controller.getUpdateUser);
 
-router.post('/update',upload.single('avatar'), controller.updateUser);
+router.post('/update',upload.single('avatarUser'), controller.updateUser);
 
 
 //API

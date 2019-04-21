@@ -16,16 +16,6 @@ module.exports.logout = (req, res)=>{
   res.redirect('/');
 }
 module.exports.login = (req, res) => {
-  // let mailOption = {
-  //   form: '"Tu Minh Hieu" <sufuijk@gmail.com>',
-  //   to: "110115019@sv.tvu.edu.vn",
-  //   subject: "Hoá đơn",
-  //   html: mailHelper.htmlInvoice()
-  // }
-  //
-  // transporter.sendMail(mailOption, (err, info)=>{
-  //   if(err) res.json(err);
-  // });
 	res.render('auth/login',{title:'Login'});
 }
 

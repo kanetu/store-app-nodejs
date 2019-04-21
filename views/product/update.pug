@@ -2,7 +2,7 @@ extends ../layout/admin-site
 
 block content
 
-  - function findCategory(ct,lv=1){
+  - function findCategory(ct,lv=0){
   -  var str = '';
   -  let count =0;
   -  let star = '';
@@ -12,9 +12,11 @@ block content
   -  }
   -  lv++
   -  for(let item of ct){
-  -    str+= `<option value=${item._id}>${star + item.name}</option>`;
   -    if(item.sub.length > 0){
+  -      str+= `<option value=${item._id} disabled style="font-weight: bold;">${star + item.name}</option>`;
   -      str+= findCategory(item.sub,lv);
+  -    }else{
+  -      str+= `<option value=${item._id}>${star + item.name}</option>`;
   -    }
   -  }
   -  return str;

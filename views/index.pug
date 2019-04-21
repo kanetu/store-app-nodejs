@@ -107,7 +107,7 @@ block content
                   .productinfo.text-center
                     img(src=pHotSell.image[0] alt=""  style="height: 250px; object-fit:cover")
                     h2 #{pHotSell.priceCurrency}đ
-                    p #{pHotSell.name}
+                    p #{pHotSell.name.substr(0, 35) + '...'}
                     a.btn.btn-default.add-to-cart(href=`/product/detail?id=${pHotSell._id}`)
                       i.fa.fa-shopping-cart
                       | Xem chi tiết
@@ -125,7 +125,7 @@ block content
                   .productinfo.text-center
                     img(src=product.image[0] alt="" style="height: 250px; object-fit:cover")
                     h2 #{product.priceCurrency}đ
-                    p #{product.name}
+                    p #{product.name.substr(0, 35) + '...'}
                     a.btn.btn-default.add-to-cart(href=`/product/detail?id=${product._id}`)
                       i.fa.fa-shopping-cart
                       | Xem chi tiết
@@ -133,7 +133,7 @@ block content
                    .product-overlay
                     .overlay-content
                       h2 #{product.priceCurrency}đ
-                      p #{product.name}
+                      p #{product.name.substr(0, 35) + '...'}
                       a.btn.btn-default.add-to-cart(href=`/product/detail?id=${product._id}`)
                         i.fa.fa-shopping-cart
                         | Xem chi tiết
@@ -154,7 +154,7 @@ block content
                   .productinfo.text-center
                     img(src=product.image[0] alt="" style="height: 250px; object-fit:cover")
                     h2 #{product.priceCurrency}đ
-                    p #{product.name}
+                    p #{product.name.substr(0, 35) + '...'}
                     a.btn.btn-default.add-to-cart(href=`/product/detail?id=${product._id}`)
                       i.fa.fa-shopping-cart
                       | Xem chi tiết
@@ -162,7 +162,7 @@ block content
                    .product-overlay
                     .overlay-content
                       h2 #{product.priceCurrency}đ
-                      p #{product.name}
+                      p #{product.name.substr(0, 35) + '...'}
                       a.btn.btn-default.add-to-cart(href=`/product/detail?id=${product._id}`)
                         i.fa.fa-shopping-cart
                         | Xem chi tiết

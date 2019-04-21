@@ -119,7 +119,7 @@ module.exports.htmlInvoice = (cart, checkoutData, transactionID)=>{
     cartHTML+= `<td>${cart[index].qty}</td>`;
     cartHTML+= `<td>${cart[index].classify.color + " - " + cart[index].classify.size}</td>`;
     cartHTML+= `<td>${cart[index].item.price.toLocaleString('it-IT').split(',').join('.')}đ</td>`;
-    cartHTML+= `<td>${cart[index].price}đ</td>`;
+    cartHTML+= `<td>${cart[index].price.toLocaleString('it-IT').split(',').join('.')}đ</td>`;
     cartHTML+="</tr>";
     totalPrice+= cart[index].price;
   }

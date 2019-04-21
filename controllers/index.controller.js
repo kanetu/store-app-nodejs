@@ -13,11 +13,11 @@ var firstDayOfThisMonth = new Date(date.getFullYear(), date.getMonth(), 1);
 
 module.exports.index = function(req, res, next) {
 
-  var getSupplier =  Supplier.find().then(result=>{return result});
-  var getProduct = Product.find().populate('classifyproduct_id').lean().then(result=>{return result});
+  var getSupplier =  Supplier.find().sort([['name',1]]).then(result=>{return result});
+  var getProduct = Product.find().populate('classifyproduct_id').sort([['create_time',-1]]).lean().then(result=>{return result});
   var getCategory = Category.find().then(result=>{return result});
   var getTransaction = Transaction.find({},{'cart':1,'_id': 0}).lean().then(result=>{return result});
-  var getNewProduct = Product.find({'create_time':{$gte: firstDayOfThisMonth}}).populate('classifyproduct_id').lean().then(result=>{return result});
+  var getNewProduct = Product.find({'create_time':{$gte: firstDayOfThisMonth}}).populate('classifyproduct_id').sort([['create_time',-1]]).lean().then(result=>{return result});
 
   Promise.all([getSupplier, getProduct, getCategory, getTransaction, getNewProduct])
   .then(async (arr)=>{
@@ -43,7 +43,6 @@ module.exports.index = function(req, res, next) {
 
     //Hot sale feature
     var sixHotSell = await hotSell2(transactions, 6);
-    console.log(sixHotSell)
     sixHotSell = setPriceCurrency(sixHotSell);
     sixHotSell = setInStock(sixHotSell);
 
@@ -64,8 +63,8 @@ module.exports.index = function(req, res, next) {
 module.exports.searchCategory  = (req, res)=>{
   let idCategory = req.query.id;
 
-  let getProduct = Product.find({category_id: idCategory}).populate('classifyproduct_id').lean().then(result => {return result});
-  let getSupplier =  Supplier.find().then(result=>{return result});
+  let getProduct = Product.find({category_id: idCategory}).populate('classifyproduct_id').sort([['create_time',-1]]).lean().then(result => {return result});
+  let getSupplier =  Supplier.find().sort([['name',1]]).then(result=>{return result});
   let getCategory = Category.find().then(result=>{return result});
 
   Promise.all([getSupplier, getProduct, getCategory])
@@ -82,7 +81,6 @@ module.exports.searchCategory  = (req, res)=>{
     //set priceCurrency
     products = setPriceCurrency(products);
 
-    console.log(products);
     var t = {};
   	for (var i = 0; i < categories.length; i++) {
   	    t[categories[i]._id] = categories[i].parent;
@@ -96,8 +94,8 @@ module.exports.searchCategory  = (req, res)=>{
 
 module.exports.searchSupplier = (req, res) =>{
   let idSupplier = req.query.id;
-  let getProduct = Product.find({supplier_id: idSupplier}).populate('classifyproduct_id').lean().then(result => {return result});
-  let getSupplier =  Supplier.find().then(result=>{return result});
+  let getProduct = Product.find({supplier_id: idSupplier}).populate('classifyproduct_id').sort([['create_time',-1]]).lean().then(result => {return result});
+  let getSupplier =  Supplier.find().sort([['name',1]]).then(result=>{return result});
   let getCategory = Category.find().then(result=>{return result});
 
   Promise.all([getSupplier, getProduct, getCategory])
@@ -128,8 +126,8 @@ module.exports.searchSupplier = (req, res) =>{
 module.exports.search = function(req, res){
   let query = req.query.name;
 
-  let getProduct = Product.find({$text:{$search: query}}).populate('classifyproduct_id').lean().then(result => {return result});
-  let getSupplier =  Supplier.find().then(result=>{return result});
+  let getProduct = Product.find({$text:{$search: query}}).populate('classifyproduct_id').sort([['create_time',-1]]).lean().then(result => {return result});
+  let getSupplier =  Supplier.find().sort([['name',1]]).then(result=>{return result});
   let getCategory = Category.find().then(result=>{return result});
 
   Promise.all([getSupplier, getProduct, getCategory])
@@ -161,8 +159,8 @@ module.exports.search = function(req, res){
 
 module.exports.viewProductDetail = (req, res)=>{
   let idProduct = req.query.id;
-  var getSupplier =  Supplier.find().then(result=>{return result});
-  var getProduct = Product.findOne({_id: idProduct}).populate('classifyproduct_id').then(result=>{return result});
+  var getSupplier =  Supplier.find().sort([['name',1]]).then(result=>{return result});
+  var getProduct = Product.findOne({_id: idProduct}).populate('classifyproduct_id').populate('supplier_id').then(result=>{return result});
   var getCategory = Category.find().then(result=>{return result});
 
   Promise.all([getSupplier, getProduct, getCategory])
